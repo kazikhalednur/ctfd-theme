@@ -1,101 +1,104 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans %}Teams{% endtrans %}</h1>
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
     </div>
-  </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        {% if q and field %}
-          <h5 class="text-muted text-center">
-            Searching for teams with <strong>{{ field }}</strong> matching <strong>{{ q }}</strong>
-          </h5>
-          <h6 class="text-muted text-center pb-3">
-            Page {{ teams.page }} of {{ teams.total }} results
-          </h6>
-        {% endif %}
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4">
+        {% trans %}Teams{% endtrans %}
+      </h1>
 
-        {% with form = Forms.teams.PublicTeamSearchForm(field=field, q=q) %}
-          <form method="GET" class="row justify-content-around align-items-center">
-            <div class="mb-3 col-md-2">
-              {{ form.field(class="form-select w-100") }}
-            </div>
+      <p class="text-lg opacity-95 font-medium">
+        Explore all participating teams and their performance
+      </p>
+    </div>
+  </section>
 
-            <div class="mb-3 col-md-8">
-              {{ form.q(class="form-control w-100", placeholder="Search for matching teams") }}
-            </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6 mb-8">
+      <div>
+        <div>
+          {% if q and field %}
+            <h5 class="text-center text-gray-600 mb-2">
+              Searching for teams with <strong class="text-gray-900">{{ field }}</strong> matching <strong class="text-gray-900">{{ q }}</strong>
+            </h5>
+            <h6 class="text-center text-gray-500 pb-3">
+              Page {{ teams.page }} of {{ teams.total }} results
+            </h6>
+          {% endif %}
 
-            <div class="mb-3 col-md-2">
-              <button type="submit" class="btn btn-primary w-100">
-                <i class="fas fa-search" aria-hidden="true"></i>
+          {% with form = Forms.teams.PublicTeamSearchForm(field=field, q=q) %}
+            <form method="GET" class="flex flex-col sm:flex-row gap-3 mb-0">
+              <div class="flex-shrink-0 w-full sm:w-auto">
+                {{ form.field(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 font-medium") }}
+              </div>
+
+              <div class="flex-1">
+                {{ form.q(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", placeholder="Search for matching teams") }}
+              </div>
+
+              <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition transform hover:scale-105">
+                <i class="fas fa-search mr-2" aria-hidden="true"></i>Search
               </button>
-            </div>
-          </form>
-        {% endwith %}
+            </form>
+          {% endwith %}
+        </div>
       </div>
     </div>
 
-    <hr>
-
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-striped align-middle">
+    <div>
+      <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
+        <table class="w-full border-collapse">
           <thead>
-          <tr>
-            <th class="text-md-start">{% trans %}Team{% endtrans %}</th>
-            <th>{% trans %}Website{% endtrans %}</th>
-            <th class="d-none d-md-table-cell">{% trans %}Affiliation{% endtrans %}</th>
-            <th class="d-none d-md-table-cell">{% trans %}Country{% endtrans %}</th>
+          <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+            <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Team{% endtrans %}</th>
+            <th class="text-center px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Website{% endtrans %}</th>
+            <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Affiliation{% endtrans %}</th>
+            <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Country{% endtrans %}</th>
           </tr>
           </thead>
           <tbody>
 
           {% for team in teams.items %}
-            <tr>
-              <td>
+            <tr class="border-b border-gray-200 hover:bg-blue-50 transition-all duration-200 hover:shadow-sm">
+              <td class="px-4 py-3">
                 {% if scores_visible() %}
-                  <a href="{{ url_for('teams.public', team_id=team.id) }}">{{ team.name | truncate(50) }}</a>
+                  <a href="{{ url_for('teams.public', team_id=team.id) }}" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">{{ team.name | truncate(50) }}</a>
                 {% else %}
-                  <span>{{ team.name | truncate(50) }}</span>
+                  <span class="text-gray-900 font-medium">{{ team.name | truncate(50) }}</span>
                 {% endif %}
 
                 {% if team.bracket_id %}
-                  <span class="badge bg-secondary ms-2">{{ team.bracket.name }}</span>
+                  <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition">{{ team.bracket.name }}</span>
                 {% endif %}
 
                 {% if team.oauth_id %}
-                  <a href="https://majorleaguecyber.org/t/{{ team.name }}">
-                    <span class="badge bg-primary ms-2">Official</span>
+                  <a href="https://majorleaguecyber.org/t/{{ team.name }}" target="_blank" rel="noopener">
+                    <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition">Official</span>
                   </a>
                 {% endif %}
               </td>
 
-              <td style="width: 10px;">
+              <td class="text-center px-4 py-3">
                 {% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
-                  <a href="{{ team.website }}" target="_blank" rel="noopener">
-                    <i
-                        class="fas fa-external-link-alt"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="{{ team.website }}"
-                    ></i>
+                  <a href="{{ team.website }}" target="_blank" rel="noopener" title="{{ team.website }}" class="text-blue-600 hover:text-blue-800 transition duration-200 hover:scale-110">
+                    <i class="fas fa-external-link-alt text-lg"></i>
                   </a>
                 {% endif %}
               </td>
 
-              <td class="d-none d-md-table-cell">
+              <td class="hidden md:table-cell px-4 py-3">
                 {% if team.affiliation %}
 
                   {% if team.affiliation | length > 50 %}
-                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ team.affiliation }}">
+                    <span title="{{ team.affiliation }}" class="text-gray-700 text-sm">
                         {% if team.affiliation %}{{ team.affiliation | truncate(50) }}{% endif %}
                     </span>
                   {% else %}
-                    <span>
+                    <span class="text-gray-700 text-sm">
                       {% if team.affiliation %}
                         {{ team.affiliation | truncate(50) }}
                       {% endif %}
@@ -105,13 +108,11 @@
                 {% endif %}
               </td>
 
-              <td class="d-none d-md-table-cell">
-							<span>
-								{% if team.country %}
-                  <i class="flag-{{ team.country.lower() }}"></i>
+              <td class="hidden md:table-cell px-4 py-3 text-gray-700 text-sm">
+                {% if team.country %}
+                  <i class="flag-{{ team.country.lower() }} mr-2"></i>
                   {{ lookup_country_code(team.country) }}
                 {% endif %}
-							</span>
               </td>
             </tr>
           {% endfor %}
@@ -122,25 +123,29 @@
     </div>
 
     {% if teams.pages > 1 %}
-      <div class="row">
-        <div class="col-md-12">
-          <div class="text-center">
-            {% trans %}Page{% endtrans %} <br>
+      <div class="mt-8 flex flex-col items-center justify-center gap-4">
+        <div class="text-center text-gray-700 font-semibold">
+          Page <span class="text-blue-600 font-bold text-lg">{{ teams.page }}</span> of <span class="text-blue-600 font-bold text-lg">{{ teams.pages }}</span>
+        </div>
 
-            {% if teams.page != 1 %}
-              <a href="{{ prev_page }}">&lt;&lt;&lt;</a>
-            {% endif %}
+        <div class="flex items-center justify-center gap-3 flex-wrap">
+          {% if teams.page != 1 %}
+            <a href="{{ prev_page }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition transform hover:scale-105 inline-flex items-center gap-2">
+              <i class="fas fa-chevron-left"></i>Previous
+            </a>
+          {% endif %}
 
-            <select class="page-select">
-              {% for page in range(1, teams.pages + 1) %}
-                <option {% if teams.page == page %}selected{% endif %}>{{ page }}</option>
-              {% endfor %}
-            </select>
+          <select class="page-select px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 font-bold cursor-pointer hover:border-blue-400 transition">
+            {% for page in range(1, teams.pages + 1) %}
+              <option {% if teams.page == page %}selected{% endif %}>{{ page }}</option>
+            {% endfor %}
+          </select>
 
-            {% if teams.next_num %}
-              <a href="{{ next_page }}">&gt;&gt;&gt;</a>
-            {% endif %}
-          </div>
+          {% if teams.next_num %}
+            <a href="{{ next_page }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition transform hover:scale-105 inline-flex items-center gap-2">
+              Next<i class="fas fa-chevron-right"></i>
+            </a>
+          {% endif %}
         </div>
       </div>
     {% endif %}

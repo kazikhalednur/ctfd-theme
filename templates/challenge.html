@@ -1,21 +1,21 @@
 <div :class="getStyles()" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
-  <div class="modal-content">
-    <div class="modal-body py-4 px-4 px-sm-5">
+  <div class="bg-white rounded-lg shadow-lg">
+    <div class="p-4 sm:p-6">
 
       <div>
-        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl" data-bs-dismiss="modal" aria-label="Close">×</button>
 
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <button class="nav-link active" data-bs-target="#challenge" @click="showChallenge()">
+        <ul class="flex border-b border-gray-200 gap-0">
+          <li class="">
+            <button class="px-4 py-2 border-b-2 border-blue-500 text-blue-600 font-medium" data-bs-target="#challenge" @click="showChallenge()">
               {% trans %}Challenge{% endtrans %}
             </button>
           </li>
 
           {% block submissions %}
             {% if Configs.view_self_submissions %}
-            <li class="nav-item">
-              <button class="nav-link challenge-submissions" data-bs-target="#submissions" @click="showSubmissions()">
+            <li class="">
+              <button class="px-4 py-2 border-b-2 border-transparent text-gray-600 hover:text-gray-900 challenge-submissions" data-bs-target="#submissions" @click="showSubmissions()">
                 {% if solves != None %}
                   Submissions
                 {% endif %}
@@ -26,8 +26,8 @@
 
           {% block solution %}
             {% if challenge.solution_id %}
-            <li class="nav-item" x-show="getSolutionId()">
-              <button class="nav-link challenge-solution" data-bs-target="#solution" @click="showSolution()">
+            <li class="" x-show="getSolutionId()">
+              <button class="px-4 py-2 border-b-2 border-transparent text-gray-600 hover:text-gray-900 challenge-solution" data-bs-target="#solution" @click="showSolution()">
                 {% trans %}Solution{% endtrans %}
               </button>
             </li>
@@ -36,8 +36,8 @@
 
           {% block solves %}
             {% if solves != None %}
-            <li class="nav-item">
-              <button class="nav-link challenge-solves" data-bs-target="#solves" @click="showSolves()">
+            <li class="">
+              <button class="px-4 py-2 border-b-2 border-transparent text-gray-600 hover:text-gray-900 challenge-solves" data-bs-target="#solves" @click="showSolves()">
                   {{ ngettext("%(num)d Solve", "%(num)d Solves", solves) }}
               </button>
             </li>
@@ -47,12 +47,12 @@
       </div>
 
       <div>
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane fade show active" id="challenge">
-            <h2 class="challenge-name text-center pt-3">
+        <div class="">
+          <div role="tabpanel" class="" id="challenge">
+            <h2 class="challenge-name text-center pt-6 text-3xl font-bold">
               {{ challenge.name }}
             </h2>
-            <h3 class="challenge-value text-center">
+            <h3 class="challenge-value text-center text-2xl font-semibold mt-2">
               {{ challenge.value }}
             </h3>
 
@@ -61,36 +61,36 @@
               <div class="challenge-tags text-center pt-2 pb-3">
                 {% block tags %}
                   {% for tag in tags %}
-                    <span class="challenge-tag badge bg-info">{{ tag }}</span>
+                    <span class="challenge-tag inline-block bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm font-medium mx-1">{{ tag }}</span>
                   {% endfor %}
                 {% endblock %}
               </div>
             {% endif %}
 
-            <small class="challenge-attribution text-center text-muted">
+            <small class="challenge-attribution text-center text-gray-500 block mt-2">
               {% block attribution %}{{ challenge.byline }}{% endblock %}
             </small>
 
             {% if Configs.challenge_ratings == "public" %}
-            <small class="challenge-ratings text-center text-muted d-block">
+            <small class="challenge-ratings text-center text-gray-500 block mt-2">
               {% block ratings %}
                 {% if ratings.average %}
-                  <span class="text-right">{{ ratings.average }}</span>
-                  <span class="text-center px-1">
+                  <span class="">{{ ratings.average }}</span>
+                  <span class="px-1">
                   {% for _ in range((ratings.average | round(0) | int)) %}
-                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star inline"></i>
                   {% endfor %}
                   </span>
-                  <span class="text-left">{{ ratings.count }} {% trans c=ratings.count %}rating{% pluralize %}ratings{% endtrans %}</span>
+                  <span class="">{{ ratings.count }} {% trans c=ratings.count %}rating{% pluralize %}ratings{% endtrans %}</span>
                 {% endif %}
               {% endblock %}
             </small>
             {% endif %}
 
-            <span class="challenge-desc">{% block description %}{{ challenge.html }}{% endblock %}</span>
+            <span class="challenge-desc block mt-4">{% block description %}{{ challenge.html }}{% endblock %}</span>
 
             {% if challenge.connection_info %}
-              <div class="mb-2">
+              <div class="mt-4">
                 <span class="challenge-connection-info">
                   {% block connection_info %}
                     {% set conn = challenge.connection_info %}
@@ -106,8 +106,8 @@
             {% endif %}
 
             {% if hints %}
-              <div class="challenge-hints hint-row row">
-                <div class="col-12 mb-3">
+              <div class="challenge-hints mt-6">
+                <div class="mb-4">
                 {% for hint in hints | sort(attribute="cost") %}
                   <div x-data="Hint" x-init="id = {{ hint.id }}">
                     {% if hint.content %}
@@ -132,9 +132,9 @@
             {% endif %}
 
             {% if files %}
-              <div class="row challenge-files text-center pb-3">
+              <div class="challenge-files text-center pb-4 mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
                 {% for file in files %}
-                  <div class="col-md-4 col-sm-4 col-xs-12 file-button-wrapper d-block">
+                  <div class="file-button-wrapper">
                     {% set segments = file.split('/') %}
                     {% set token = file.split('?') | last %}
                     {% if token %}
@@ -143,12 +143,12 @@
                       {% set filename = segments | last %}
                     {% endif %}
                     <a
-                        class="btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate"
+                        class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition w-full text-truncate"
                         href="{{ file }}"
                         title="{{ filename }}"
                     >
                       <i class="fas fa-download"></i>
-                      <small>
+                      <small class="truncate">
                         {{ filename }}
                       </small>
                     </a>
@@ -158,20 +158,20 @@
             {% endif %}
 
             <template x-if="max_attempts > 0">
-              <p class="text-center">
+              <p class="text-center mt-4">
                 <span x-text="attempts"></span>/<span x-text="max_attempts"></span> {% trans c=max_attempts %}attempt{% pluralize %}attempts{% endtrans %}
               </p>
             </template>
 
-            <div class="row submit-row">
-              <div class="col-12 col-sm-8">
+            <div class="submit-row grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+              <div class="sm:col-span-2">
                 {% block input %}
                   <input
                       id="challenge-id" class="challenge-id" type="hidden"
                       value="{{ challenge.id }}"
                   >
                   <input
-                      id="challenge-input" class="challenge-input form-control"
+                      id="challenge-input" class="challenge-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                       type="text" name="submission"
                       @keyup.enter="submitChallenge()"
                       placeholder="{% trans %}Flag{% endtrans %}" x-model="submission"
@@ -179,11 +179,11 @@
                 {% endblock %}
               </div>
 
-              <div class="col-12 col-sm-4 mt-3 mt-sm-0 key-submit">
+              <div class="key-submit">
                 {% block submit %}
                   <button
                       id="challenge-submit"
-                      class="challenge-submit btn btn-outline-secondary w-100 h-100" type="submit"
+                      class="challenge-submit w-full px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition font-medium" type="submit"
                       @click.debounce.500ms="submitChallenge()"
                   >
                     {% trans %}Submit{% endtrans %}
@@ -192,42 +192,42 @@
               </div>
             </div>
 
-            <div class="row notification-row">
-              <div class="col-12">
+            <div class="notification-row mt-4">
+              <div class="">
                 <template x-if="response">
                   {# This alert is re-used for all alerts, so it's important not to make it dismissible #}
-                  <div class="alert text-center w-100 mt-3"
+                  <div class="text-center w-full mt-3 p-4 rounded-lg"
                       :class="{
-                        'alert-success': response.data.status == 'correct',
-                        'alert-info': response.data.status == 'already_solved',
-                        'alert-danger': response.data.status == 'incorrect',
-                        'alert-warning': response.data.status == 'paused',
+                        'bg-green-100 text-green-800 border border-green-300': response.data.status == 'correct',
+                        'bg-blue-100 text-blue-800 border border-blue-300': response.data.status == 'already_solved',
+                        'bg-red-100 text-red-800 border border-red-300': response.data.status == 'incorrect',
+                        'bg-yellow-100 text-yellow-800 border border-yellow-300': response.data.status == 'paused',
                       }" role="alert"
                   >
                     <strong x-text="response.data.message"></strong>
                     <div x-show="(response.data.status == 'correct' || response.data.status == 'already_solved')">
                       <div x-show="getNextId()">
-                        <button @click="nextChallenge()" class="btn btn-info mt-3">
+                        <button @click="nextChallenge()" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded mt-3 transition">
                           {% trans %}Next Challenge{% endtrans %}
                         </button>
                       </div>
 
                       {% if Configs.social_shares %}
-                      <div>
-                        <button x-show="!share_url" @click="getShareUrl()" class="btn btn-sm btn-outline-info mt-3">
+                      <div class="mt-4">
+                        <button x-show="!share_url" @click="getShareUrl()" class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm">
                           {% trans %}Share{% endtrans %}
                         </button>
-                        <div class="btn-group mt-3" role="group" x-show="share_url">
-                          <button type="button" class="btn btn-sm btn-outline-secondary" @click="copyShareUrl()" data-bs-toggle="tooltip" data-bs-title="Copied!">
+                        <div class="flex gap-2 mt-3" role="group" x-show="share_url">
+                          <button type="button" class="px-3 py-1 border border-gray-300 hover:bg-gray-100 rounded text-sm" @click="copyShareUrl()" data-bs-toggle="tooltip" data-bs-title="Copied!">
                             <i class="fa-solid fa-copy"></i>
                           </button>
-                          <a :href="'https://twitter.com/intent/tweet?url=' + encodeURIComponent(share_url)" role="button" class="btn btn-sm btn-outline-secondary" target="_blank">
+                          <a :href="'https://twitter.com/intent/tweet?url=' + encodeURIComponent(share_url)" role="button" class="px-3 py-1 border border-gray-300 hover:bg-gray-100 rounded text-sm" target="_blank">
                             <i class="fa-brands fa-twitter"></i>
                           </a>
-                          <a :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(share_url)" role="button" class="btn btn-sm btn-outline-secondary" target="_blank">
+                          <a :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(share_url)" role="button" class="px-3 py-1 border border-gray-300 hover:bg-gray-100 rounded text-sm" target="_blank">
                             <i class="fa-brands fa-facebook-f"></i>
                           </a>
-                          <a :href="'http://www.linkedin.com/shareArticle?url=' + encodeURIComponent(share_url)" role="button" class="btn btn-sm btn-outline-secondary" target="_blank">
+                          <a :href="'http://www.linkedin.com/shareArticle?url=' + encodeURIComponent(share_url)" role="button" class="px-3 py-1 border border-gray-300 hover:bg-gray-100 rounded text-sm" target="_blank">
                             <i class="fa-brands fa-linkedin-in"></i>
                           </a>
                         </div>
@@ -235,40 +235,41 @@
                       {% endif %}
 
                       {% if Configs.challenge_ratings != "disabled" %}
-                      <div class="mt-3">
-                        <hr>
+                      <div class="mt-4">
+                        <hr class="border-gray-300 my-4">
                         <div class="text-center">
-                          <p class="mb-2">{% trans %}Rate this challenge:{% endtrans %}</p>
-                          <div class="rating-stars mb-2" x-init="selectedRating = ratingValue || 0;">
+                          <p class="mb-4">{% trans %}Rate this challenge:{% endtrans %}</p>
+                          <div class="rating-stars mb-4 flex justify-center gap-1" x-init="selectedRating = ratingValue || 0;">
                             <template x-for="star in [1,2,3,4,5]" :key="star">
                               <i 
-                                class="fa-solid fa-star rating-star m-0 p-1" 
-                                :style="'font-size: 1.3rem; margin: 0 0.2rem; transition: color 0.2s ease, transform 0.1s ease; color: ' + (star <= (hoveredRating || selectedRating || 0) ? '#ffc107' : '#6c757d') + '; ' + 'cursor: pointer;'"
+                                class="fa-solid fa-star rating-star text-2xl" 
+                                :class="star <= (hoveredRating || selectedRating || 0) ? 'text-yellow-400' : 'text-gray-300'"
+                                :style="'cursor: pointer; transition: color 0.2s ease;'"
                                 @mouseover="hoveredRating = star"
                                 @mouseleave="hoveredRating = 0"
                                 @click="selectedRating = star"
                               ></i>
                             </template>
                           </div>
-                          <div class="mt-3">
+                          <div class="mt-4">
                             <textarea 
-                              class="form-control" 
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
                               rows="2" 
                               x-model="ratingReview"
                               placeholder="{% trans %}Write a review (optional){% endtrans %}"
                               maxlength="2000"
                             ></textarea>
                           </div>
-                          <div class="mt-3">
+                          <div class="mt-4">
                             <button 
                               @click="submitRating()"
-                              class="btn btn-primary"
+                              class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded disabled:bg-gray-400 transition"
                               :disabled="!selectedRating"
                             >
                               {% trans %}Submit{% endtrans %}
                             </button>
                           </div>
-                          <div x-show="ratingSubmitted" class="text-success mt-2">
+                          <div x-show="ratingSubmitted" class="text-green-600 mt-2">
                             <small>{% trans %}Thank you for your rating!{% endtrans %}</small>
                           </div>
                         </div>
@@ -281,28 +282,28 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="submissions">
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-striped align-middle text-center">
-                  <thead>
+          <div role="tabpanel" class="" id="submissions">
+            <div class="">
+              <div class="">
+                <table class="w-full border-collapse border border-gray-300 text-center">
+                  <thead class="bg-gray-100 border-b border-gray-300">
                   <tr>
-                    <th>{% trans %}Submission{% endtrans %}</th>
-                    <th>{% trans %}Type{% endtrans %}</th>
-                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th class="px-4 py-2 font-semibold">{% trans %}Submission{% endtrans %}</th>
+                    <th class="px-4 py-2 font-semibold">{% trans %}Type{% endtrans %}</th>
+                    <th class="px-4 py-2 font-semibold">{% trans %}Date{% endtrans %}</th>
                   </tr>
                   </thead>
                   <tbody id="challenge-submission-names">
                   <template x-for="submission in submissions">
-                    <tr>
-                      <td x-data="{ truncate: true }">
-                        <code x-text="truncate ? '*'.repeat(submission.provided.length) : submission.provided"></code>
-                        <button class="btn btn-link p-0 pl-1" @click="truncate = !truncate">
+                    <tr class="border-b border-gray-300 hover:bg-gray-50">
+                      <td class="px-4 py-2" x-data="{ truncate: true }">
+                        <code x-text="truncate ? '*'.repeat(submission.provided.length) : submission.provided" class="bg-gray-100 px-2 py-1 rounded text-sm"></code>
+                        <button class="ml-1 text-blue-500 hover:text-blue-700" @click="truncate = !truncate">
                           <i :class="truncate ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
                         </button>
                       </td>
-                      <td x-text="submission.type"></td>
-                      <td x-text="submission.date"></td>
+                      <td class="px-4 py-2" x-text="submission.type"></td>
+                      <td class="px-4 py-2" x-text="submission.date"></td>
                     </tr>
                   </template>
                   </tbody>
@@ -311,23 +312,23 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="solves">
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table table-striped align-middle text-center">
-                  <thead>
+          <div role="tabpanel" class="" id="solves">
+            <div class="">
+              <div class="">
+                <table class="w-full border-collapse border border-gray-300 text-center">
+                  <thead class="bg-gray-100 border-b border-gray-300">
                   <tr>
-                    <th>{% trans %}Name{% endtrans %}</th>
-                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th class="px-4 py-2 font-semibold">{% trans %}Name{% endtrans %}</th>
+                    <th class="px-4 py-2 font-semibold">{% trans %}Date{% endtrans %}</th>
                   </tr>
                   </thead>
                   <tbody id="challenge-solves-names">
                   <template x-for="solve in solves">
-                    <tr>
-                      <td>
-                        <a :href="solve.account_url" x-text="solve.name"></a>
+                    <tr class="border-b border-gray-300 hover:bg-gray-50">
+                      <td class="px-4 py-2">
+                        <a :href="solve.account_url" x-text="solve.name" class="text-blue-500 hover:text-blue-700 underline"></a>
                       </td>
-                      <td x-text="solve.date"></td>
+                      <td class="px-4 py-2" x-text="solve.date"></td>
                     </tr>
                   </template>
                   </tbody>
@@ -336,10 +337,10 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="solution">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="challenge-solution-content pt-3">
+          <div role="tabpanel" class="" id="solution">
+            <div class="">
+              <div class="">
+                <div class="challenge-solution-content pt-6">
                   <template x-if="solution">
                     <div x-html="solution" style="white-space: pre-wrap;">
                     </div>

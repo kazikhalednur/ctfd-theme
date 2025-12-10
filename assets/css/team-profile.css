@@ -1,0 +1,211 @@
+/* ==================== TEAM PROFILE - MEMBER CARDS ==================== */
+.member-card {
+  @apply bg-white rounded-lg shadow-md border-t-4 border-t-blue-600 p-6 text-center transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer;
+}
+
+.member-card:hover {
+  @apply border-t-blue-700;
+}
+
+.member-avatar {
+  @apply w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 text-white font-bold text-2xl flex items-center justify-center shadow-md;
+}
+
+.member-name {
+  @apply text-lg font-bold text-gray-900 mb-2;
+}
+
+.member-role {
+  @apply inline-block bg-blue-600 text-white px-3 py-1 rounded text-xs font-semibold uppercase mb-4;
+}
+
+.member-role:hover {
+  @apply bg-blue-700;
+}
+
+.member-stats {
+  @apply grid grid-cols-2 gap-4 pt-4 mt-4 border-t border-gray-200;
+}
+
+.member-stat-box {
+  @apply flex flex-col gap-1;
+}
+
+.member-stat-value {
+  @apply text-xl font-bold text-blue-600;
+}
+
+.member-stat-label {
+  @apply text-xs text-gray-600 font-semibold uppercase;
+}
+
+/* ==================== TEAM PROFILE - SOLVES TABLE ==================== */
+.solves-table tbody tr {
+  @apply border-b border-gray-200 transition-colors hover:bg-blue-50;
+}
+
+.solves-table tbody tr:last-child {
+  @apply border-b-0;
+}
+
+.solves-table td {
+  @apply px-4 py-3 text-gray-900;
+}
+
+/* ==================== TEAM PROFILE - TIMELINE ==================== */
+.timeline-item {
+  @apply relative pl-16 pb-8;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: "";
+  @apply absolute left-6 top-10 bottom-0 w-0.5 bg-gradient-to-b from-blue-600 to-transparent;
+}
+
+.timeline-marker {
+  @apply absolute left-0 top-0 w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 text-white font-bold flex items-center justify-center text-sm;
+}
+
+.timeline-content {
+  @apply bg-white p-4 rounded-lg border-l-4 border-l-blue-600 shadow-sm;
+}
+
+.timeline-date {
+  @apply text-xs text-gray-600 font-semibold uppercase mb-2;
+}
+
+.timeline-title {
+  @apply text-lg font-bold text-gray-900 mb-2;
+}
+
+.timeline-description {
+  @apply text-gray-700 text-sm leading-relaxed;
+}
+
+/* ==================== TAB STYLING ==================== */
+.tab-btn {
+  @apply transition-all duration-300;
+}
+
+.tab-btn.active {
+  @apply text-blue-600 border-b-blue-600;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 1024px) {
+  .member-card {
+    @apply p-4;
+  }
+
+  .member-avatar {
+    @apply w-16 h-16 text-lg mb-3;
+  }
+
+  .member-name {
+    @apply text-base;
+  }
+
+  .member-stats {
+    @apply gap-3;
+  }
+
+  .member-stat-value {
+    @apply text-lg;
+  }
+}
+
+@media (max-width: 768px) {
+  .member-avatar {
+    @apply w-14 h-14 text-base;
+  }
+
+  .member-name {
+    @apply text-sm;
+  }
+
+  .member-role {
+    @apply text-xs px-2 py-0.5;
+  }
+
+  .member-stats {
+    @apply grid-cols-1 gap-2;
+  }
+
+  .timeline-item {
+    @apply pl-12;
+  }
+
+  .timeline-marker {
+    @apply w-10 h-10 text-xs left-0.5;
+  }
+
+  .timeline-item:not(:last-child)::before {
+    @apply left-4;
+  }
+}
+
+@media (max-width: 480px) {
+  .member-card {
+    @apply p-3;
+  }
+
+  .member-avatar {
+    @apply w-12 h-12 text-sm mb-2;
+  }
+
+  .member-name {
+    @apply text-xs;
+  }
+
+  .member-stat-value {
+    @apply text-base;
+  }
+
+  .member-stat-label {
+    @apply text-xs;
+  }
+
+  .timeline-item {
+    @apply pl-10;
+  }
+
+  .timeline-marker {
+    @apply w-8 h-8 text-xs left-0;
+  }
+
+  .timeline-item:not(:last-child)::before {
+    @apply left-3.5;
+  }
+
+  .timeline-content {
+    @apply p-3;
+  }
+
+  .timeline-title {
+    @apply text-base;
+  }
+
+  .timeline-description {
+    @apply text-xs;
+  }
+}

@@ -1,7 +1,7 @@
 <form>
-  <div class="form-group">
-    <label>Challenge Window Size</label>
-    <select class="form-control custom-select" name="challenge_window_size">
+  <div class="mb-6">
+    <label class="block text-sm font-semibold text-gray-900 mb-2">Challenge Window Size</label>
+    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" name="challenge_window_size">
         <option value="sm">Small</option>
         <option value="norm">Normal</option>
         <option value="lg">Large</option>
@@ -9,39 +9,39 @@
     </select>
   </div>
 
-  <div class="form-group">
-    <label>
-      Challenge Category Order Custom Function<br>
-      <small class="form-text text-muted">
-        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank">custom compareFn function for Array.sort()</a> 
+  <div class="mb-6">
+    <label class="block text-sm font-semibold text-gray-900 mb-2">
+      Challenge Category Order Custom Function
+      <p class="text-xs text-gray-500 font-normal mt-1">
+        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank" class="text-blue-600 hover:underline">custom compareFn function for Array.sort()</a> 
         used to sort the challenge categories
-      </small>
+      </p>
     </label>
-    <textarea class="form-control text-monospace" name="challenge_category_order" rows="5"></textarea>
+    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent" name="challenge_category_order" rows="5"></textarea>
   </div>
 
-  <div class="form-group">
-    <label>
-      Challenge Order Custom Function<br>
-      <small class="form-text text-muted">
-        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank">custom compareFn function for Array.sort()</a> 
+  <div class="mb-6">
+    <label class="block text-sm font-semibold text-gray-900 mb-2">
+      Challenge Order Custom Function
+      <p class="text-xs text-gray-500 font-normal mt-1">
+        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank" class="text-blue-600 hover:underline">custom compareFn function for Array.sort()</a> 
         used to sort the challenges within categories
-      </small>
+      </p>
     </label>
-    <textarea class="form-control text-monospace" name="challenge_order" rows="5"></textarea>
+    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent" name="challenge_order" rows="5"></textarea>
   </div>
 
-  <div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="use_builtin_code_highlighter" name="use_builtin_code_highlighter" checked>
-      <label class="form-check-label" for="use_builtin_code_highlighter">
+  <div class="mb-6">
+    <div class="flex items-center">
+      <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-500" id="use_builtin_code_highlighter" name="use_builtin_code_highlighter" checked>
+      <label class="ml-3 text-sm font-medium text-gray-900" for="use_builtin_code_highlighter">
         Use Built-In Syntax Highlighter
       </label>
     </div>
-    <small class="form-text text-muted">
+    <p class="text-xs text-gray-500 mt-2 ml-7">
       The built-in syntax highlighter is lightweight and fast but may not always correctly highlight all languages. You can disable the built-in highlighter in order to use your own.
-    </small>
+    </p>
   </div>
 
-  <button type="submit" class="btn btn-primary float-right mt-4">Update</button>
+  <button type="submit" class="float-right mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-medium">Update</button>
 </form>

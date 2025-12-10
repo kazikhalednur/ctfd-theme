@@ -1,34 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans %}Users{% endtrans %}</h1>
+  <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold">
+        {% trans %}Users{% endtrans %}
+      </h1>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div>
+      <div>
         {% if q and field %}
-          <h5 class="text-muted text-center">
-            {% trans %}Searching for users with <strong>{{ field }}</strong> matching <strong>{{ q }}</strong>{% endtrans %}
+          <h5 class="text-center text-gray-600 mb-2">
+            {% trans %}Searching for users with <strong class="text-gray-900">{{ field }}</strong> matching <strong class="text-gray-900">{{ q }}</strong>{% endtrans %}
           </h5>
-          <h6 class="text-muted text-center pb-3">
+          <h6 class="text-center text-gray-500 pb-3">
             {% trans page=users.page, total=users.total %}Page {{ page }} of {{ total }} results{% endtrans %}
           </h6>
         {% endif %}
 
         {% with form = Forms.users.PublicUserSearchForm(field=field, q=q) %}
-          <form method="GET" class="row justify-content-around align-items-center">
-            <div class="mb-3 col-md-2">
-              {{ form.field(class="form-select w-100") }}
+          <form method="GET" class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            <div>
+              {{ form.field(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
             </div>
-            <div class="mb-3 col-md-8">
-              {{ form.q(class="form-control w-100", placeholder=form.q.description) }}
+            <div class="sm:col-span-2">
+              {{ form.q(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", placeholder=form.q.description) }}
             </div>
-            <div class="mb-3 col-md-2">
-              <button type="submit" class="btn btn-primary w-100">
-                <i class="fas fa-search" aria-hidden="true"></i>
+            <div class="sm:col-span-3 sm:w-auto">
+              <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
+                <i class="fas fa-search mr-2" aria-hidden="true"></i>Search
               </button>
             </div>
           </form>
@@ -36,73 +38,68 @@
       </div>
     </div>
 
-    <hr>
+    <div class="border-t border-gray-300 my-8"></div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-striped align-middle">
+    <div>
+      <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+        <table class="w-full border-collapse">
           <thead>
-          <tr>
-            <th>{% trans %}User{% endtrans %}</th>
-            <th>{% trans %}Website{% endtrans %}</th>
-            <th class="d-none d-md-table-cell">{% trans %}Affiliation{% endtrans %}</th>
-            <th class="d-none d-md-table-cell">{% trans %}Country{% endtrans %}</th>
+          <tr class="bg-gray-100 border-b border-gray-200">
+            <th class="text-left px-4 py-3 font-bold text-gray-700">{% trans %}User{% endtrans %}</th>
+            <th class="text-center px-4 py-3 font-bold text-gray-700">{% trans %}Website{% endtrans %}</th>
+            <th class="hidden md:table-cell text-left px-4 py-3 font-bold text-gray-700">{% trans %}Affiliation{% endtrans %}</th>
+            <th class="hidden md:table-cell text-left px-4 py-3 font-bold text-gray-700">{% trans %}Country{% endtrans %}</th>
           </tr>
           </thead>
           <tbody>
           {% for user in users.items %}
-            <tr>
-              <td>
+            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-3">
                 {% if scores_visible() %}
-                  <a href="{{ url_for('users.public', user_id=user.id) }}">
+                  <a href="{{ url_for('users.public', user_id=user.id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
                     {{ user.name | truncate(50) }}
                   </a>
                 {% else %}
-                  <span>{{ user.name | truncate(50) }}</span>
+                  <span class="text-gray-700">{{ user.name | truncate(50) }}</span>
                 {% endif %}
 
                 {% if user.bracket_id %}
-                  <span class="badge bg-secondary ms-2">{{ user.bracket.name }}</span>
+                  <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-gray-200 text-gray-800 rounded-full">{{ user.bracket.name }}</span>
                 {% endif %}
 
                 {% if user.oauth_id %}
                   <a href="https://majorleaguecyber.org/u/{{ user.name }}">
-                    <span class="badge bg-primary ms-2">{% trans %}Official{% endtrans %}</span>
+                    <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full">{% trans %}Official{% endtrans %}</span>
                   </a>
                 {% endif %}
               </td>
 
-              <td class="text-center" style="width: 10px;">
+              <td class="text-center px-4 py-3">
                 {% if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) %}
-                  <a href="{{ user.website }}" target="_blank" rel="noopener">
-                    <i
-                        class="fas fa-external-link-alt" data-toggle="tooltip" data-placement="top"
-                        title="{{ user.website }}"
-                    ></i>
+                  <a href="{{ user.website }}" target="_blank" rel="noopener" title="{{ user.website }}" class="text-blue-600 hover:text-blue-800 transition">
+                    <i class="fas fa-external-link-alt"></i>
                   </a>
                 {% endif %}
               </td>
 
-              <td class="d-none d-md-table-cell d-lg-table-cell">
+              <td class="hidden md:table-cell px-4 py-3">
                 {% if user.affiliation %}
                   {% if user.affiliation | length > 50 %}
-                    <span data-toggle="tooltip" data-placement="top" title="{{ user.affiliation }}">
-									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
-								</span>
+                    <span title="{{ user.affiliation }}" class="text-gray-700">
+                      {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+                    </span>
                   {% else %}
-                    <span>
-									{% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
-								</span>
+                    <span class="text-gray-700">
+                      {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+                    </span>
                   {% endif %}
                 {% endif %}
               </td>
-              <td class="d-none d-md-table-cell d-lg-table-cell">
-								<span>
-									{% if user.country %}
-                    <i class="flag-{{ user.country.lower() }}"></i>
-                    {{ lookup_country_code(user.country) }}
-                  {% endif %}
-								</span>
+              <td class="hidden md:table-cell px-4 py-3 text-gray-700">
+                {% if user.country %}
+                  <i class="flag-{{ user.country.lower() }} mr-2"></i>
+                  {{ lookup_country_code(user.country) }}
+                {% endif %}
               </td>
             </tr>
           {% endfor %}
@@ -112,26 +109,38 @@
     </div>
 
     {% if users.pages > 1 %}
-      <div class="row">
-        <div class="col-md-12">
-          <div class="text-center">
-            {% trans %}Page{% endtrans %} <br>
+      <div class="flex flex-col items-center gap-4 mt-8">
+        <nav aria-label="Page navigation" class="flex items-center gap-1">
+          {% if users.page != 1 %}
+            <a href="{{ prev_page }}" class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-700 font-medium">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          {% else %}
+            <span class="px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed">
+              <i class="fas fa-chevron-left"></i>
+            </span>
+          {% endif %}
 
-            {% if users.page != 1 %}
-              <a href="{{ prev_page }}">&lt;&lt;&lt;</a>
-            {% endif %}
-
-            <select class="page-select">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-600 font-medium">{% trans %}Page{% endtrans %}</span>
+            <select class="page-select px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
               {% for page in range(1, users.pages + 1) %}
-                <option {% if users.page == page %}selected{% endif %}>{{ page }}</option>
+                <option value="{{ page }}" {% if users.page == page %}selected{% endif %}>{{ page }}</option>
               {% endfor %}
             </select>
-
-            {% if users.next_num %}
-              <a href="{{ next_page }}">&gt;&gt;&gt;</a>
-            {% endif %}
+            <span class="text-gray-600 font-medium">{% trans %}of{% endtrans %} {{ users.pages }}</span>
           </div>
-        </div>
+
+          {% if users.next_num %}
+            <a href="{{ next_page }}" class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-700 font-medium">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          {% else %}
+            <span class="px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed">
+              <i class="fas fa-chevron-right"></i>
+            </span>
+          {% endif %}
+        </nav>
       </div>
     {% endif %}
   </div>

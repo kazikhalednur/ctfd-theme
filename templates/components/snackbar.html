@@ -2,14 +2,16 @@
 <div 
     x-data 
     x-show="window.init.userId && !window.init.userVerified && localStorage.getItem('remind_email_verify') != window.init.userId && (!['/team', '/teams/join', '/teams/new'].includes(window.location.pathname) || window.init.teamId != null)"
-    class="alert alert-info alert-dismissible col-md-4 col-10 position-fixed text-center m-0" 
-    style="bottom: 45px; left: 50%; transform: translateX(-50%); z-index: 1040; display: none;" 
+    class="fixed bottom-12 left-1/2 transform -translate-x-1/2 w-10/12 md:w-1/3 z-40 bg-blue-100 border border-blue-300 text-blue-800 px-4 py-3 rounded-lg flex items-center justify-between" 
+    style="display: none;" 
     role="alert"
 >
-  <small>
-    <strong>Email Unconfirmed</strong><br>
-    <span>To confirm your email address please <a href="{{ url_for('auth.confirm', flow='init') }}">click here</a>.</span>
-  </small>
-  <button type="button" class="btn-close" @click="localStorage.setItem('remind_email_verify', window.init.userId); $el.parentElement.style.display = 'none';" aria-label="Close"></button>
+  <div class="text-sm">
+    <strong class="block">Email Unconfirmed</strong>
+    <span>To confirm your email address please <a href="{{ url_for('auth.confirm', flow='init') }}" class="font-semibold underline hover:no-underline">click here</a>.</span>
+  </div>
+  <button type="button" class="text-blue-600 hover:text-blue-800 font-bold ml-2" @click="localStorage.setItem('remind_email_verify', window.init.userId); $el.parentElement.style.display = 'none';" aria-label="Close">
+    &times;
+  </button>
 </div>
 {% endif %}

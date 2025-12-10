@@ -1,63 +1,83 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4">
         {% trans %}Scoreboard{% endtrans %}
       </h1>
+
+      <p class="text-lg opacity-95 font-medium">
+        Real-time competition standings and performance tracking
+      </p>
     </div>
-  </div>
-  <div class="container">
+  </section>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     {% include "components/errors.html" %}
 
-    <div id="score-graph" class="align-items-center" :class="{'d-flex': show, 'd-none': !show}" x-data="ScoreboardDetail" x-ref="scoregraph" @bracket-change.window="activeBracket=$event.detail; update();">
-      <div class="col-md-12 text-center">
-        <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+    <div id="score-graph" class="flex items-center justify-center" :class="{'flex': show, 'hidden': !show}" x-data="ScoreboardDetail" x-ref="scoregraph" @bracket-change.window="activeBracket=$event.detail; update();">
+      <div class="text-center">
+        <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner text-blue-600"></i>
       </div>
     </div>
 
-    <div id="scoreboard" class="row" x-data="ScoreboardList">
+    <div id="scoreboard" x-data="ScoreboardList">
       <template x-if="brackets.length && standings.length">
-        <div class="col-md-12 py-3">
-          <nav class="nav nav-pills nav-fill">
-            <button :class="{'nav-link': true, 'active': !activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
-            <template x-for="bracket in brackets">
-              <button :class="{'nav-link': true, 'active': activeBracket == bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
-            </template>
-          </nav>
+        <div class="w-full py-6">
+          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-4">
+            <div class="flex flex-wrap gap-3 border-b border-gray-200 pb-3">
+              <button :class="{'px-4 py-2 font-medium border-b-2 transition-all duration-300 rounded-lg': true, 'border-blue-600 text-blue-600 bg-blue-50': !activeBracket, 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-100': activeBracket}" @click="activeBracket=null">{% trans %}All{% endtrans %}</button>
+              <template x-for="bracket in brackets">
+                <button :class="{'px-4 py-2 font-medium border-b-2 transition-all duration-300 rounded-lg': true, 'border-blue-600 text-blue-600 bg-blue-50': activeBracket == bracket.id, 'border-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-100': activeBracket != bracket.id}" x-text="bracket.name" @click="activeBracket=bracket.id"></button>
+              </template>
+            </div>
+          </div>
         </div>
       </template>
 
-      <div class="col-md-12" x-show="standings.length">
-        <table class="table table-striped align-middle">
-          <thead>
-          <tr>
-            <th style="width: 10px">{% trans %}Place{% endtrans %}</th>
-            <th class="text-start ps-3">{{ get_mode_as_word(capitalize=True) }}</th>
-            <th>{% trans %}Score{% endtrans %}</th>
-          </tr>
-          </thead>
+      <div class="w-full" x-show="standings.length">
+        <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
+          <table class="w-full border-collapse">
+            <thead>
+            <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+              <th class="text-center px-4 py-3 font-bold uppercase text-sm tracking-wide" style="width: 80px;">{% trans %}Place{% endtrans %}</th>
+              <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{{ get_mode_as_word(capitalize=True) }}</th>
+              <th class="text-center px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Score{% endtrans %}</th>
+            </tr>
+            </thead>
 
-          <tbody>
-            <template x-for="(standing, index) in standings.filter(i => activeBracket ? i.bracket_id==activeBracket : true)">
-              <tr>
-                <th scope="row" class="text-center" x-text="index + 1"></th>
-                <td class="text-start">
-                  <a :href="standing.account_url" x-text="standing.name"></a>
-                  <template x-if="standing.bracket_name">
-                    <span class="badge bg-secondary ms-2" x-text="standing.bracket_name"></span>
-                  </template>
-                </td>
-                <td x-text="standing.score"></td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
+            <tbody>
+              <template x-for="(standing, index) in standings.filter(i => activeBracket ? i.bracket_id==activeBracket : true)">
+                <tr class="border-b border-gray-200 hover:bg-blue-50 transition-colors duration-300 hover:shadow-sm">
+                  <td class="text-center px-4 py-4">
+                    <span class="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm rounded-full" x-text="index + 1"></span>
+                  </td>
+                  <td class="text-left px-4 py-4">
+                    <a :href="standing.account_url" x-text="standing.name" class="text-blue-600 hover:text-blue-800 font-bold transition-colors"></a>
+                    <template x-if="standing.bracket_name">
+                      <span class="inline-block ml-3 px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full" x-text="standing.bracket_name"></span>
+                    </template>
+                  </td>
+                  <td class="text-center px-4 py-4">
+                    <span class="inline-flex items-center justify-center px-3 py-1 bg-blue-100 text-blue-700 font-bold rounded-lg" x-text="standing.score"></span>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div class="col-md-12" x-show="! standings.length">
-        <h3 class="text-center text-muted">{% trans %}Scoreboard is empty{% endtrans %}</h3>
+      <div class="w-full" x-show="! standings.length">
+        <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-8 text-center">
+          <i class="fas fa-inbox text-4xl text-gray-300 mb-4"></i>
+          <h3 class="text-lg font-bold text-gray-700 mb-2">{% trans %}Scoreboard is empty{% endtrans %}</h3>
+          <p class="text-gray-500">{% trans %}No standings available at this time{% endtrans %}</p>
+        </div>
       </div>
     </div>
   </div>
