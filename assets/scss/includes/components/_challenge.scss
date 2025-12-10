@@ -9,9 +9,10 @@
   }
 }
 
-[data-bs-theme="light"] .challenge-button {
+[data-theme="light"] .challenge-button,
+.light .challenge-button {
   border: none;
-  box-shadow: 0 0 15px var(--bs-secondary);
+  box-shadow: 0 0 15px #9ca3af;
 
   &.challenge-solved {
     background-color: #29c830;
@@ -22,12 +23,13 @@
   }
 }
 
-[data-bs-theme="dark"] .challenge-button {
+[data-theme="dark"] .challenge-button,
+.dark .challenge-button {
   border: none;
-  background-color: var(--bs-gray-dark);
+  background-color: #1f2937;
 
   &:hover {
-    background-color: var(--bs-gray);
+    background-color: #374151;
   }
 
   &.challenge-solved {

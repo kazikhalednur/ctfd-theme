@@ -3,7 +3,9 @@ import dayjs from "dayjs";
 
 import CTFd from "./index";
 
-import { Modal, Tab, Tooltip } from "bootstrap";
+import { Modal } from "./utils/modal";
+import { Tab } from "./utils/tab";
+import { Tooltip } from "./utils/tooltip-bootstrap";
 import highlight from "./theme/highlight";
 
 function addTargetBlank(html) {
@@ -163,7 +165,7 @@ Alpine.data("Challenge", () => ({
     // TODO: Get rid of this private attribute access
     // See https://github.com/twbs/bootstrap/issues/31266
     modal._element.addEventListener(
-      "hidden.bs.modal",
+      "hidden.modal",
       event => {
         // Dispatch load-challenge event to call loadChallenge in the ChallengeBoard
         Alpine.nextTick(() => {
@@ -325,7 +327,7 @@ Alpine.data("ChallengeBoard", () => ({
         // TODO: Get rid of this private attribute access
         // See https://github.com/twbs/bootstrap/issues/31266
         modal._element.addEventListener(
-          "hidden.bs.modal",
+          "hidden.modal",
           event => {
             // Remove location hash
             history.replaceState(null, null, " ");

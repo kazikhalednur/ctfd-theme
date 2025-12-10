@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block stylesheets %}
+  {{ Assets.css("assets/css/tailwind.css") }}
+{% endblock %}
+
 {% block content %}
   <div class="container">
     {{ content | safe }}

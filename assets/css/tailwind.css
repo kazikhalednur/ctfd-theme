@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@layer base {
+  h1,
+  h2 {
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  blockquote {
+    border-left: 4px solid #d1d5db;
+    padding-left: 15px;
+  }
+
+  input,
+  select {
+    padding: 0.6rem !important;
+    height: auto !important;
+  }
+}
+
+@layer components {
+  .fa-spin.spinner {
+    text-align: center;
+    opacity: 0.5;
+  }
+
+  .badge-notification {
+    vertical-align: top;
+    margin-left: -1.5em;
+    font-size: 50%;
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
+    background-size: 8px 10px;
+  }
+
+  /* Bootstrap compatibility classes using Tailwind */
+  .navbar {
+    @apply flex flex-wrap items-center justify-between px-4 py-2;
+  }
+
+  .navbar-expand-md {
+    @apply flex-col md:flex-row;
+  }
+
+  .navbar-dark {
+    @apply bg-gray-900 text-white;
+  }
+
+  .navbar-brand {
+    @apply text-xl font-semibold no-underline;
+  }
+
+  .navbar-toggler {
+    @apply border border-gray-600 bg-transparent px-2 py-1 rounded;
+  }
+
+  .navbar-nav {
+    @apply flex flex-col md:flex-row list-none p-0 m-0;
+  }
+
+  .nav-item {
+    @apply list-none;
+  }
+
+  .nav-link {
+    @apply block px-3 py-2 text-gray-300 no-underline hover:text-white;
+  }
+
+  .container {
+    @apply w-full mx-auto px-4;
+    max-width: 1200px;
+  }
+
+  .btn {
+    @apply inline-block px-4 py-2 text-center font-medium rounded cursor-pointer border transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white border-blue-600 hover:bg-blue-700;
+  }
+
+  .btn-close {
+    @apply bg-transparent border-0 text-gray-500 text-xl cursor-pointer hover:text-gray-700;
+  }
+
+  .modal {
+    @apply fixed inset-0 z-50 hidden;
+  }
+
+  .modal.show {
+    @apply block;
+  }
+
+  .modal-dialog {
+    @apply relative w-auto mx-auto my-8 max-w-lg;
+  }
+
+  .modal-content {
+    @apply relative flex flex-col bg-white rounded-lg shadow-lg;
+  }
+
+  .modal-header {
+    @apply flex items-center justify-between p-4 border-b;
+  }
+
+  .modal-body {
+    @apply p-4;
+  }
+
+  .modal-footer {
+    @apply flex items-center justify-end p-4 border-t;
+  }
+
+  .toast {
+    @apply relative flex flex-col min-w-0 break-words bg-white rounded shadow-lg;
+  }
+
+  .toast.show {
+    @apply block;
+  }
+
+  .toast.hide {
+    @apply hidden;
+  }
+
+  .toast-header {
+    @apply flex items-center justify-between p-2 border-b;
+  }
+
+  .toast-body {
+    @apply p-2;
+  }
+
+  .dropdown-menu {
+    @apply absolute z-50 hidden min-w-max bg-white rounded shadow-lg;
+  }
+
+  .dropdown-menu.show {
+    @apply block;
+  }
+
+  .dropdown-item {
+    @apply block w-full px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer;
+  }
+
+  .collapse {
+    @apply hidden;
+  }
+
+  .collapse.show {
+    @apply block;
+  }
+
+  .badge {
+    @apply inline-block px-2 py-1 text-xs font-semibold rounded;
+  }
+
+  .bg-danger {
+    @apply bg-red-600 text-white;
+  }
+
+  .text-secondary {
+    @apply text-gray-500;
+  }
+
+  .text-muted {
+    @apply text-gray-500;
+  }
+
+  .position-fixed {
+    position: fixed;
+  }
+
+  .bottom-0 {
+    bottom: 0;
+  }
+
+  .end-0 {
+    right: 0;
+  }
+
+  .p-3 {
+    padding: 0.75rem;
+  }
+}

@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import dayjs from "dayjs";
-import { Tab } from "bootstrap";
+import { Tab } from "./utils/tab";
 
 import CTFd from "./index";
 

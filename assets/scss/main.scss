@@ -1,7 +1,3 @@
-@use "bootstrap/scss/bootstrap" as * with (
-  $info: #5c728f
-);
-
 @use "includes/components/table";
 @use "includes/components/jumbotron";
 @use "includes/components/challenge";
@@ -28,7 +24,7 @@ a {
 }
 
 blockquote {
-  border-left: 4px solid $secondary;
+  border-left: 4px solid #9ca3af;
   padding-left: 15px;
 }
 

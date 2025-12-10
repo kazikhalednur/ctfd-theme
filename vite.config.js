@@ -2,14 +2,18 @@ const { resolve } = require("path");
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import copy from "rollup-plugin-copy";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), tailwindcss()],
   resolve: {
     alias: {
       "~": resolve(__dirname, "./node_modules/"),
     },
+  },
+  css: {
+    devSourcemap: true,
   },
   build: {
     manifest: true,
@@ -67,6 +71,7 @@ export default defineConfig({
         users_private: resolve(__dirname, "assets/js/users/private.js"),
         users_list: resolve(__dirname, "assets/js/users/list.js"),
         main: resolve(__dirname, "assets/scss/main.scss"),
+        tailwind: resolve(__dirname, "assets/css/tailwind.css"),
         color_mode_switcher: resolve(__dirname, "assets/js/color_mode_switcher.js"),
       },
     },
