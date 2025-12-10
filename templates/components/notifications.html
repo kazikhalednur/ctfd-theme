@@ -1,11 +1,12 @@
 <div x-data>
+  <!-- Toast Notification -->
   <div class="fixed bottom-0 right-0 p-4 z-50" style="z-index: 11">
     <div x-ref="toast" class="hidden bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-      <div class="bg-gray-100 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
-        <strong class="text-gray-800" x-text="$store.toast.title"></strong>
+      <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3 border-b border-blue-500 flex justify-between items-center">
+        <strong class="text-white" x-text="$store.toast.title"></strong>
         <div class="flex items-center gap-2">
-          <small class="text-gray-500">just now</small>
-          <button type="button" class="text-gray-500 hover:text-gray-700" data-bs-dismiss="toast" aria-label="Close">&times;</button>
+          <small class="text-blue-100">just now</small>
+          <button type="button" class="text-white hover:text-blue-100 transition" data-bs-dismiss="toast" aria-label="Close">&times;</button>
         </div>
       </div>
       <div class="px-4 py-3 text-gray-700" x-html="$store.toast.html">
@@ -16,19 +17,25 @@
 
 
 <div x-data>
-  <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-50" x-ref="modal" tabindex="-1">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-        <div class="bg-gray-100 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-          <h5 class="text-lg font-semibold text-gray-900" x-text="$store.modal.title"></h5>
-          <button type="button" class="text-gray-500 hover:text-gray-700" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-        </div>
-        <div class="px-6 py-4">
-          <p class="text-gray-700" x-html="$store.modal.html"></p>
-        </div>
-        <div class="bg-gray-50 px-6 py-3 border-t border-gray-200 flex justify-end">
-          <button type="button" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition" data-bs-dismiss="modal">Got it!</button>
-        </div>
+  <!-- Modal -->
+  <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" x-ref="modal" tabindex="-1">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full overflow-hidden border-t-4 border-t-blue-600">
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-600/5 to-blue-700/5 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+        <h5 class="text-lg font-bold text-gray-900" x-text="$store.modal.title"></h5>
+        <button type="button" class="text-gray-500 hover:text-blue-600 transition" data-bs-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="px-6 py-4">
+        <p class="text-gray-700 leading-relaxed" x-html="$store.modal.html"></p>
+      </div>
+      
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 px-6 py-3 border-t border-gray-200 flex justify-end">
+        <button type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors" data-bs-dismiss="modal">Got it!</button>
       </div>
     </div>
   </div>

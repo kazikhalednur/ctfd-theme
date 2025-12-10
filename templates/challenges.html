@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
-    <div class="absolute inset-0 pointer-events-none"
-         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
-    </div>
+  <section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-16 overflow-hidden">
+    <!-- Radial highlight effect -->
+    <div class="absolute top-0 left-1/5 w-96 h-96 bg-white opacity-10 rounded-full -ml-48 -mt-48 pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-5xl font-extrabold tracking-tight mb-4">
+      <h1 class="text-5xl sm:text-6xl font-bold tracking-tight mb-4">
         {% trans %}Challenges{% endtrans %}
       </h1>
 
-      <p class="text-lg opacity-95 font-medium max-w-2xl mx-auto">
-        Explore all available challenges and test your cybersecurity skills
+      <p class="text-lg text-blue-100 font-medium max-w-2xl mx-auto">
+        {% trans %}Explore all available challenges and test your cybersecurity skills{% endtrans %}
       </p>
     </div>
   </section>
@@ -47,9 +46,9 @@
         <template x-for="(category, idx) in getCategories()" :key="idx">
           <div class="py-8">
             <div class="mb-6">
-              <h3 class="text-2xl font-bold text-gray-900 inline-block px-4 py-3 rounded-lg 
-                         bg-gradient-to-r from-blue-100 to-blue-50 border-l-4 border-blue-600 shadow-sm
-                         hover:shadow-md transition-shadow"
+              <h3 class="inline-block px-6 py-3 rounded-lg font-bold text-xl text-gray-900
+                         bg-gradient-to-r from-blue-100 to-blue-50 border-l-4 border-blue-600 shadow-md
+                         hover:shadow-lg transition-shadow duration-300"
                   x-text="category"></h3>
             </div>
 
@@ -58,17 +57,17 @@
                 <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
                   <div>
                     <button
-                        class="challenge-button w-full h-full bg-white hover:bg-blue-50 text-gray-900 rounded-lg p-4 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:border-blue-500 border-2 border-gray-200"
+                        class="challenge-button w-full h-full bg-white hover:bg-blue-50 text-gray-900 rounded-lg p-4 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-blue-500 border-2 border-gray-200"
                         :class="[
-                          c.solved_by_me ? 'ring-2 ring-green-500 bg-green-50' : '',
+                          c.solved_by_me ? 'ring-2 ring-green-500 bg-green-50 border-green-300' : '',
                           ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
                         ];"
                         :value="c.id" @click="loadChallenge(c.id)"
                     >
 
                       <div class="challenge-inner my-3">
-                        <p class="font-bold text-lg" x-text="c.name"></p>
-                        <span class="text-2xl font-extrabold text-blue-600" x-text="c.value"></span>
+                        <p class="font-bold text-lg mb-2" x-text="c.name"></p>
+                        <span class="text-3xl font-extrabold text-blue-600" x-text="c.value"></span>
                       </div>
                     </button>
                   </div>

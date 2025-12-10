@@ -1,7 +1,8 @@
-<nav class="sticky top-0 z-50 bg-gray-900 text-white shadow-lg">
+<nav class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white shadow-lg">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
-      <a href="{{ url_for('views.static_html', route='/') }}" class="flex items-center">
+      <!-- Logo/Brand -->
+      <a href="{{ url_for('views.static_html', route='/') }}" class="flex items-center hover:scale-105 transition-transform">
         {% if Configs.ctf_logo %}
           <img
               class="h-8 w-auto"
@@ -13,8 +14,9 @@
         {% endif %}
       </a>
 
+      <!-- Mobile Menu Button -->
       <button
-          class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none" 
+          class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-white hover:bg-white/20 focus:outline-none transition-colors" 
           type="button" 
           data-bs-toggle="collapse" 
           data-bs-target="#base-navbars"
@@ -27,119 +29,121 @@
         </svg>
       </button>
 
+      <!-- Desktop Menu -->
       <div class="hidden md:flex md:items-center md:space-x-1" id="base-navbars">
-        <div class="flex space-x-2">
+        <div class="flex space-x-1">
           {% for page in Plugins.user_menu_pages %}
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition" href="{{ page.route }}" {% if page.link_target %}target="{{ page.link_target }}"{% endif %}>
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" href="{{ page.route }}" {% if page.link_target %}target="{{ page.link_target }}"{% endif %}>
               {{ page.title }}
             </a>
           {% endfor %}
 
           {% if Configs.account_visibility != 'admins' %}
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition" href="{{ url_for('users.listing') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" href="{{ url_for('users.listing') }}">
               {% trans %}Users{% endtrans %}
             </a>
 
             {% if Configs.user_mode == 'teams' %}
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition" href="{{ url_for('teams.listing') }}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" href="{{ url_for('teams.listing') }}">
                 {% trans %}Teams{% endtrans %}
               </a>
             {% endif %}
           {% endif %}
 
           {% if Configs.account_visibility != 'admins' and Configs.score_visibility != 'admins' %}
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition" href="{{ url_for('scoreboard.listing') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" href="{{ url_for('scoreboard.listing') }}">
               {% trans %}Scoreboard{% endtrans %}
             </a>
           {% endif %}
 
-          <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition" href="{{ url_for('challenges.listing') }}">
+          <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" href="{{ url_for('challenges.listing') }}">
             {% trans %}Challenges{% endtrans %}
           </a>
         </div>
 
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-1">
           {% if authed() %}
 
             {% if is_admin() %}
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('admin.view') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Admin Panel{% endtrans %}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('admin.view') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Admin Panel{% endtrans %}">
                 <i class="fas fa-wrench"></i>
               </a>
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('admin.view') }}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('admin.view') }}">
                 <i class="fas fa-wrench"></i>
                 {% trans %}Admin Panel{% endtrans %}
               </a>
             {% endif %}
 
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('views.notifications') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Notifications{% endtrans %}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('views.notifications') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Notifications{% endtrans %}">
               <i class="fas fa-bell"></i>
             </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('views.notifications') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('views.notifications') }}">
               <i class="fas fa-bell"></i>
               <span x-data x-show="$store.unread_count > 0" x-text="$store.unread_count" class="inline-block px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1 -translate-y-1 bg-red-600 rounded-full"></span>
               {% trans %}Notifications{% endtrans %}
             </a>
 
             {% if Configs.user_mode == "teams" %}
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('teams.private') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Team{% endtrans %}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('teams.private') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Team{% endtrans %}">
                 <i class="fas fa-users"></i>
               </a>
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('teams.private') }}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('teams.private') }}">
                 <i class="fas fa-users"></i>
                 {% trans %}Team{% endtrans %}
               </a>
             {% endif %}
 
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('users.private') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Profile{% endtrans %}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('users.private') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Profile{% endtrans %}">
               <i class="fas fa-user-circle"></i>
             </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('users.private') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('users.private') }}">
               <i class="fas fa-user-circle"></i>
               {% trans %}Profile{% endtrans %}
             </a>
 
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('views.settings') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Settings{% endtrans %}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('views.settings') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Settings{% endtrans %}">
               <i class="fas fa-cogs"></i>
             </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('views.settings') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('views.settings') }}">
               <i class="fas fa-cogs"></i>
               {% trans %}Settings{% endtrans %}
             </a>
 
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('auth.logout') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Logout{% endtrans %}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('auth.logout') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Logout{% endtrans %}">
               <i class="fas fa-sign-out-alt"></i>
             </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('auth.logout') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('auth.logout') }}">
               <i class="fas fa-sign-out-alt"></i>
               {% trans %}Logout{% endtrans %}
             </a>
           {% else %}
 
             {% if registration_visible() %}
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('auth.register') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Register{% endtrans %}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('auth.register') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Register{% endtrans %}">
                 <i class="fas fa-user-plus"></i>
               </a>
-              <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('auth.register') }}">
+              <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('auth.register') }}">
                 <i class="fas fa-user-plus"></i>
                 {% trans %}Register{% endtrans %}
               </a>
             {% endif %}
 
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition hidden md:inline-flex items-center" href="{{ url_for('auth.login') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Login{% endtrans %}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors hidden md:inline-flex items-center" href="{{ url_for('auth.login') }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Login{% endtrans %}">
               <i class="fas fa-sign-in-alt"></i>
             </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition md:hidden flex items-center gap-2" href="{{ url_for('auth.login') }}">
+            <a class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors md:hidden flex items-center gap-2" href="{{ url_for('auth.login') }}">
               <i class="fas fa-sign-in-alt"></i>
               {% trans %}Login{% endtrans %}
             </a>
           {% endif %}
 
+          <!-- Language Selector -->
           <div class="relative group">
-            <button class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition flex items-center gap-1" type="button">
+            <button class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors flex items-center gap-1" type="button">
               <i class="fas fa-language hidden md:inline"></i>
               <span class="md:hidden">{% trans %}Language{% endtrans %}</span>
             </button>
-            <form x-data="LanguageForm" class="hidden group-hover:block absolute right-0 mt-0 w-48 bg-white text-gray-900 rounded-md shadow-lg py-1 z-50">
+            <form x-data="LanguageForm" class="hidden group-hover:block absolute right-0 mt-0 w-48 bg-white text-gray-900 rounded-lg shadow-xl py-1 z-50">
               {% set curr_lang = get_locale() %}
               {%- for lang in Languages.names.items() %}
               <span class="block px-4 py-2 text-sm hover:bg-blue-500 hover:text-white cursor-pointer {{ 'bg-blue-600 text-white' if (curr_lang == lang[0]) }}" @click="set" value="{{ lang[0] }}">
@@ -149,7 +153,8 @@
             </form>
           </div>
 
-          <button class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition theme-switch" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Toggle theme{% endtrans %}">
+          <!-- Theme Switcher -->
+          <button class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors theme-switch" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Toggle theme{% endtrans %}">
             <i class="fas fa-sun hidden md:inline"></i>
             <span class="md:hidden">{% trans %}Theme{% endtrans %}</span>
           </button>
