@@ -15,55 +15,55 @@
             {% from "macros/forms.html" import render_extra_fields %}
             <form id="team-info-form" method="POST" @submit.prevent="updateProfile()">
 
-              <div class="mb-2">
-                <b>{{ form.name.label(clas="mb-2") }}</b>
-                {{ form.name(class="form-control") }}
-                <small class="form-text text-muted">
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.name.label.text }}</b>
+                {{ form.name(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
+                <small class="block mt-2 text-sm text-gray-600">
                   {{ form.name.description }}
                 </small>
               </div>
 
-              <div class="mb-2">
-                <b>{{ form.password.label(clas="mb-2") }}</b>
-                {{ form.password(class="form-control") }}
-                <small class="form-text text-muted">
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.password.label.text }}</b>
+                {{ form.password(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
+                <small class="block mt-2 text-sm text-gray-600">
                   {{ form.password.description }}
                 </small>
               </div>
 
-              <div class="mb-2">
-                <b>{{ form.confirm.label(clas="mb-2") }}</b>
-                {{ form.confirm(class="form-control") }}
-                <small class="form-text text-muted">
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.confirm.label.text }}</b>
+                {{ form.confirm(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
+                <small class="block mt-2 text-sm text-gray-600">
                   {{ form.confirm.description }}
                 </small>
               </div>
 
-              <div class="mb-2">
-                <b>{{ form.website.label(clas="mb-2") }}</b>
-                {{ form.website(class="form-control") }}
-                <small class="form-text text-muted">
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.website.label.text }}</b>
+                {{ form.website(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
+                <small class="block mt-2 text-sm text-gray-600">
                   {{ form.website.description }}
                 </small>
               </div>
 
-              <div class="mb-2">
-                <b>{{ form.affiliation.label(clas="mb-2") }}</b>
-                {{ form.affiliation(class="form-control") }}
-                <small class="form-text text-muted">
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.affiliation.label.text }}</b>
+                {{ form.affiliation(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
+                <small class="block mt-2 text-sm text-gray-600">
                   {{ form.affiliation.description }}
                 </small>
               </div>
 
-              <div class="mb-2">
-                <b>{{ form.country.label(clas="mb-2") }}</b>
-                {{ form.country(class="form-select") }}
-                <small class="form-text text-muted">
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.country.label.text }}</b>
+                {{ form.country(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white") }}
+                <small class="block mt-2 text-sm text-gray-600">
                   {{ form.country.description }}
                 </small>
               </div>
 
-              <hr>
+              <div class="border-t border-gray-200 my-6"></div>
 
               {{ render_extra_fields(form.extra) }}
 
@@ -108,13 +108,13 @@
         <div class="modal-body clearfix">
           {% with form = Forms.teams.TeamCaptainForm(captain_id=team.captain_id) %}
             <form id="team-captain-form" method="POST" @submit.prevent="updateCaptain()">
-              <div class="mb-3">
-                {{ form.captain_id.label(class="form-label") }}
+              <div class="mb-6">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">{{ form.captain_id.label.text }}</label>
                 {% for member in team.members %}
                   {# Append members to the select choices #}
                   {% set _ = form.captain_id.choices.append((member.id, member.name)) %}
                 {% endfor %}
-                {{ form.captain_id(class="form-select mb-2") }}
+                {{ form.captain_id(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white") }}
               </div>
               <div id="results">
                 <div
@@ -137,7 +137,10 @@
                   </div>
                 </template>
               </div>
-              {{ form.submit(class="btn btn-primary float-end px-4 modal-action") }}
+              <div class="flex justify-end gap-3 mt-6">
+                <button type="button" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" data-bs-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                {{ form.submit(class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition transform hover:scale-105") }}
+              </div>
             </form>
           {% endwith %}
         </div>
@@ -156,23 +159,25 @@
         <div class="modal-body clearfix">
           {% with form = Forms.teams.TeamInviteForm() %}
             <form method="POST">
-              <div class="mb-3">
-                <b>{{ form.link.label(class="form-label") }}</b>
+              <div class="mb-6">
+                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.link.label.text }}</b>
 
-                <div class="input-group mb-3">
-                  {{ form.link(id="team-invite-link", class="form-control", **{"x-ref": "link", "x-bind:value": "$store.inviteToken"}) }}
+                <div class="flex gap-2 mb-4">
+                  {{ form.link(id="team-invite-link", class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", **{"x-ref": "link", "x-bind:value": "$store.inviteToken"}) }}
 
-                  <button class="btn btn-outline-secondary px-3" type="button" @click="copy()">
+                  <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg text-gray-700 transition" type="button" @click="copy()">
                     <i class="fas fa-clipboard"></i>
                   </button>
                 </div>
 
-                <small class="form-text text-muted">
-                  {% trans %}Share this link with your team members for them to join your team{% endtrans %}
-                </small>
-                <small class="form-text text-muted">
-                  {% trans %}Invite links can be re-used and expire after 1 day{% endtrans %}
-                </small>
+                <div class="space-y-1">
+                  <small class="block text-sm text-gray-600">
+                    {% trans %}Share this link with your team members for them to join your team{% endtrans %}
+                  </small>
+                  <small class="block text-sm text-gray-600">
+                    {% trans %}Invite links can be re-used and expire after 1 day{% endtrans %}
+                  </small>
+                </div>
               </div>
             </form>
           {% endwith %}
@@ -202,150 +207,135 @@
           </div>
 
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{% trans %}No{% endtrans %}</button>
-          <button type="button" class="btn btn-primary" @click="disbandTeam()" :disabled="errors.length > 0">{% trans %}Yes{% endtrans %}</button>
+        <div class="modal-footer flex justify-end gap-3 pt-4 border-t border-gray-200">
+          <button type="button" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" data-bs-dismiss="modal">{% trans %}No{% endtrans %}</button>
+          <button type="button" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition transform hover:scale-105" @click="disbandTeam()" :disabled="errors.length > 0">{% trans %}Yes{% endtrans %}</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1 id="team-id" team-id="{{ team.id }}">{{ team.name }}</h1>
-      {% if team.oauth_id %}
-        <a href="https://majorleaguecyber.org/t/{{ team.name }}">
-          <h3><span class="badge bg-primary">{% trans %}Official{% endtrans %}</span></h3>
-        </a>
-      {% endif %}
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
+    </div>
 
-      {% if team.affiliation %}
-        <h3 class="d-inline-block">
-          <span class="badge bg-primary">{{ team.affiliation }}</span>
-        </h3>
-      {% endif %}
-
-      {% if team.country %}
-        <h3 class="d-inline-block">
-          <span class="badge bg-primary">
-            <i class="flag-{{ team.country.lower() }}"></i>
-            {{ lookup_country_code(team.country) }}
-          </span>
-        </h3>
-      {% endif %}
-
-      {% if team.bracket_id %}
-        <div class="pt-2">
-          <h2>
-            <span class="badge text-bg-light">
-              {{ team.bracket.name }}
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 id="team-id" team-id="{{ team.id }}" class="text-5xl font-extrabold tracking-tight mb-4">{{ team.name }}</h1>
+      
+      <div class="flex flex-wrap gap-3 mb-6">
+        {% if team.oauth_id %}
+          <a href="https://majorleaguecyber.org/t/{{ team.name }}" target="_blank" rel="noopener" class="inline-block">
+            <span class="px-4 py-2 text-xs font-semibold bg-green-500/20 backdrop-blur-sm text-white rounded-full hover:bg-green-500/30 transition border border-green-300/30">
+              <i class="fas fa-check-circle mr-2"></i>{% trans %}Official{% endtrans %}
             </span>
-          </h2>
-        </div>
-      {% endif %}
-
-      {% for field in team.fields %}
-        <h3 class="d-block">
-          {{ field.name }}: {{ field.value }}
-        </h3>
-      {% endfor %}
-
-      <h2 id="team-place" class="text-center">
-        {# This intentionally hides the team's place when scores are hidden because this can be their internal profile
-           and we don't want to leak their place in the CTF. #}
-        {# Public page hiding is done at the route level #}
-        {% if scores_visible() %}
-          {% if place %}
-            {{ place }}
-            <small>{% trans %}place{% endtrans %}</small>
-          {% endif %}
-        {% endif %}
-      </h2>
-
-      <h2 id="team-score" class="text-center">
-        {% if score %}
-          {{ score }}
-          <small>{% trans %}points{% endtrans %}</small>
-        {% endif %}
-      </h2>
-
-      <div x-data="CaptainMenu">
-        <a class="edit-team text-white" @click="editTeam()">
-          <i
-              class="cursor-pointer fas fa-cogs fa-2x px-2 pt-3"
-              data-bs-toggle="tooltip" data-bs-placement="top"
-              title="Edit Team"
-          ></i>
-        </a>
-        <a class="edit-captain text-white" @click="chooseCaptain()">
-          <i
-              class="cursor-pointer fas fa-user-tag fa-2x px-2 pt-3"
-              data-bs-toggle="tooltip" data-bs-placement="top"
-              title="Choose Captain"
-          ></i>
-        </a>
-
-        <a class="invite-members text-white" @click="inviteMembers()">
-          <i
-              class="cursor-pointer fas fa-ticket-alt fa-2x px-2 pt-3"
-              data-bs-toggle="tooltip" data-bs-placement="top"
-              title="Invite Users"
-          ></i>
-        </a>
-        <a class="disband-team text-white" @click="disbandTeam()">
-          <i
-              class="cursor-pointer fas fa-trash-alt fa-2x px-2 pt-3"
-              data-bs-toggle="tooltip" data-bs-placement="top"
-              title="Disband Team"
-          ></i>
-        </a>
-      </div>
-
-      <div class="pt-3">{% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
-          <a href="{{ team.website }}" target="_blank" style="color: inherit;" rel="noopener">
-            <i
-                class="fas fa-external-link-alt fa-2x px-2 pt-2"
-                data-toggle="tooltip" data-placement="top"
-                title="{{ team.website }}"
-            ></i>
           </a>
         {% endif %}
-        </div>
+
+        {% if team.affiliation %}
+          <span class="inline-block px-4 py-2 text-xs font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+            <i class="fas fa-building mr-2"></i>{{ team.affiliation }}
+          </span>
+        {% endif %}
+
+        {% if team.country %}
+          <span class="inline-block px-4 py-2 text-xs font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+            <i class="flag-{{ team.country.lower() }} mr-2"></i>
+            {{ lookup_country_code(team.country) }}
+          </span>
+        {% endif %}
+
+        {% if team.bracket_id %}
+          <span class="inline-block px-4 py-2 text-xs font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+            <i class="fas fa-tag mr-2"></i>{{ team.bracket.name }}
+          </span>
+        {% endif %}
       </div>
 
-  </div>
+      {% if team.fields %}
+        <div class="space-y-2 mb-6 text-blue-100 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+          {% for field in team.fields %}
+            <div class="text-sm">
+              <strong class="text-white">{{ field.name }}:</strong> <span class="text-blue-100">{{ field.value }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
 
-  <div class="container">
+      {% if scores_visible() and place or score %}
+        <div class="border-t border-white/30 pt-6 mt-6">
+          <div class="grid grid-cols-2 gap-8 max-w-md">
+            {% if scores_visible() and place %}
+              <div class="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <div id="team-place" class="text-4xl font-bold mb-1">{{ place }}</div>
+                <div class="text-blue-100 text-sm uppercase tracking-wide font-semibold">{% trans %}place{% endtrans %}</div>
+              </div>
+            {% endif %}
+            {% if score %}
+              <div class="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <div id="team-score" class="text-4xl font-bold mb-1">{{ score }}</div>
+                <div class="text-blue-100 text-sm uppercase tracking-wide font-semibold">{% trans %}points{% endtrans %}</div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div x-data="CaptainMenu" class="flex flex-wrap gap-4 mt-6">
+        <button class="edit-team inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition border border-white/30" @click="editTeam()" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Team">
+          <i class="fas fa-cogs mr-2"></i>{% trans %}Edit Team{% endtrans %}
+        </button>
+        <button class="edit-captain inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition border border-white/30" @click="chooseCaptain()" data-bs-toggle="tooltip" data-bs-placement="top" title="Choose Captain">
+          <i class="fas fa-user-tag mr-2"></i>{% trans %}Choose Captain{% endtrans %}
+        </button>
+        <button class="invite-members inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition border border-white/30" @click="inviteMembers()" data-bs-toggle="tooltip" data-bs-placement="top" title="Invite Users">
+          <i class="fas fa-ticket-alt mr-2"></i>{% trans %}Invite Users{% endtrans %}
+        </button>
+        <button class="disband-team inline-flex items-center px-4 py-2 bg-red-500/20 backdrop-blur-sm text-white rounded-lg hover:bg-red-500/30 transition border border-red-300/30" @click="disbandTeam()" data-bs-toggle="tooltip" data-bs-placement="top" title="Disband Team">
+          <i class="fas fa-trash-alt mr-2"></i>{% trans %}Disband Team{% endtrans %}
+        </button>
+      </div>
+
+      {% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
+        <div class="pt-6">
+          <a href="{{ team.website }}" target="_blank" rel="noopener" title="{{ team.website }}" class="inline-flex items-center text-white hover:text-blue-100 transition transform hover:scale-110">
+            <i class="fas fa-external-link-alt text-2xl mr-2"></i>
+            <span class="text-sm font-medium">{% trans %}Visit Website{% endtrans %}</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     {% include "components/errors.html" %}
 
-    <br>
-
-    <div class="row min-vh-25">
-      <div class="col-md-12">
-        <h3>{% trans %}Members{% endtrans %}</h3>
-        <table class="table table-striped align-middle">
+    <div class="mb-12">
+      <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Members{% endtrans %}</h3>
+      <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
+        <table class="w-full border-collapse">
           <thead>
-          <tr>
-            <th>{% trans %}User Name{% endtrans %}</th>
-            <th>{% trans %}Score{% endtrans %}</th>
+          <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+            <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}User Name{% endtrans %}</th>
+            <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Score{% endtrans %}</th>
           </tr>
           </thead>
           <tbody>
 
           {% for member in team.members %}
-            <tr>
-              <td>
-                <a href="{{ url_for('users.public', user_id=member.id) }}">
+            <tr class="border-b border-gray-200 hover:bg-blue-50 transition-all duration-200 hover:shadow-sm">
+              <td class="px-4 py-3">
+                <a href="{{ url_for('users.public', user_id=member.id) }}" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">
                   {{ member.name }}
                 </a>
                 {% if member.bracket_id %}
-                  <span class="badge bg-secondary ms-2">{{ member.bracket.name }}</span>
+                  <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-gray-200 text-gray-800 rounded-full">{{ member.bracket.name }}</span>
                 {% endif %}
                 {% if team.captain_id == member.id %}
-                  <span class="badge bg-primary ms-2">{% trans %}Captain{% endtrans %}</span>
+                  <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full">{% trans %}Captain{% endtrans %}</span>
                 {% endif %}
               </td>
-              <td>{{ member.score }}</td>
+              <td class="px-4 py-3 text-gray-700 font-semibold">{{ member.score }}</td>
             </tr>
           {% endfor %}
 
@@ -356,53 +346,52 @@
 
     {% if solves or awards %}
       {% if awards %}
-        <div class="row">
-          <div class="col-md-12">
-            <h3>{% trans %}Awards{% endtrans %}</h3>
+        <div class="mb-12">
+          <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Awards{% endtrans %}</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for award in awards %}
+              <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div class="mb-3">
+                  <i class="award-icon award-{{ award.icon }} fa-3x text-blue-600"></i>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-2">{{ award.name }}</h4>
+                {% if award.category %}
+                  <p class="text-sm text-gray-600 mb-2">{{ award.category }}</p>
+                {% endif %}
+                {% if award.description %}
+                  <p class="text-sm text-gray-600 mb-3">{{ award.description }}</p>
+                {% endif %}
+                <div class="text-xl font-bold text-blue-600">{{ award.value }}</div>
+              </div>
+            {% endfor %}
           </div>
-
-          {% for award in awards %}
-            <div class="col-md-3 col-sm-6">
-              <p class="text-center">
-                <i class="award-icon award-{{ award.icon }} fa-2x"></i>
-                <br>
-                <strong>{{ award.name }}</strong>
-              </p>
-              {% if award.category %}<p class="text-center">{{ award.category }}</p>{% endif %}
-              {% if award.description %}<p class="text-center">{{ award.description }}</p>{% endif %}
-              <p class="text-center">{{ award.value }}</p>
-            </div>
-          {% endfor %}
-
         </div>
-
-        <br>
       {% endif %}
 
-      <div class="row">
-        <div class="col-md-12">
-          <h3>{% trans %}Solves{% endtrans %}</h3>
-          <table class="table table-striped align-middle">
+      <div class="mb-12">
+        <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Solves{% endtrans %}</h3>
+        <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
+          <table class="w-full border-collapse">
             <thead>
-            <tr>
-              <th>{% trans %}Challenge{% endtrans %}</th>
-              <th class="d-none d-md-block d-lg-block">{% trans %}Category{% endtrans %}</th>
-              <th>{% trans %}Value{% endtrans %}</th>
-              <th>{% trans %}Time{% endtrans %}</th>
+            <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+              <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Challenge{% endtrans %}</th>
+              <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Category{% endtrans %}</th>
+              <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Value{% endtrans %}</th>
+              <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Time{% endtrans %}</th>
             </tr>
             </thead>
             <tbody>
 
             {% for solve in solves %}
-              <tr>
-                <td>
-                  <a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}">
+              <tr class="border-b border-gray-200 hover:bg-blue-50 transition-all duration-200 hover:shadow-sm">
+                <td class="px-4 py-3">
+                  <a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">
                     {{ solve.challenge.name }}
                   </a>
                 </td>
-                <td class="d-none d-md-block d-lg-block">{{ solve.challenge.category }}</td>
-                <td>{{ solve.challenge.value }}</td>
-                <td class="solve-time">
+                <td class="hidden md:table-cell px-4 py-3 text-gray-700 text-sm">{{ solve.challenge.category }}</td>
+                <td class="px-4 py-3 text-gray-700 font-semibold">{{ solve.challenge.value }}</td>
+                <td class="px-4 py-3 solve-time text-gray-700 text-sm">
                   <span data-time="{{ solve.date | isoformat }}">{{ solve.date }}</span>
                 </td>
               </tr>
@@ -413,73 +402,79 @@
         </div>
       </div>
 
-      <div class="clearfix"></div>
-
-      <div class="row" x-data="TeamGraphs">
-        <div class="col-md-6 d-none d-md-block d-lg-block py-4">
-          <div class="progress">
-            <div 
-              class="progress-bar" 
-              role="progressbar" 
-              :style="{ width: `${getSolvePercentage()}%`, 'background-color': 'rgb(0, 209, 64)' }" 
-            >
-            </div>
-            <div 
-              class="progress-bar" 
-              role="progressbar" 
-              :style="{ width: `${getFailPercentage()}%`, 'background-color': 'rgb(207, 38, 0)' }"
-            >
-            </div>
-          </div>
-          <div class="ps-2 float-start">
-            <svg height="16" width="16">
-              <circle cx="8" cy="8" r="5" fill="rgb(0, 209, 64)" />
-            </svg>
-            <small x-text="`Solves (${getSolvePercentage()}%)`"></small>
-          </div>
-          <div class="ps-2 float-start">
-            <svg height="16" width="16">
-              <circle cx="8" cy="8" r="5" fill="rgb(207, 38, 0)" />
-            </svg>
-            <small x-text="`Fails (${getFailPercentage()}%)`"></small>
-          </div>
-        </div>
-        <div class="col-md-6 d-none d-md-block d-lg-block py-4">
-          <div class="progress">
-            <template x-for="category in getCategoryBreakdown()" :key="category.name">
-              <div 
-                class="progress-bar" 
-                role="progressbar" 
-                :style="{ width: `${category.percent}%`, 'background-color': category.color }"
-              >
+      <div class="mb-12" x-data="TeamGraphs">
+        <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Statistics{% endtrans %}</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Solves vs Fails Progress -->
+          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
+            <h4 class="font-bold text-gray-900 mb-4">{% trans %}Solve vs Fail Rate{% endtrans %}</h4>
+            <div class="mb-4">
+              <div class="flex h-6 bg-gray-200 rounded-lg overflow-hidden">
+                <div 
+                  class="bg-green-500" 
+                  :style="{ width: `${getSolvePercentage()}%` }"
+                ></div>
+                <div 
+                  class="bg-red-500"
+                  :style="{ width: `${getFailPercentage()}%` }"
+                ></div>
               </div>
-            </template>
-          </div>
-          <template x-for="category in getCategoryBreakdown()" :key="category.name">
-            <div class="ps-2 float-start">
-              <svg height="16" width="16">
-                <circle cx="8" cy="8" r="5" :fill="category.color" />
-              </svg>
-              <small x-text="`${category.name} (${category.percent}%)`"></small>
             </div>
-          </template>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center gap-2">
+                <svg height="12" width="12"><circle cx="6" cy="6" r="4" fill="rgb(34, 197, 94)" /></svg>
+                <span x-text="`Solves (${getSolvePercentage()}%)`"></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg height="12" width="12"><circle cx="6" cy="6" r="4" fill="rgb(239, 68, 68)" /></svg>
+                <span x-text="`Fails (${getFailPercentage()}%)`"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Breakdown -->
+          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
+            <h4 class="font-bold text-gray-900 mb-4">{% trans %}Category Breakdown{% endtrans %}</h4>
+            <div class="mb-4">
+              <div class="flex h-6 bg-gray-200 rounded-lg overflow-hidden">
+                <template x-for="category in getCategoryBreakdown()" :key="category.name">
+                  <div 
+                    class="transition-all"
+                    :style="{ width: `${category.percent}%`, 'background-color': category.color }"
+                  ></div>
+                </template>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <template x-for="category in getCategoryBreakdown()" :key="category.name">
+                <div class="flex items-center gap-2">
+                  <svg height="12" width="12"><circle cx="6" cy="6" r="4" :fill="category.color" /></svg>
+                  <span x-text="`${category.name} (${category.percent}%)`"></span>
+                </div>
+              </template>
+            </div>
+          </div>
         </div>
 
-        <br class="clearfix">
-
-        <div class="col-md-12 d-none d-md-block d-lg-block">
-          <div id="score-graph" x-ref="scoregraph" class="w-100 d-flex align-items-center">
-            <div class="text-center w-100">
-              <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+        <!-- Score Graph -->
+        <div class="mt-8 bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
+          <h4 class="font-bold text-gray-900 mb-4">{% trans %}Score Over Time{% endtrans %}</h4>
+          <div id="score-graph" x-ref="scoregraph" class="w-full flex justify-center items-center min-h-64">
+            <div class="text-center">
+              <i class="fas fa-circle-notch fa-spin fa-3x fa-fw text-blue-600"></i>
             </div>
           </div>
         </div>
       </div>
     {% else %}
-      <div class="row min-vh-25">
-        <h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-          {% trans %}No solves yet{% endtrans %}
-        </h3>
+      <div class="flex items-center justify-center min-h-80 bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600">
+        <div class="text-center">
+          <i class="fas fa-trophy text-6xl text-gray-300 mb-4"></i>
+          <h3 class="text-gray-500 text-xl font-semibold">
+            {% trans %}No solves yet{% endtrans %}
+          </h3>
+        </div>
       </div>
     {% endif %}
   </div>
