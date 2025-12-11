@@ -10,7 +10,7 @@ Alpine.start();
 // You can manually set these to override dates without touching HTML.
 // Format: ISO 8601 string in local time or with timezone offset.
 const PRELIMINARY_TARGET = "2025-12-11T18:00:00"; // 11 Dec 2025, 06:00 PM
-const FINAL_TARGET = "2025-12-20T21:00:00"; // 20 Dec 2025, 09:00 PM
+const FINAL_TARGET = "2025-12-20T09:00:00"; // 20 Dec 2025, 09:00 PM
 
 function setupCountdown() {
   const cards = document.querySelectorAll(".countdown-card");
