@@ -40,10 +40,10 @@
 
   {{ Configs.theme_header }}
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 {% include "components/navbar.html" %}
 
-<main role="main" class="grow">
+<main role="main">
   {% block content %}
   {% endblock %}
 </main>
