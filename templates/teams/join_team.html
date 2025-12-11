@@ -1,32 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans %}Join Team{% endtrans %}</h1>
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-        {% include "components/errors.html" %}
 
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4">
+        {% trans %}Join Team{% endtrans %}
+      </h1>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-md mx-auto">
+      {% include "components/errors.html" %}
+
+      <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-8">
         {% with form = Forms.teams.TeamJoinForm() %}
           <form method="POST">
-            <div class="mb-3">
-              {{ form.name.label(class="form-label") }}
-              {{ form.name(class="form-control") }}
+            <div class="mb-6">
+              <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.name.label.text }}</b>
+              {{ form.name(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
             </div>
 
-            <div class="mb-3">
-              {{ form.password.label(class="form-label") }}
-              {{ form.password(class="form-control") }}
+            <div class="mb-6">
+              <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.password.label.text }}</b>
+              {{ form.password(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
             </div>
 
-            <div class="row pt-3">
-              <div class="col-md-12">
-                {{ form.submit(class="btn btn-success float-end px-4") }}
-              </div>
+            <div class="text-center">
+              {{ form.submit(class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition transform hover:scale-105 shadow-lg hover:shadow-xl") }}
             </div>
             {{ form.nonce() }}
           </form>

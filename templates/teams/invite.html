@@ -1,39 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans %}Join Team{% endtrans %}</h1>
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-        {% include "components/errors.html" %}
 
-        <p class="h3 text-center mt-md-4">
-          {% trans %}Welcome to{% endtrans %} <strong>{{ team.name }}</strong>!
-        </p>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4">
+        {% trans %}Join Team{% endtrans %}
+      </h1>
+    </div>
+  </section>
 
-        <p class="text-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-2xl mx-auto">
+      {% include "components/errors.html" %}
+
+      <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-8 mb-6">
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-4">
+          {% trans %}Welcome to{% endtrans %} <span class="text-blue-600">{{ team.name }}</span>!
+        </h2>
+
+        <p class="text-lg text-gray-700 text-center mb-6">
           {% trans %}Click the button below to join the team!{% endtrans %}
-          <br>
-          <small class="text-muted">
-            Or <a href="{{ url_for('teams.new') }}">click here</a> if you'd prefer to create your own team.
-          </small>
         </p>
 
         {% with form = Forms.teams.TeamInviteJoinForm() %}
           <form method="POST">
-            <div class="row pt-3 text-center">
-              <div class="col-md-12">
-                {{ form.submit(class="btn btn-success w-100") }}
-              </div>
+            <div class="text-center">
+              {{ form.submit(class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition transform hover:scale-105 shadow-lg hover:shadow-xl") }}
             </div>
             {{ form.nonce() }}
           </form>
         {% endwith %}
       </div>
+
+      <p class="text-center text-gray-600">
+        {% trans %}Or{% endtrans %} <a href="{{ url_for('teams.new') }}" class="text-blue-600 hover:text-blue-800 font-medium">{% trans %}click here{% endtrans %}</a> {% trans %}if you'd prefer to create your own team.{% endtrans %}
+      </p>
     </div>
   </div>
 {% endblock %}
