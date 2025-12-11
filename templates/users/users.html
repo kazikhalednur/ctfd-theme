@@ -1,101 +1,114 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold text-center">
-        {% trans %}USERS{% endtrans %}
-      </h1>
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
     </div>
-  </div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div>
-      <div>
-        {% if q and field %}
-          <h5 class="text-center text-gray-600 mb-2">
-            {% trans %}Searching for users with <strong class="text-gray-900">{{ field }}</strong> matching <strong class="text-gray-900">{{ q }}</strong>{% endtrans %}
-          </h5>
-          <h6 class="text-center text-gray-500 pb-3">
-            {% trans page=users.page, total=users.total %}Page {{ page }} of {{ total }} results{% endtrans %}
-          </h6>
-        {% endif %}
 
-        {% with form = Forms.users.PublicUserSearchForm(field=field, q=q) %}
-          <form method="GET" class="flex flex-col sm:flex-row gap-3 mb-6">
-            <div class="shrink-0 sm:w-auto">
-              {{ form.field(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
-            </div>
-            <div class="flex-1">
-              {{ form.q(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", placeholder=form.q.description) }}
-            </div>
-            <div class="shrink-0">
-              <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition whitespace-nowrap">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4">
+        {% trans %}Users{% endtrans %}
+      </h1>
+
+      <p class="text-lg opacity-95 font-medium">
+        Explore all participating users and their profiles
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6 mb-8">
+      <div>
+        <div>
+          {% if q and field %}
+            <h5 class="text-center text-gray-600 mb-2">
+              {% trans %}Searching for users with <strong class="text-gray-900">{{ field }}</strong> matching <strong class="text-gray-900">{{ q }}</strong>{% endtrans %}
+            </h5>
+            <h6 class="text-center text-gray-500 pb-3">
+              {% trans page=users.page, total=users.total %}Page {{ page }} of {{ total }} results{% endtrans %}
+            </h6>
+          {% endif %}
+
+          {% with form = Forms.users.PublicUserSearchForm(field=field, q=q) %}
+            <form method="GET" class="flex flex-col sm:flex-row gap-3 mb-0">
+              <div class="flex-shrink-0 w-full sm:w-auto">
+                {{ form.field(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 font-medium") }}
+              </div>
+
+              <div class="flex-1">
+                {{ form.q(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", placeholder=form.q.description) }}
+              </div>
+
+              <button type="submit" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition transform hover:scale-105">
                 <i class="fas fa-search mr-2" aria-hidden="true"></i>Search
               </button>
-            </div>
-          </form>
-        {% endwith %}
+            </form>
+          {% endwith %}
+        </div>
       </div>
     </div>
 
-    <div class="border-t border-gray-300 my-8"></div>
-
     <div>
-      <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+      <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
         <table class="w-full border-collapse">
           <thead>
-          <tr class="bg-gray-100 border-b border-gray-200">
-            <th class="text-left px-4 py-3 font-bold text-gray-700">{% trans %}User{% endtrans %}</th>
-            <th class="text-center px-4 py-3 font-bold text-gray-700">{% trans %}Website{% endtrans %}</th>
-            <th class="hidden md:table-cell text-left px-4 py-3 font-bold text-gray-700">{% trans %}Affiliation{% endtrans %}</th>
-            <th class="hidden md:table-cell text-left px-4 py-3 font-bold text-gray-700">{% trans %}Country{% endtrans %}</th>
+          <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+            <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}User{% endtrans %}</th>
+            <th class="text-center px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Website{% endtrans %}</th>
+            <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Affiliation{% endtrans %}</th>
+            <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Country{% endtrans %}</th>
           </tr>
           </thead>
           <tbody>
+
           {% for user in users.items %}
-            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+            <tr class="border-b border-gray-200 hover:bg-blue-50 transition-all duration-200 hover:shadow-sm">
               <td class="px-4 py-3">
                 {% if scores_visible() %}
-                  <a href="{{ url_for('users.public', user_id=user.id) }}" class="text-blue-600 hover:text-blue-800 font-medium">
-                    {{ user.name | truncate(50) }}
-                  </a>
+                  <a href="{{ url_for('users.public', user_id=user.id) }}" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">{{ user.name | truncate(50) }}</a>
                 {% else %}
-                  <span class="text-gray-700">{{ user.name | truncate(50) }}</span>
+                  <span class="text-gray-900 font-medium">{{ user.name | truncate(50) }}</span>
                 {% endif %}
 
                 {% if user.bracket_id %}
-                  <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-gray-200 text-gray-800 rounded-full">{{ user.bracket.name }}</span>
+                  <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition">{{ user.bracket.name }}</span>
                 {% endif %}
 
                 {% if user.oauth_id %}
-                  <a href="https://majorleaguecyber.org/u/{{ user.name }}">
-                    <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full">{% trans %}Official{% endtrans %}</span>
+                  <a href="https://majorleaguecyber.org/u/{{ user.name }}" target="_blank" rel="noopener">
+                    <span class="inline-block ml-2 px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition">{% trans %}Official{% endtrans %}</span>
                   </a>
                 {% endif %}
               </td>
 
               <td class="text-center px-4 py-3">
                 {% if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) %}
-                  <a href="{{ user.website }}" target="_blank" rel="noopener" title="{{ user.website }}" class="text-blue-600 hover:text-blue-800 transition">
-                    <i class="fas fa-external-link-alt"></i>
+                  <a href="{{ user.website }}" target="_blank" rel="noopener" title="{{ user.website }}" class="text-blue-600 hover:text-blue-800 transition duration-200 hover:scale-110">
+                    <i class="fas fa-external-link-alt text-lg"></i>
                   </a>
                 {% endif %}
               </td>
 
               <td class="hidden md:table-cell px-4 py-3">
                 {% if user.affiliation %}
+
                   {% if user.affiliation | length > 50 %}
-                    <span title="{{ user.affiliation }}" class="text-gray-700">
-                      {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+                    <span title="{{ user.affiliation }}" class="text-gray-700 text-sm">
+                        {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
                     </span>
                   {% else %}
-                    <span class="text-gray-700">
-                      {% if user.affiliation %}{{ user.affiliation | truncate(50) }}{% endif %}
+                    <span class="text-gray-700 text-sm">
+                      {% if user.affiliation %}
+                        {{ user.affiliation | truncate(50) }}
+                      {% endif %}
                     </span>
                   {% endif %}
+
                 {% endif %}
               </td>
-              <td class="hidden md:table-cell px-4 py-3 text-gray-700">
+
+              <td class="hidden md:table-cell px-4 py-3 text-gray-700 text-sm">
                 {% if user.country %}
                   <i class="flag-{{ user.country.lower() }} mr-2"></i>
                   {{ lookup_country_code(user.country) }}
@@ -103,46 +116,40 @@
               </td>
             </tr>
           {% endfor %}
+
           </tbody>
         </table>
       </div>
     </div>
 
     {% if users.pages > 1 %}
-      <div class="flex flex-col items-center gap-4 mt-8">
-        <nav aria-label="Page navigation" class="flex items-center gap-1">
+      <div class="mt-8 flex flex-col items-center justify-center gap-4">
+        <div class="text-center text-gray-700 font-semibold">
+          {% trans %}Page{% endtrans %} <span class="text-blue-600 font-bold text-lg">{{ users.page }}</span> {% trans %}of{% endtrans %} <span class="text-blue-600 font-bold text-lg">{{ users.pages }}</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-3 flex-wrap">
           {% if users.page != 1 %}
-            <a href="{{ prev_page }}" class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-700 font-medium">
-              <i class="fas fa-chevron-left"></i>
+            <a href="{{ prev_page }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition transform hover:scale-105 inline-flex items-center gap-2">
+              <i class="fas fa-chevron-left"></i>{% trans %}Previous{% endtrans %}
             </a>
-          {% else %}
-            <span class="px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed">
-              <i class="fas fa-chevron-left"></i>
-            </span>
           {% endif %}
 
-          <div class="flex items-center gap-2">
-            <span class="text-gray-600 font-medium">{% trans %}Page{% endtrans %}</span>
-            <select class="page-select px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
-              {% for page in range(1, users.pages + 1) %}
-                <option value="{{ page }}" {% if users.page == page %}selected{% endif %}>{{ page }}</option>
-              {% endfor %}
-            </select>
-            <span class="text-gray-600 font-medium">{% trans %}of{% endtrans %} {{ users.pages }}</span>
-          </div>
+          <select class="page-select px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700 font-bold cursor-pointer hover:border-blue-400 transition">
+            {% for page in range(1, users.pages + 1) %}
+              <option {% if users.page == page %}selected{% endif %}>{{ page }}</option>
+            {% endfor %}
+          </select>
 
           {% if users.next_num %}
-            <a href="{{ next_page }}" class="px-3 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition text-gray-700 font-medium">
-              <i class="fas fa-chevron-right"></i>
+            <a href="{{ next_page }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition transform hover:scale-105 inline-flex items-center gap-2">
+              {% trans %}Next{% endtrans %}<i class="fas fa-chevron-right"></i>
             </a>
-          {% else %}
-            <span class="px-3 py-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed">
-              <i class="fas fa-chevron-right"></i>
-            </span>
           {% endif %}
-        </nav>
+        </div>
       </div>
     {% endif %}
+
   </div>
 {% endblock %}
 
