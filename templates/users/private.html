@@ -1,81 +1,92 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold mb-4">{{ user.name }}</h1>
+  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4">{{ user.name }}</h1>
 
       {% if user.team_id %}
         <div class="mb-4">
           <a href="{{ url_for('teams.public', team_id=user.team_id) }}" class="inline-block">
-            <span class="px-3 py-1 text-sm font-semibold bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition">
-              {{ user.team.name }}
+            <span class="px-4 py-2 text-sm font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition border border-white/30">
+              <i class="fas fa-users mr-2"></i>{{ user.team.name }}
             </span>
           </a>
         </div>
       {% endif %}
 
-      <div class="flex flex-wrap gap-3 mb-4">
+      <div class="flex flex-wrap gap-3 mb-6">
         {% if user.oauth_id %}
-          <a href="https://majorleaguecyber.org/u/{{ user.name }}" class="inline-block">
-            <span class="px-3 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition">{% trans %}Official{% endtrans %}</span>
+          <a href="https://majorleaguecyber.org/u/{{ user.name }}" target="_blank" rel="noopener" class="inline-block">
+            <span class="px-4 py-2 text-xs font-semibold bg-green-500/20 backdrop-blur-sm text-white rounded-full hover:bg-green-500/30 transition border border-green-300/30">
+              <i class="fas fa-check-circle mr-2"></i>{% trans %}Official{% endtrans %}
+            </span>
           </a>
         {% endif %}
 
         {% if user.affiliation %}
-          <span class="inline-block px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full">{{ user.affiliation }}</span>
+          <span class="inline-block px-4 py-2 text-xs font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+            <i class="fas fa-building mr-2"></i>{{ user.affiliation }}
+          </span>
         {% endif %}
 
         {% if user.country %}
-          <span class="inline-block px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-full">
-            <i class="flag-{{ user.country.lower() }}"></i>
+          <span class="inline-block px-4 py-2 text-xs font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+            <i class="flag-{{ user.country.lower() }} mr-2"></i>
             {{ lookup_country_code(user.country) }}
           </span>
         {% endif %}
 
         {% if user.bracket_id %}
-          <span class="inline-block px-3 py-1 text-xs font-semibold bg-gray-200 text-gray-800 rounded-full">
-            {{ user.bracket.name }}
+          <span class="inline-block px-4 py-2 text-xs font-semibold bg-white/20 backdrop-blur-sm text-white rounded-full border border-white/30">
+            <i class="fas fa-tag mr-2"></i>{{ user.bracket.name }}
           </span>
         {% endif %}
       </div>
 
       {% if user.fields %}
-        <div class="space-y-2 mb-6 text-blue-100">
+        <div class="space-y-2 mb-6 text-blue-100 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
           {% for field in user.fields %}
             <div class="text-sm">
-              <strong>{{ field.name }}:</strong> {{ field.value }}
+              <strong class="text-white">{{ field.name }}:</strong> <span class="text-blue-100">{{ field.value }}</span>
             </div>
           {% endfor %}
         </div>
       {% endif %}
 
-      <div class="border-t border-blue-400 pt-6 mt-6">
-        <div class="grid grid-cols-2 gap-8">
-          {% if account.place %}
-            <div class="text-center">
-              <div class="text-3xl font-bold">{{ account.place }}</div>
-              <div class="text-blue-100 text-sm uppercase tracking-wide">{% trans %}Place{% endtrans %}</div>
-            </div>
-          {% endif %}
-          {% if account %}
-            <div class="text-center">
-              <div class="text-3xl font-bold">{{ account.get_score(admin=True) }}</div>
-              <div class="text-blue-100 text-sm uppercase tracking-wide">{% trans %}Points{% endtrans %} (Admin)</div>
-            </div>
-          {% endif %}
+      {% if account.place or account %}
+        <div class="border-t border-white/30 pt-6 mt-6">
+          <div class="grid grid-cols-2 gap-8 max-w-md">
+            {% if account.place %}
+              <div class="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <div class="text-4xl font-bold mb-1">{{ account.place }}</div>
+                <div class="text-blue-100 text-sm uppercase tracking-wide font-semibold">{% trans %}Place{% endtrans %}</div>
+              </div>
+            {% endif %}
+            {% if account %}
+              <div class="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                <div class="text-4xl font-bold mb-1">{{ account.get_score(admin=True) }}</div>
+                <div class="text-blue-100 text-sm uppercase tracking-wide font-semibold">{% trans %}Points{% endtrans %} (Admin)</div>
+              </div>
+            {% endif %}
+          </div>
         </div>
-      </div>
+      {% endif %}
 
       {% if user.website %}
         <div class="pt-6">
-          <a href="{{ user.website }}" target="_blank" rel="noopener" title="{{ user.website }}" class="inline-flex items-center text-white hover:text-blue-100 transition">
-            <i class="fas fa-external-link-alt fa-2x"></i>
+          <a href="{{ user.website }}" target="_blank" rel="noopener" title="{{ user.website }}" class="inline-flex items-center text-white hover:text-blue-100 transition transform hover:scale-110">
+            <i class="fas fa-external-link-alt text-2xl mr-2"></i>
+            <span class="text-sm font-medium">{% trans %}Visit Website{% endtrans %}</span>
           </a>
         </div>
       {% endif %}
     </div>
-  </div>
+  </section>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     {% include "components/errors.html" %}
@@ -86,10 +97,10 @@
     {% if solves or awards %}
       {% if awards %}
         <div class="mb-12">
-          <h3 class="text-2xl font-bold text-gray-900 mb-6">{% trans %}Awards{% endtrans %}</h3>
+          <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Awards{% endtrans %}</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {% for award in awards %}
-              <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6 text-center hover:shadow-lg transition">
+              <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div class="mb-3">
                   <i class="award-icon award-{{ award.icon }} fa-3x text-blue-600"></i>
                 </div>
@@ -100,7 +111,7 @@
                 {% if award.description %}
                   <p class="text-sm text-gray-600 mb-3">{{ award.description }}</p>
                 {% endif %}
-                <div class="text-lg font-bold text-blue-600">{{ award.value }}</div>
+                <div class="text-xl font-bold text-blue-600">{{ award.value }}</div>
               </div>
             {% endfor %}
           </div>
@@ -110,28 +121,28 @@
       <div class="border-t border-gray-300 my-8"></div>
 
       <div class="mb-12">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">{% trans %}Solves{% endtrans %}</h3>
-        <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+        <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Solves{% endtrans %}</h3>
+        <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
           <table class="w-full border-collapse">
             <thead>
-              <tr class="bg-gray-100 border-b border-gray-200">
-                <th class="text-left px-4 py-3 font-bold text-gray-700">{% trans %}Challenge{% endtrans %}</th>
-                <th class="hidden md:table-cell text-left px-4 py-3 font-bold text-gray-700">{% trans %}Category{% endtrans %}</th>
-                <th class="text-left px-4 py-3 font-bold text-gray-700">{% trans %}Value{% endtrans %}</th>
-                <th class="text-left px-4 py-3 font-bold text-gray-700">{% trans %}Time{% endtrans %}</th>
+              <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Challenge{% endtrans %}</th>
+                <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Category{% endtrans %}</th>
+                <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Value{% endtrans %}</th>
+                <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Time{% endtrans %}</th>
               </tr>
             </thead>
             <tbody>
               {% for solve in solves %}
-                <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                <tr class="border-b border-gray-200 hover:bg-blue-50 transition-all duration-200 hover:shadow-sm">
                   <td class="px-4 py-3">
-                    <a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    <a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">
                       {{ solve.challenge.name }}
                     </a>
                   </td>
-                  <td class="hidden md:table-cell px-4 py-3 text-gray-700">{{ solve.challenge.category }}</td>
-                  <td class="px-4 py-3 text-gray-700">{{ solve.challenge.value }}</td>
-                  <td class="px-4 py-3 solve-time text-gray-700">
+                  <td class="hidden md:table-cell px-4 py-3 text-gray-700 text-sm">{{ solve.challenge.category }}</td>
+                  <td class="px-4 py-3 text-gray-700 font-semibold">{{ solve.challenge.value }}</td>
+                  <td class="px-4 py-3 solve-time text-gray-700 text-sm">
                     <span data-time="{{ solve.date | isoformat }}"></span>
                   </td>
                 </tr>
@@ -144,11 +155,11 @@
       <div class="border-t border-gray-300 my-8"></div>
 
       <div class="mb-12" x-data="UserGraphs">
-        <h3 class="text-2xl font-bold text-gray-900 mb-6">{% trans %}Statistics{% endtrans %}</h3>
+        <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Statistics{% endtrans %}</h3>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Solves vs Fails Progress -->
-          <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
             <h4 class="font-bold text-gray-900 mb-4">{% trans %}Solve vs Fail Rate{% endtrans %}</h4>
             <div class="mb-4">
               <div class="flex h-6 bg-gray-200 rounded-lg overflow-hidden">
@@ -175,7 +186,7 @@
           </div>
 
           <!-- Category Breakdown -->
-          <div class="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
             <h4 class="font-bold text-gray-900 mb-4">{% trans %}Category Breakdown{% endtrans %}</h4>
             <div class="mb-4">
               <div class="flex h-6 bg-gray-200 rounded-lg overflow-hidden">
@@ -199,7 +210,7 @@
         </div>
 
         <!-- Score Graph -->
-        <div class="mt-8 bg-white rounded-lg shadow-md border border-gray-200 p-6">
+        <div class="mt-8 bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
           <h4 class="font-bold text-gray-900 mb-4">{% trans %}Score Over Time{% endtrans %}</h4>
           <div id="score-graph" x-ref="scoregraph" class="w-full flex justify-center items-center min-h-64">
             <div class="text-center">
@@ -209,10 +220,13 @@
         </div>
       </div>
     {% else %}
-      <div class="flex items-center justify-center min-h-80 bg-gray-50 rounded-lg">
-        <h3 class="text-gray-500 text-xl font-semibold">
-          {% trans %}No solves yet{% endtrans %}
-        </h3>
+      <div class="flex items-center justify-center min-h-80 bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600">
+        <div class="text-center">
+          <i class="fas fa-trophy text-6xl text-gray-300 mb-4"></i>
+          <h3 class="text-gray-500 text-xl font-semibold">
+            {% trans %}No solves yet{% endtrans %}
+          </h3>
+        </div>
       </div>
     {% endif %}
   </div>
