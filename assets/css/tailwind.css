@@ -99,7 +99,14 @@
   }
 
   .modal-dialog {
-    @apply relative w-auto mx-auto my-8 max-w-lg;
+    @apply relative w-auto mx-auto my-8;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-dialog.max-w-7xl {
+    max-width: 80rem;
   }
 
   .modal-content {
