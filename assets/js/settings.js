@@ -71,7 +71,13 @@ Alpine.data("TokensForm", () => ({
     const response = await CTFd.pages.settings.generateToken(data);
     this.token = response.data.value;
 
-    new Modal(this.$refs.tokenModal).show();
+    const modal = Modal.getOrCreateInstance(this.$refs.tokenModal);
+    modal?.show();
+  },
+
+  closeTokenModal() {
+    const modal = Modal.getOrCreateInstance(this.$refs.tokenModal);
+    modal?.hide();
   },
 
   copyToken() {
@@ -84,7 +90,8 @@ Alpine.data("Tokens", () => ({
 
   async deleteTokenModal(tokenId) {
     this.selectedTokenId = tokenId;
-    new Modal(this.$refs.confirmModal).show();
+    const modal = Modal.getOrCreateInstance(this.$refs.confirmModal);
+    modal?.show();
   },
 
   async deleteSelectedToken() {
@@ -94,6 +101,15 @@ Alpine.data("Tokens", () => ({
     if ($token) {
       $token.remove();
     }
+  },
+
+  hideConfirmModal() {
+    const modal = Modal.getOrCreateInstance(this.$refs.confirmModal);
+    modal?.hide();
+  },
+
+  closeConfirmModal() {
+    this.hideConfirmModal();
   },
 }));
 
