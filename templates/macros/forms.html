@@ -2,25 +2,26 @@
   {% for field in fields %}
     {% if field.field_type == "text" %}
 
-      <div class="mb-3">
+      <div class="mb-4">
         {% if show_labels %}
-          <b>{{ field.label(class="form-label") }}</b>
+          <label class="block text-sm font-bold text-gray-900 mb-2">
+            <i class="fas fa-edit text-blue-600 mr-2"></i>{{ field.label.text }}
+            {% if show_optionals %}
+              {% if field.flags.required is false %}
+                <small class="text-gray-500 font-normal">
+                  {% trans %}(Optional){% endtrans %}
+                </small>
+              {% endif %}
+            {% endif %}
+          </label>
         {% endif %}
 
-        {% if show_optionals %}
-          {% if field.flags.required is false %}
-            <small class="ms-1 text-muted">
-              {% trans %}(Optional){% endtrans %}
-            </small>
-          {% endif %}
-        {% endif %}
-
-        {{ field(class="form-control") }}
+        {{ field(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900") }}
 
         {% if show_descriptions %}
           {% if field.description %}
-            <small class="form-text text-muted">
-              {{ field.description }}
+            <small class="block mt-2 text-sm text-gray-500">
+              <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ field.description }}
             </small>
           {% endif %}
         {% endif %}
@@ -28,55 +29,60 @@
 
     {% elif field.field_type == "boolean" %}
 
-      <div>
-        {{ field.label(class="form-label") }}
-        {% if show_optionals %}
-          {% if field.flags.required is false %}
-            <small class="ms-1 text-muted">
-              {% trans %}(Optional){% endtrans %}
-            </small>
+      <div class="mb-4">
+        <label class="block text-sm font-bold text-gray-900 mb-2">
+          <i class="fas fa-toggle-on text-blue-600 mr-2"></i>{{ field.label.text }}
+          {% if show_optionals %}
+            {% if field.flags.required is false %}
+              <small class="text-gray-500 font-normal">
+                {% trans %}(Optional){% endtrans %}
+              </small>
+            {% endif %}
           {% endif %}
-        {% endif %}
-      </div>
+        </label>
 
-      <div class="mb-3 border border-1 p-3">
-        <div class="form-check">
-          {{ field(class="form-check-input") }}
-          {{ field.label(class="form-check-label") }}
+        <div class="bg-gray-50 border border-gray-300 rounded-lg p-4">
+          <div class="flex items-center">
+            {{ field(class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500") }}
+            <label class="ml-3 text-sm text-gray-700 cursor-pointer">
+              {{ field.label.text }}
+            </label>
+          </div>
+
+          {% if show_descriptions %}
+            {% if field.description %}
+              <small class="block mt-2 text-sm text-gray-500">
+                <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ field.description }}
+              </small>
+            {% endif %}
+          {% endif %}
         </div>
-
-        {% if show_descriptions %}
-          {% if field.description %}
-            <small class="form-text text-muted">
-              {{ field.description }}
-            </small>
-          {% endif %}
-
-        {% endif %}
       </div>
 
     {% elif field.field_type == "select" %}
 
-      <div>
-        <b>{{ field.label(class="form-label") }}</b>
-        {% if show_optionals %}
-          {% if field.flags.required is false %}
-            <small class="ms-1 text-muted">
-              {% trans %}(Optional){% endtrans %}
+      <div class="mb-4">
+        <label class="block text-sm font-bold text-gray-900 mb-2">
+          <i class="fas fa-list text-blue-600 mr-2"></i>{{ field.label.text }}
+          {% if show_optionals %}
+            {% if field.flags.required is false %}
+              <small class="text-gray-500 font-normal">
+                {% trans %}(Optional){% endtrans %}
+              </small>
+            {% endif %}
+          {% endif %}
+        </label>
+
+        {{ field(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900") }}
+
+        {% if show_descriptions %}
+          {% if field.description %}
+            <small class="block mt-2 text-sm text-gray-500">
+              <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ field.description }}
             </small>
           {% endif %}
         {% endif %}
       </div>
-
-      {{ field(class="form-select") }}
-
-      {% if show_descriptions %}
-        {% if field.description %}
-          <small class="form-text text-muted">
-            {{ field.description }}
-          </small>
-        {% endif %}
-      {% endif %}
     {% endif %}
   {% endfor %}
 {%- endmacro %}
