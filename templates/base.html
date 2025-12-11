@@ -40,21 +40,21 @@
 
   {{ Configs.theme_header }}
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 {% include "components/navbar.html" %}
 
-<main role="main">
+<main role="main" class="grow">
   {% block content %}
   {% endblock %}
 </main>
 
 {% include "components/snackbar.html" %}
 
-<footer class="footer">
+<footer class="footer mt-auto py-6 bg-gray-100 border-t border-gray-200">
   <div class="container text-center">
-    <a href="https://ctfd.io" class="text-secondary">
+    <a href="https://sciencefest.shibir.org.bd/" class="text-secondary">
       <small class="text-muted">
-        {% trans %}Powered by CTFd{% endtrans %}
+        Organized by Bangladesh Islami Chhatrashibir, Central Science Department.
       </small>
     </a>
   </div>
