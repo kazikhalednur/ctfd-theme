@@ -3,21 +3,21 @@
     <div class="p-6 sm:p-8">
 
       <div class="relative mb-6">
-        <button type="button" class="absolute top-0 right-0 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all duration-200 text-xl font-light" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="absolute top-0 right-0 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all duration-200 text-xl font-light" data-bs-dismiss="modal" aria-label="Close" @click.prevent="closeModal()">
           <i class="fas fa-times"></i>
         </button>
 
-        <ul class="flex border-b-2 border-gray-100 gap-0 -mb-px">
-          <li class="">
-            <button class="px-6 py-3 border-b-2 border-blue-600 text-blue-600 font-semibold transition-colors duration-200 relative -mb-0.5" data-bs-target="#challenge" @click="showChallenge()">
+        <ul class="flex border-b-2 border-gray-100 gap-0 -mb-px nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <button id="challenge-tab" type="button" data-bs-toggle="tab" class="nav-link px-6 py-3 border-b-2 border-blue-600 text-blue-600 font-semibold transition-colors duration-200 relative -mb-0.5 active" data-bs-target="#challenge" role="tab" aria-controls="challenge" aria-selected="true" @click="showChallenge()">
               {% trans %}Challenge{% endtrans %}
             </button>
           </li>
 
           {% block submissions %}
             {% if Configs.view_self_submissions %}
-            <li class="">
-              <button class="px-6 py-3 border-b-2 border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 font-medium transition-all duration-200 challenge-submissions" data-bs-target="#submissions" @click="showSubmissions()">
+            <li class="nav-item">
+              <button id="submissions-tab" type="button" data-bs-toggle="tab" class="nav-link px-6 py-3 border-b-2 border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 font-medium transition-all duration-200 challenge-submissions" data-bs-target="#submissions" role="tab" aria-controls="submissions" aria-selected="false" @click="showSubmissions()">
                 {% if solves != None %}
                   Submissions
                 {% endif %}
@@ -28,8 +28,8 @@
 
           {% block solution %}
             {% if challenge.solution_id %}
-            <li class="" x-show="getSolutionId()">
-              <button class="px-6 py-3 border-b-2 border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 font-medium transition-all duration-200 challenge-solution" data-bs-target="#solution" @click="showSolution()">
+            <li class="nav-item" x-show="getSolutionId()">
+              <button id="solution-tab" type="button" data-bs-toggle="tab" class="nav-link px-6 py-3 border-b-2 border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 font-medium transition-all duration-200 challenge-solution" data-bs-target="#solution" role="tab" aria-controls="solution" aria-selected="false" @click="showSolution()">
                 {% trans %}Solution{% endtrans %}
               </button>
             </li>
@@ -38,8 +38,8 @@
 
           {% block solves %}
             {% if solves != None %}
-            <li class="">
-              <button class="px-6 py-3 border-b-2 border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 font-medium transition-all duration-200 challenge-solves" data-bs-target="#solves" @click="showSolves()">
+            <li class="nav-item">
+              <button id="solves-tab" type="button" data-bs-toggle="tab" class="nav-link px-6 py-3 border-b-2 border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300 font-medium transition-all duration-200 challenge-solves" data-bs-target="#solves" role="tab" aria-controls="solves" aria-selected="false" @click="showSolves()">
                   {{ ngettext("%(num)d Solve", "%(num)d Solves", solves) }}
               </button>
             </li>
@@ -48,9 +48,8 @@
         </ul>
       </div>
 
-      <div>
-        <div class="">
-          <div role="tabpanel" class="" id="challenge">
+      <div class="tab-content">
+        <div class="tab-pane show active" role="tabpanel" id="challenge" aria-labelledby="challenge-tab">
             <div class="text-center mb-8">
               <h2 class="challenge-name text-4xl font-bold text-gray-900 mb-3">
                 {{ challenge.name }}
@@ -336,7 +335,7 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="" id="submissions">
+          <div class="tab-pane" role="tabpanel" id="submissions" aria-labelledby="submissions-tab" style="display: none;">
             <div class="py-6">
               <div class="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
                 <table class="w-full border-collapse">
@@ -376,7 +375,7 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="" id="solves">
+          <div class="tab-pane" role="tabpanel" id="solves" aria-labelledby="solves-tab" style="display: none;">
             <div class="py-6">
               <div class="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
                 <table class="w-full border-collapse">
@@ -404,7 +403,7 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="" id="solution">
+          <div class="tab-pane" role="tabpanel" id="solution" aria-labelledby="solution-tab" style="display: none;">
             <div class="py-6">
               <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200 p-8 shadow-sm">
                 <div class="flex items-center gap-3 mb-6">

@@ -106,7 +106,7 @@ Alpine.data("Tokens", () => ({
     if (!this.tokensTbody) return;
     this.tokensTbody.innerHTML = tokens
       .map(
-        (token) => `
+        token => `
           <tr x-ref="token-${token.id}" class="border-b border-gray-200 hover:bg-blue-50 transition">
             <td class="text-center px-4 py-3">
               <span data-time="${token.created}"></span>
@@ -127,7 +127,7 @@ Alpine.data("Tokens", () => ({
               </button>
             </td>
           </tr>
-        `
+        `,
       )
       .join("");
   },

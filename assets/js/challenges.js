@@ -82,10 +82,6 @@ Alpine.data("Challenge", () => ({
   ratingReview: "",
   ratingSubmitted: false,
 
-  async init() {
-    highlight();
-  },
-
   getStyles() {
     let styles = {
       "modal-dialog": true,
@@ -117,27 +113,58 @@ Alpine.data("Challenge", () => ({
     highlight();
   },
 
+  setActiveTab(tabId) {
+    const root = this.$root || document;
+    const pane = root.querySelector(`#${tabId}`);
+    if (!pane) return;
+
+    // Toggle panes
+    root.querySelectorAll("[role='tabpanel']").forEach(el => {
+      el.classList.remove("show", "active");
+      el.style.display = "none";
+    });
+    pane.classList.add("show", "active");
+    pane.style.display = "block";
+
+    // Toggle tab buttons
+    root.querySelectorAll("[role='tab']").forEach(btn => {
+      btn.classList.remove("active");
+      btn.setAttribute("aria-selected", "false");
+      btn.classList.remove("border-blue-600", "text-blue-600");
+      btn.classList.add("border-transparent", "text-gray-600");
+    });
+    const tabButton = root.querySelector(
+      `[data-bs-target="#${tabId}"], [href="#${tabId}"]`,
+    );
+    if (tabButton) {
+      tabButton.classList.add("active");
+      tabButton.setAttribute("aria-selected", "true");
+      tabButton.classList.remove("border-transparent", "text-gray-600");
+      tabButton.classList.add("border-blue-600", "text-blue-600");
+    }
+  },
+
   async showChallenge() {
-    new Tab(this.$el).show();
+    this.setActiveTab("challenge");
   },
 
   async showSolves() {
+    this.setActiveTab("solves");
     this.solves = await CTFd.pages.challenge.loadSolves(this.id);
     this.solves.forEach(solve => {
       solve.date = dayjs(solve.date).format("MMMM Do, h:mm:ss A");
       return solve;
     });
-    new Tab(this.$el).show();
   },
 
   async showSubmissions() {
+    this.setActiveTab("submissions");
     let response = await CTFd.pages.users.userSubmissions("me", this.id);
     this.submissions = response.data;
     this.submissions.forEach(s => {
       s.date = dayjs(s.date).format("MMMM Do, h:mm:ss A");
       return s;
     });
-    new Tab(this.$el).show();
   },
 
   getSolutionId() {
@@ -146,10 +173,11 @@ Alpine.data("Challenge", () => ({
   },
 
   async showSolution() {
+    this.setActiveTab("solution");
     let solution_id = this.getSolutionId();
     CTFd._functions.challenge.displaySolution = solution => {
       this.solution = solution.html;
-      new Tab(this.$el).show();
+      this.setActiveTab("solution");
     };
     await CTFd.pages.challenge.displaySolution(solution_id);
   },
@@ -157,6 +185,20 @@ Alpine.data("Challenge", () => ({
   getNextId() {
     let data = Alpine.store("challenge").data;
     return data.next_id;
+  },
+
+  closeModal() {
+    const modal = Modal.getOrCreateInstance("[x-ref='challengeWindow']");
+    if (!modal) return;
+    // clean the URL hash when closing manually
+    if (modal._element) {
+      modal._element.addEventListener(
+        "hidden.modal",
+        () => history.replaceState(null, null, " "),
+        { once: true },
+      );
+    }
+    modal.hide();
   },
 
   async nextChallenge() {

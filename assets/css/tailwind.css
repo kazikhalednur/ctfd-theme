@@ -100,8 +100,8 @@
 
   .modal-dialog {
     @apply relative w-auto mx-auto my-8;
-    max-width: 95vw;
-    max-height: 90vh;
+    max-width: 60vw;
+    max-height: 80vh;
     overflow-y: auto;
   }
 
