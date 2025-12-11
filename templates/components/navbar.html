@@ -137,22 +137,6 @@
             </a>
           {% endif %}
 
-          <!-- Language Selector -->
-          <div class="relative group">
-            <button class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors flex items-center gap-1" type="button">
-              <i class="fas fa-language hidden md:inline"></i>
-              <span class="md:hidden">{% trans %}Language{% endtrans %}</span>
-            </button>
-            <form x-data="LanguageForm" class="hidden group-hover:block absolute right-0 mt-0 w-48 bg-white text-gray-900 rounded-lg shadow-xl py-1 z-50">
-              {% set curr_lang = get_locale() %}
-              {%- for lang in Languages.names.items() %}
-              <span class="block px-4 py-2 text-sm hover:bg-blue-500 hover:text-white cursor-pointer {{ 'bg-blue-600 text-white' if (curr_lang == lang[0]) }}" @click="set" value="{{ lang[0] }}">
-                {{ lang[1] }}
-              </span>
-              {%- endfor %}
-            </form>
-          </div>
-
           <!-- Theme Switcher -->
           <!-- <button class="px-3 py-2 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors theme-switch" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{% trans %}Toggle theme{% endtrans %}">
             <i class="fas fa-sun hidden md:inline"></i>
