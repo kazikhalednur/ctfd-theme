@@ -6,8 +6,390 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    {{ content | safe }}
+  <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="space-y-16">
+      <!-- Countdown Clock Section -->
+      <section class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 md:p-12 shadow-lg">
+        <div class="text-center mb-8">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+            {{ Configs.ctf_name }}
+          </h2>
+          <p class="text-lg text-gray-600 font-medium">{% trans %}Event Countdown{% endtrans %}</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+          <!-- Preliminary Round -->
+          <div
+            class="countdown-card bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-xl transition-shadow duration-300"
+            data-round="preliminary"
+            data-target="2025-12-11T18:00:00"
+          >
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="text-2xl font-bold text-gray-900">{% trans %}Preliminary Round{% endtrans %}</h3>
+              <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-semibold">
+                {% trans %}Upcoming{% endtrans %}
+              </span>
+            </div>
+            <div class="grid grid-cols-4 gap-3 md:gap-4 mb-6">
+              <div class="text-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                <span class="time-value days block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Days{% endtrans %}</span>
+              </div>
+              <div class="text-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                <span class="time-value hours block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Hours{% endtrans %}</span>
+              </div>
+              <div class="text-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                <span class="time-value minutes block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Minutes{% endtrans %}</span>
+              </div>
+              <div class="text-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                <span class="time-value seconds block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Seconds{% endtrans %}</span>
+              </div>
+            </div>
+            <div class="space-y-2 text-gray-700">
+              <p class="flex items-center gap-2">
+                <i class="fas fa-calendar text-blue-600"></i>
+                <span class="font-medium">{% trans %}Date:{% endtrans %}</span>
+                <span class="event-date">Dec 11, 2025</span>
+              </p>
+              <p class="flex items-center gap-2">
+                <i class="fas fa-clock text-blue-600"></i>
+                <span class="font-medium">{% trans %}Time:{% endtrans %}</span>
+                <span class="event-time">6:00 PM</span>
+              </p>
+              <p class="flex items-center gap-2">
+                <i class="fas fa-globe text-blue-600"></i>
+                <span class="font-medium">{% trans %}Mode:{% endtrans %}</span>
+                <span class="event-mode">{% trans %}Online{% endtrans %}</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Final Round -->
+          <div
+            class="countdown-card bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-xl transition-shadow duration-300"
+            data-round="final"
+            data-target="2025-12-20T21:00:00"
+          >
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="text-2xl font-bold text-gray-900">{% trans %}Final Round{% endtrans %}</h3>
+              <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-semibold">
+                {% trans %}Upcoming{% endtrans %}
+              </span>
+            </div>
+            <div class="grid grid-cols-4 gap-3 md:gap-4 mb-6">
+              <div class="text-center bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                <span class="time-value days block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Days{% endtrans %}</span>
+              </div>
+              <div class="text-center bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                <span class="time-value hours block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Hours{% endtrans %}</span>
+              </div>
+              <div class="text-center bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                <span class="time-value minutes block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Minutes{% endtrans %}</span>
+              </div>
+              <div class="text-center bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                <span class="time-value seconds block text-2xl md:text-3xl font-bold">00</span>
+                <span class="time-label block text-xs md:text-sm mt-1 opacity-90">{% trans %}Seconds{% endtrans %}</span>
+              </div>
+            </div>
+            <div class="space-y-2 text-gray-700">
+              <p class="flex items-center gap-2">
+                <i class="fas fa-calendar text-purple-600"></i>
+                <span class="font-medium">{% trans %}Date:{% endtrans %}</span>
+                <span class="event-date">Dec 20, 2025</span>
+              </p>
+              <p class="flex items-center gap-2">
+                <i class="fas fa-clock text-purple-600"></i>
+                <span class="font-medium">{% trans %}Time:{% endtrans %}</span>
+                <span class="event-time">09:00 PM</span>
+              </p>
+              <p class="flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-purple-600"></i>
+                <span class="font-medium">{% trans %}Venue:{% endtrans %}</span>
+                <span class="event-venue">Krishibid Institution Bangladesh, Farmgate, Dhaka</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contest Overview Section -->
+      <section class="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+            {{ Configs.ctf_name or "Al Khwarizmi CTF Contest" }}
+          </h2>
+          <div class="px-4 py-2 bg-red-100 text-red-800 rounded-full text-sm font-semibold flex items-center gap-2">
+            <i class="fas fa-times-circle"></i>
+            <span>{% trans %}Registration Closed{% endtrans %}</span>
+          </div>
+        </div>
+        <div class="space-y-4 text-gray-700">
+          <p class="text-lg leading-relaxed">
+            {% trans %}A dynamic cybersecurity competition designed to test the skills of problem-solvers and digital defenders. Participants engage with real-world scenarios in a safe, ethical environment, challenging their critical thinking and technical expertise. The contest promotes teamwork, learning, and hands-on experience in cyber defense.{% endtrans %}
+          </p>
+          <p class="text-lg flex items-start gap-3 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+            <i class="fas fa-lightbulb text-yellow-600 mt-1"></i>
+            <span>
+              {% trans %}Inspired by Al-Khwarizmi's legacy of logic and innovation, this event blends knowledge, strategy, and creativity.{% endtrans %}
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <!-- Eligibility & Team Formation Section -->
+      <section class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8 md:p-12 shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+          {% trans %}Eligibility & Team Requirements{% endtrans %}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div class="bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+              <i class="fas fa-graduation-cap text-3xl text-blue-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">{% trans %}Who Can Participate?{% endtrans %}</h3>
+            <ul class="space-y-2 text-gray-700">
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                <span>{% trans %}Undergraduate (Honors or equivalent) students{% endtrans %}</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                <span>{% trans %}Diploma students from any university or institute{% endtrans %}</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                <span>{% trans %}Cross-university teams allowed{% endtrans %}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+              <i class="fas fa-users text-3xl text-purple-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">{% trans %}Team Formation{% endtrans %}</h3>
+            <div class="space-y-3">
+              <p class="text-lg font-semibold text-gray-900">
+                {% trans %}Team Members:{% endtrans %} 1 {% trans %}to{% endtrans %} 4
+              </p>
+              <p class="text-gray-700">
+                {% trans %}Form your dream team and compete together!{% endtrans %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contest Timeline Section -->
+      <section class="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+          {% trans %}Contest Timeline{% endtrans %}
+        </h2>
+        <div class="relative">
+          <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 transform md:-translate-x-1/2"></div>
+          
+          <div class="space-y-12">
+            <div class="relative flex flex-col md:flex-row items-start gap-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white shadow-lg z-10">
+                <i class="fas fa-check text-xl"></i>
+              </div>
+              <div class="flex-1 bg-blue-50 rounded-xl p-6 md:p-8 shadow-md">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans %}Preliminary Round{% endtrans %}</h3>
+                <div class="space-y-2 text-gray-700">
+                  <p><strong>{% trans %}Date:{% endtrans %}</strong> Dec 11, 2025</p>
+                  <p><strong>{% trans %}Duration:{% endtrans %}</strong> 6:00 PM – 12:00 AM (6 {% trans %}hours{% endtrans %})</p>
+                  <p>
+                    <strong>{% trans %}Mode:{% endtrans %}</strong>
+                    <span class="ml-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">{% trans %}Online{% endtrans %}</span>
+                  </p>
+                  <p class="text-gray-600 mt-2">
+                    {% trans %}Selected teams will qualify for the Final Round{% endtrans %}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative flex justify-center md:hidden">
+              <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-lg">
+                <i class="fas fa-arrow-down"></i>
+              </div>
+            </div>
+
+            <div class="relative flex flex-col md:flex-row items-start gap-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center text-white shadow-lg z-10">
+                <i class="fas fa-crown text-xl"></i>
+              </div>
+              <div class="flex-1 bg-purple-50 rounded-xl p-6 md:p-8 shadow-md">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans %}Final Round{% endtrans %}</h3>
+                <div class="space-y-2 text-gray-700">
+                  <p><strong>{% trans %}Date:{% endtrans %}</strong> Dec 20, 2025</p>
+                  <p><strong>{% trans %}Duration:{% endtrans %}</strong> 09:00 AM – 2:00 PM (4 {% trans %}hours{% endtrans %})</p>
+                  <p>
+                    <strong>{% trans %}Venue:{% endtrans %}</strong>
+                    <span class="ml-2 px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-semibold">{% trans %}On-Site{% endtrans %}</span>
+                  </p>
+                  <p class="text-gray-600 mt-2">
+                    Krishibid Institution Bangladesh, Farmgate, Dhaka
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prizes Section -->
+      <section class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 rounded-2xl p-8 md:p-12 shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+          {% trans %}Prizes & Awards{% endtrans %}
+        </h2>
+        <p class="text-lg text-gray-700 text-center mb-8">
+          {% trans %}Top 5 teams in the Final Round will receive prize money, gift packs, and T-shirts{% endtrans %}
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-yellow-300">
+            <div class="flex flex-col items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white mb-3">
+                <i class="fas fa-medal text-2xl"></i>
+              </div>
+              <span class="text-sm font-bold text-gray-700">1st</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 text-center">{% trans %}First Place{% endtrans %}</h3>
+            <p class="text-2xl font-bold text-yellow-600 mb-2 text-center">70,000 BDT</p>
+            <p class="text-sm text-gray-600 text-center">+ {% trans %}Gift Pack & T-Shirt{% endtrans %}</p>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-gray-300">
+            <div class="flex flex-col items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white mb-3">
+                <i class="fas fa-medal text-2xl"></i>
+              </div>
+              <span class="text-sm font-bold text-gray-700">2nd</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 text-center">{% trans %}Second Place{% endtrans %}</h3>
+            <p class="text-2xl font-bold text-gray-600 mb-2 text-center">50,000 BDT</p>
+            <p class="text-sm text-gray-600 text-center">+ {% trans %}Gift Pack & T-Shirt{% endtrans %}</p>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-orange-300">
+            <div class="flex flex-col items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white mb-3">
+                <i class="fas fa-medal text-2xl"></i>
+              </div>
+              <span class="text-sm font-bold text-gray-700">3rd</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 text-center">{% trans %}Third Place{% endtrans %}</h3>
+            <p class="text-2xl font-bold text-orange-600 mb-2 text-center">40,000 BDT</p>
+            <p class="text-sm text-gray-600 text-center">+ {% trans %}Gift Pack & T-Shirt{% endtrans %}</p>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-300">
+            <div class="flex flex-col items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white mb-3">
+                <i class="fas fa-award text-2xl"></i>
+              </div>
+              <span class="text-sm font-bold text-gray-700">4th</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 text-center">{% trans %}Fourth Place{% endtrans %}</h3>
+            <p class="text-2xl font-bold text-blue-600 mb-2 text-center">35,000 BDT</p>
+            <p class="text-sm text-gray-600 text-center">+ {% trans %}Gift Pack & T-Shirt{% endtrans %}</p>
+          </div>
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-green-300">
+            <div class="flex flex-col items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white mb-3">
+                <i class="fas fa-award text-2xl"></i>
+              </div>
+              <span class="text-sm font-bold text-gray-700">5th</span>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 text-center">{% trans %}Fifth Place{% endtrans %}</h3>
+            <p class="text-2xl font-bold text-green-600 mb-2 text-center">30,000 BDT</p>
+            <p class="text-sm text-gray-600 text-center">+ {% trans %}Gift Pack & T-Shirt{% endtrans %}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- General Rules Section -->
+      <section class="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+          {% trans %}General Rules{% endtrans %}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="flex gap-4 p-6 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300">
+            <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              1
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans %}Fair Play{% endtrans %}</h3>
+              <p class="text-gray-700">
+                {% trans %}Participants must maintain fairness and follow all contest rules throughout the competition.{% endtrans %}
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-6 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300">
+            <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              2
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans %}Final Authority{% endtrans %}</h3>
+              <p class="text-gray-700">
+                {% trans %}All decisions made by the organizing committee are final and binding.{% endtrans %}
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-6 bg-gray-50 rounded-xl hover:shadow-md transition-shadow duration-300">
+            <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              3
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">{% trans %}Code of Conduct{% endtrans %}</h3>
+              <p class="text-gray-700">
+                {% trans %}Maintain ethical standards and respect all participants, organizers, and infrastructure.{% endtrans %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social Media Section -->
+      <section class="bg-white rounded-2xl p-8 md:p-12 shadow-lg text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          {% trans %}Follow us on social media:{% endtrans %}
+        </h2>
+        <div class="flex justify-center gap-4 md:gap-6">
+          <a href="https://www.fb.com/bangladeshislamichhatrashibir" class="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 transform hover:scale-110 shadow-md hover:shadow-lg" title="Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="https://www.youtube.com/IslamiChhatrashibir" class="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 transform hover:scale-110 shadow-md hover:shadow-lg" title="GitHub">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.instagram.com/islami_chhatrashibir" class="w-14 h-14 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 transform hover:scale-110 shadow-md hover:shadow-lg" title="Twitter">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-8 md:p-12 shadow-lg text-white text-center">
+        <div class="max-w-2xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">{% trans %}Ready to get started?{% endtrans %}</h2>
+          <p class="text-lg mb-8 text-blue-100">{% trans %}Join the community and start solving challenges today{% endtrans %}</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            {% if not User %}
+              <a href="{{ url_for('auth.login') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-md hover:shadow-lg">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>{% trans %}Click here to login{% endtrans %}</span>
+              </a>
+            {% else %}
+              <a href="{{ url_for('challenges.listing') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-300 shadow-md hover:shadow-lg">
+                <i class="fas fa-flag"></i>
+                <span>{% trans %}View Challenges{% endtrans %}</span>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 {% endblock %}
 
