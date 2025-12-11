@@ -3,93 +3,172 @@
 {% block content %}
   <div id="team-edit-modal" class="modal fade">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-action text-center w-100">{% trans %}Edit Team{% endtrans %}</h2>
-          <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="modal" aria-label="Close">
-          </button>
+      <div class="modal-content overflow-hidden shadow-2xl">
+        <div class="modal-header bg-gradient-to-r from-blue-600 to-blue-700 text-white border-0 px-6 py-5">
+          <div class="flex items-center gap-3 w-full">
+            <div class="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+              <i class="fas fa-users-cog text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold mb-0">{% trans %}Edit Team{% endtrans %}</h2>
+              <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}Update your team's profile information{% endtrans %}</p>
+            </div>
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
         </div>
 
-        <div class="modal-body clearfix" x-data="TeamEditModal">
+        <div class="modal-body px-6 py-6 bg-gray-50" x-data="TeamEditModal">
           {% with form = Forms.teams.TeamSettingsForm(obj=team) %}
             {% from "macros/forms.html" import render_extra_fields %}
             <form id="team-info-form" method="POST" @submit.prevent="updateProfile()">
+              <div class="space-y-5">
+                <!-- Team Name -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 hover:border-blue-300 transition-colors">
+                  <label class="block text-sm font-bold text-gray-900 mb-2.5">
+                    <i class="fas fa-tag text-blue-600 mr-2"></i>{{ form.name.label.text }}
+                  </label>
+                  {{ form.name(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900 placeholder-gray-400") }}
+                  {% if form.name.description %}
+                    <small class="block mt-2.5 text-sm text-gray-500 leading-relaxed">
+                      <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ form.name.description }}
+                    </small>
+                  {% endif %}
+                </div>
 
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.name.label.text }}</b>
-                {{ form.name(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
-                <small class="block mt-2 text-sm text-gray-600">
-                  {{ form.name.description }}
-                </small>
+                <!-- Password Fields Group -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+                  <h3 class="text-sm font-bold text-gray-900 mb-4 flex items-center">
+                    <i class="fas fa-lock text-blue-600 mr-2"></i>{% trans %}Password Settings{% endtrans %}
+                  </h3>
+                  <div class="space-y-4">
+                    <div>
+                      <label class="block text-sm font-semibold text-gray-700 mb-2">{{ form.password.label.text }}</label>
+                      {{ form.password(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900 placeholder-gray-400") }}
+                      {% if form.password.description %}
+                        <small class="block mt-2 text-sm text-gray-500">
+                          <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ form.password.description }}
+                        </small>
+                      {% endif %}
+                    </div>
+                    <div>
+                      <label class="block text-sm font-semibold text-gray-700 mb-2">{{ form.confirm.label.text }}</label>
+                      {{ form.confirm(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900 placeholder-gray-400") }}
+                      {% if form.confirm.description %}
+                        <small class="block mt-2 text-sm text-gray-500">
+                          <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ form.confirm.description }}
+                        </small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contact & Location Group -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+                  <h3 class="text-sm font-bold text-gray-900 mb-4 flex items-center">
+                    <i class="fas fa-globe text-blue-600 mr-2"></i>{% trans %}Contact & Location{% endtrans %}
+                  </h3>
+                  <div class="space-y-4">
+                    <div>
+                      <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-link text-gray-400 mr-2"></i>{{ form.website.label.text }}
+                      </label>
+                      {{ form.website(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900 placeholder-gray-400") }}
+                      {% if form.website.description %}
+                        <small class="block mt-2 text-sm text-gray-500">
+                          <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ form.website.description }}
+                        </small>
+                      {% endif %}
+                    </div>
+                    <div>
+                      <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-building text-gray-400 mr-2"></i>{{ form.affiliation.label.text }}
+                      </label>
+                      {{ form.affiliation(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900 placeholder-gray-400") }}
+                      {% if form.affiliation.description %}
+                        <small class="block mt-2 text-sm text-gray-500">
+                          <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ form.affiliation.description }}
+                        </small>
+                      {% endif %}
+                    </div>
+                    <div>
+                      <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-flag text-gray-400 mr-2"></i>{{ form.country.label.text }}
+                      </label>
+                      {{ form.country(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900") }}
+                      {% if form.country.description %}
+                        <small class="block mt-2 text-sm text-gray-500">
+                          <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{{ form.country.description }}
+                        </small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Extra Fields -->
+                {% if form.extra %}
+                  <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+                    <h3 class="text-sm font-bold text-gray-900 mb-4 flex items-center">
+                      <i class="fas fa-plus-circle text-blue-600 mr-2"></i>{% trans %}Additional Information{% endtrans %}
+                    </h3>
+                    {{ render_extra_fields(form.extra) }}
+                  </div>
+                {% endif %}
               </div>
 
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.password.label.text }}</b>
-                {{ form.password(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
-                <small class="block mt-2 text-sm text-gray-600">
-                  {{ form.password.description }}
-                </small>
-              </div>
-
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.confirm.label.text }}</b>
-                {{ form.confirm(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
-                <small class="block mt-2 text-sm text-gray-600">
-                  {{ form.confirm.description }}
-                </small>
-              </div>
-
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.website.label.text }}</b>
-                {{ form.website(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
-                <small class="block mt-2 text-sm text-gray-600">
-                  {{ form.website.description }}
-                </small>
-              </div>
-
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.affiliation.label.text }}</b>
-                {{ form.affiliation(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
-                <small class="block mt-2 text-sm text-gray-600">
-                  {{ form.affiliation.description }}
-                </small>
-              </div>
-
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.country.label.text }}</b>
-                {{ form.country(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white") }}
-                <small class="block mt-2 text-sm text-gray-600">
-                  {{ form.country.description }}
-                </small>
-              </div>
-
-              <div class="border-t border-gray-200 my-6"></div>
-
-              {{ render_extra_fields(form.extra) }}
-
-              <div id="results">
+              <!-- Messages -->
+              <div id="results" class="mt-6 space-y-3">
                 <div
-                    class="alert alert-success alert-dismissible submit-row"
-                    role="alert" x-cloak="success" x-show="success"
+                    class="flex items-start gap-3 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg shadow-sm"
+                    role="alert"
+                    x-cloak
+                    x-show="success"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
                 >
-                  <strong>Success!</strong>
-                  {% trans %}Your team's profile has been updated{% endtrans %}
-                  <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                  </div>
+                  <div class="flex-1">
+                    <strong class="block text-green-800 font-semibold mb-1">{% trans %}Success!{% endtrans %}</strong>
+                    <p class="text-green-700 text-sm mb-0">{% trans %}Your team's profile has been updated{% endtrans %}</p>
+                  </div>
+                  <button type="button" class="flex-shrink-0 text-green-500 hover:text-green-700 transition-colors" @click="success = false" aria-label="Close">
+                    <i class="fas fa-times"></i>
                   </button>
                 </div>
 
                 <template x-for="(msg, idx) in errors" :key="idx">
-                  <div class="alert alert-danger alert-dismissible" role="alert">
-                    <span class="sr-only">{% trans %}Error:{% endtrans %}</span>
-                    <span x-text="msg"></span>
-
-                    <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  <div
+                      class="flex items-start gap-3 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg shadow-sm"
+                      role="alert"
+                      x-transition:enter="transition ease-out duration-300"
+                      x-transition:enter-start="opacity-0 transform translate-y-2"
+                      x-transition:enter-end="opacity-100 transform translate-y-0"
+                  >
+                    <div class="flex-shrink-0">
+                      <i class="fas fa-exclamation-circle text-red-500 text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                      <span class="sr-only">{% trans %}Error:{% endtrans %}</span>
+                      <p class="text-red-700 text-sm mb-0" x-text="msg"></p>
+                    </div>
+                    <button type="button" class="flex-shrink-0 text-red-500 hover:text-red-700 transition-colors" @click="errors.splice(idx, 1)" aria-label="Close">
+                      <i class="fas fa-times"></i>
                     </button>
                   </div>
                 </template>
               </div>
 
-              {{ form.submit(class="btn btn-primary float-end px-4 modal-action") }}
+              <!-- Form Actions -->
+              <div class="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
+                <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" data-bs-dismiss="modal">
+                  {% trans %}Cancel{% endtrans %}
+                </button>
+                {{ form.submit(class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
+              </div>
             </form>
           {% endwith %}
         </div>
@@ -99,47 +178,86 @@
 
   <div id="team-captain-modal" x-data="TeamCaptainModal" class="modal fade">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-action text-center w-100">{% trans %}Choose Captain{% endtrans %}</h2>
-          <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="modal" aria-label="Close">
-          </button>
+      <div class="modal-content overflow-hidden shadow-2xl">
+        <div class="modal-header bg-gradient-to-r from-blue-600 to-blue-700 text-white border-0 px-6 py-5">
+          <div class="flex items-center gap-3 w-full">
+            <div class="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+              <i class="fas fa-user-tag text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold mb-0">{% trans %}Choose Captain{% endtrans %}</h2>
+              <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}Transfer captain rights to another team member{% endtrans %}</p>
+            </div>
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
         </div>
-        <div class="modal-body clearfix">
+        <div class="modal-body px-6 py-6 bg-gray-50">
           {% with form = Forms.teams.TeamCaptainForm(captain_id=team.captain_id) %}
             <form id="team-captain-form" method="POST" @submit.prevent="updateCaptain()">
-              <div class="mb-6">
-                <label class="block text-sm font-semibold text-gray-700 mb-2">{{ form.captain_id.label.text }}</label>
+              <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200 mb-6">
+                <label class="block text-sm font-bold text-gray-900 mb-3">
+                  <i class="fas fa-users text-blue-600 mr-2"></i>{{ form.captain_id.label.text }}
+                </label>
                 {% for member in team.members %}
                   {# Append members to the select choices #}
                   {% set _ = form.captain_id.choices.append((member.id, member.name)) %}
                 {% endfor %}
-                {{ form.captain_id(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white") }}
+                {{ form.captain_id(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900") }}
+                <small class="block mt-3 text-sm text-gray-500">
+                  <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{% trans %}Select a team member to transfer captain privileges{% endtrans %}
+                </small>
               </div>
-              <div id="results">
+
+              <!-- Messages -->
+              <div id="results" class="mb-6 space-y-3">
                 <div
-                    class="alert alert-success alert-dismissible submit-row"
+                    class="flex items-start gap-3 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg shadow-sm"
                     role="alert"
-                    x-cloak="success"
+                    x-cloak
                     x-show="success"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
                 >
-                  <strong>Success!</strong>
-                  {% trans %}Your captain rights have been transferred{% endtrans %}
-                  <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                  </div>
+                  <div class="flex-1">
+                    <strong class="block text-green-800 font-semibold mb-1">{% trans %}Success!{% endtrans %}</strong>
+                    <p class="text-green-700 text-sm mb-0">{% trans %}Your captain rights have been transferred{% endtrans %}</p>
+                  </div>
+                  <button type="button" class="flex-shrink-0 text-green-500 hover:text-green-700 transition-colors" @click="success = false" aria-label="Close">
+                    <i class="fas fa-times"></i>
                   </button>
                 </div>
                 <template x-for="(msg, idx) in errors" :key="idx">
-                  <div class="alert alert-danger alert-dismissible" role="alert">
-                    <span class="sr-only">Error:</span>
-                    <span x-text="msg"></span>
-                    <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="alert" aria-label="Close">
+                  <div
+                      class="flex items-start gap-3 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg shadow-sm"
+                      role="alert"
+                      x-transition:enter="transition ease-out duration-300"
+                      x-transition:enter-start="opacity-0 transform translate-y-2"
+                      x-transition:enter-end="opacity-100 transform translate-y-0"
+                  >
+                    <div class="flex-shrink-0">
+                      <i class="fas fa-exclamation-circle text-red-500 text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                      <span class="sr-only">{% trans %}Error:{% endtrans %}</span>
+                      <p class="text-red-700 text-sm mb-0" x-text="msg"></p>
+                    </div>
+                    <button type="button" class="flex-shrink-0 text-red-500 hover:text-red-700 transition-colors" @click="errors.splice(idx, 1)" aria-label="Close">
+                      <i class="fas fa-times"></i>
                     </button>
                   </div>
                 </template>
               </div>
-              <div class="flex justify-end gap-3 mt-6">
-                <button type="button" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" data-bs-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                {{ form.submit(class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition transform hover:scale-105") }}
+
+              <!-- Form Actions -->
+              <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200">
+                <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" data-bs-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                {{ form.submit(class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
               </div>
             </form>
           {% endwith %}
@@ -150,33 +268,55 @@
 
   <div id="team-invite-modal" x-data="TeamInviteModal" class="modal fade">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-action text-center w-100">{% trans %}Invite Users{% endtrans %}</h2>
-          <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="modal" aria-label="Close">
-          </button>
+      <div class="modal-content overflow-hidden shadow-2xl">
+        <div class="modal-header bg-gradient-to-r from-blue-600 to-blue-700 text-white border-0 px-6 py-5">
+          <div class="flex items-center gap-3 w-full">
+            <div class="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+              <i class="fas fa-ticket-alt text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold mb-0">{% trans %}Invite Users{% endtrans %}</h2>
+              <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}Generate an invite link for your team{% endtrans %}</p>
+            </div>
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
         </div>
-        <div class="modal-body clearfix">
+        <div class="modal-body px-6 py-6 bg-gray-50">
           {% with form = Forms.teams.TeamInviteForm() %}
             <form method="POST">
-              <div class="mb-6">
-                <b class="block text-sm font-semibold text-gray-700 mb-2">{{ form.link.label.text }}</b>
+              <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
+                <label class="block text-sm font-bold text-gray-900 mb-3">
+                  <i class="fas fa-link text-blue-600 mr-2"></i>{{ form.link.label.text }}
+                </label>
 
                 <div class="flex gap-2 mb-4">
-                  {{ form.link(id="team-invite-link", class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", **{"x-ref": "link", "x-bind:value": "$store.inviteToken"}) }}
+                  {{ form.link(id="team-invite-link", class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900 font-mono text-sm", **{"x-ref": "link", "x-bind:value": "$store.inviteToken"}) }}
 
-                  <button class="px-4 py-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg text-gray-700 transition" type="button" @click="copy()">
+                  <button 
+                    class="px-5 py-3 bg-blue-600 hover:bg-blue-700 border border-blue-600 rounded-lg text-white transition-all transform hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center" 
+                    type="button" 
+                    @click="copy()"
+                    title="{% trans %}Copy to clipboard{% endtrans %}"
+                  >
                     <i class="fas fa-clipboard"></i>
                   </button>
                 </div>
 
-                <div class="space-y-1">
-                  <small class="block text-sm text-gray-600">
-                    {% trans %}Share this link with your team members for them to join your team{% endtrans %}
-                  </small>
-                  <small class="block text-sm text-gray-600">
-                    {% trans %}Invite links can be re-used and expire after 1 day{% endtrans %}
-                  </small>
+                <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 space-y-2">
+                  <div class="flex items-start gap-2">
+                    <i class="fas fa-info-circle text-blue-500 mt-0.5"></i>
+                    <small class="block text-sm text-blue-700 leading-relaxed">
+                      {% trans %}Share this link with your team members for them to join your team{% endtrans %}
+                    </small>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <i class="fas fa-clock text-blue-500 mt-0.5"></i>
+                    <small class="block text-sm text-blue-700 leading-relaxed">
+                      {% trans %}Invite links can be re-used and expire after 1 day{% endtrans %}
+                    </small>
+                  </div>
                 </div>
               </div>
             </form>
@@ -188,28 +328,74 @@
 
   <div id="team-disband-modal" x-data="TeamDisbandModal" class="modal fade">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-action text-center w-100">{% trans %}Disband Team{% endtrans %}</h2>
-          <button type="button" class="cursor-pointer btn-close" data-bs-dismiss="modal" aria-label="Close">
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="mb-0">{% trans %}Are you sure you want to disband your team?{% endtrans %}</p>
-
-          <div class="mt-3">
-            <template x-for="(msg, idx) in errors" :key="idx">
-              <div class="alert alert-danger" role="alert">
-                <span class="sr-only">{% trans %}Error:{% endtrans %}</span>
-                <span x-text="msg"></span>
-              </div>
-            </template>
+      <div class="modal-content overflow-hidden shadow-2xl">
+        <div class="modal-header bg-gradient-to-r from-blue-600 to-blue-700 text-white border-0 px-6 py-5">
+          <div class="flex items-center gap-3 w-full">
+            <div class="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+              <i class="fas fa-exclamation-triangle text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-2xl font-bold mb-0">{% trans %}Disband Team{% endtrans %}</h2>
+              <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}This action cannot be undone{% endtrans %}</p>
+            </div>
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+              <i class="fas fa-times text-xl"></i>
+            </button>
           </div>
-
         </div>
-        <div class="modal-footer flex justify-end gap-3 pt-4 border-t border-gray-200">
-          <button type="button" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" data-bs-dismiss="modal">{% trans %}No{% endtrans %}</button>
-          <button type="button" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition transform hover:scale-105" @click="disbandTeam()" :disabled="errors.length > 0">{% trans %}Yes{% endtrans %}</button>
+        <div class="modal-body px-6 py-6 bg-gray-50">
+          <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-red-200">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-trash-alt text-red-600 text-xl"></i>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-gray-900 mb-2">{% trans %}Are you sure?{% endtrans %}</h3>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                  {% trans %}Are you sure you want to disband your team? This will permanently delete your team and all associated data. This action cannot be undone.{% endtrans %}
+                </p>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+                  <ul class="text-sm text-red-800 space-y-1.5 list-disc list-inside">
+                    <li>{% trans %}All team members will be removed{% endtrans %}</li>
+                    <li>{% trans %}Team scores and statistics will be lost{% endtrans %}</li>
+                    <li>{% trans %}Team challenges and awards will be deleted{% endtrans %}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Messages -->
+            <div class="mt-4 space-y-2">
+              <template x-for="(msg, idx) in errors" :key="idx">
+                <div
+                    class="flex items-start gap-3 p-3 bg-red-50 border-l-4 border-red-500 rounded-lg"
+                    role="alert"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 transform translate-y-2"
+                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                >
+                  <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                  </div>
+                  <div class="flex-1">
+                    <span class="sr-only">{% trans %}Error:{% endtrans %}</span>
+                    <p class="text-red-700 text-sm mb-0" x-text="msg"></p>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-gray-50 px-6 py-5 border-t border-gray-200 flex justify-end gap-3">
+          <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" data-bs-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+          <button 
+            type="button" 
+            class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none" 
+            @click="disbandTeam()" 
+            :disabled="errors.length > 0"
+          >
+            <i class="fas fa-trash-alt mr-2"></i>{% trans %}Yes, Disband Team{% endtrans %}
+          </button>
         </div>
       </div>
     </div>
