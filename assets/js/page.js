@@ -9,7 +9,7 @@ Alpine.start();
 // Countdown implementation (no Bootstrap dependency)
 // You can manually set these to override dates without touching HTML.
 // Format: ISO 8601 string in local time or with timezone offset.
-const PRELIMINARY_TARGET = "2025-12-12T18:00:00"; // 11 Dec 2025, 06:00 PM
+const PRELIMINARY_TARGET = "2025-12-16T10:00:00"; // 16 Dec 2025, 10:00 PM
 const FINAL_TARGET = "2025-12-20T09:00:00"; // 20 Dec 2025, 09:00 PM
 
 function setupCountdown() {
