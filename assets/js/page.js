@@ -15,19 +15,19 @@ const BANGLADESH_TZ = "Asia/Dhaka"; // UTC+6
 
 function setupCountdown() {
   const cards = document.querySelectorAll(". countdown-card");
-  if (! cards.length) return;
+  if (!cards.length) return;
 
   // Format dates in Bangladesh timezone for display
-  const dateFormatter = new Intl.DateTimeFormat("en-US", { 
+  const dateFormatter = new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium",
-    timeZone: BANGLADESH_TZ 
+    timeZone: BANGLADESH_TZ,
   });
-  const timeFormatter = new Intl. DateTimeFormat("en-US", { 
+  const timeFormatter = new Intl.DateTimeFormat("en-US", {
     timeStyle: "short",
-    timeZone: BANGLADESH_TZ 
+    timeZone: BANGLADESH_TZ,
   });
 
-  const startCfg = window.init?. start ?  new Date(window.init.start * 1000) : null;
+  const startCfg = window.init?.start ? new Date(window.init.start * 1000) : null;
   const endCfg = window.init?.end ? new Date(window.init.end * 1000) : null;
 
   cards.forEach(card => {
@@ -38,13 +38,13 @@ function setupCountdown() {
     const isValid = d => d instanceof Date && !Number.isNaN(d.getTime());
 
     // Convert Bangladesh time string to UTC Date object
-    const convertBangladeshToUTC = (bangladeshTimeStr) => {
+    const convertBangladeshToUTC = bangladeshTimeStr => {
       // Parse the Bangladesh time string
       const bd = new Date(bangladeshTimeStr);
       if (isNaN(bd.getTime())) return null;
-      
+
       // Bangladesh is UTC+6, so subtract 6 hours to get UTC equivalent
-      const utcDate = new Date(bd.getTime() - (6 * 60 * 60 * 1000));
+      const utcDate = new Date(bd.getTime() - 6 * 60 * 60 * 1000);
       return utcDate;
     };
 
@@ -70,7 +70,7 @@ function setupCountdown() {
     const statusEl = card.querySelector(".round-status");
     const daysEl = card.querySelector(". time-value.days");
     const hoursEl = card.querySelector(".time-value.hours");
-    const minutesEl = card. querySelector(".time-value.minutes");
+    const minutesEl = card.querySelector(".time-value.minutes");
     const secondsEl = card.querySelector(".time-value.seconds");
 
     if (dateEl) dateEl.textContent = dateFormatter.format(target);
@@ -90,7 +90,7 @@ function setupCountdown() {
         }
       }
 
-      const totalSeconds = Math. floor(diff / 1000);
+      const totalSeconds = Math.floor(diff / 1000);
       const days = Math.floor(totalSeconds / 86400);
       const hours = Math.floor((totalSeconds % 86400) / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
