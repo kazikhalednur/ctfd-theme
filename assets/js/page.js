@@ -7,19 +7,27 @@ window.Alpine = Alpine;
 Alpine.start();
 
 // Countdown implementation (no Bootstrap dependency)
-// You can manually set these to override dates without touching HTML.
-// Format: ISO 8601 string in local time or with timezone offset.
-const PRELIMINARY_TARGET = "2025-12-16T10:00:00"; // 16 Dec 2025, 10:00 PM
-const FINAL_TARGET = "2025-12-20T09:00:00"; // 20 Dec 2025, 09:00 PM
+// Times are in Bangladesh/UTC+6 timezone for all users worldwide
+// Format: ISO 8601 string - interpreted as Bangladesh time
+const PRELIMINARY_TARGET = "2025-12-16T10:00:00"; // 16 Dec 2025, 10:00 AM (Bangladesh Time)
+const FINAL_TARGET = "2025-12-20T09:00:00"; // 20 Dec 2025, 09:00 AM (Bangladesh Time)
+const BANGLADESH_TZ = "Asia/Dhaka"; // UTC+6
 
 function setupCountdown() {
-  const cards = document.querySelectorAll(".countdown-card");
-  if (!cards.length) return;
+  const cards = document.querySelectorAll(". countdown-card");
+  if (! cards.length) return;
 
-  const dateFormatter = new Intl.DateTimeFormat(undefined, { dateStyle: "medium" });
-  const timeFormatter = new Intl.DateTimeFormat(undefined, { timeStyle: "short" });
+  // Format dates in Bangladesh timezone for display
+  const dateFormatter = new Intl.DateTimeFormat("en-US", { 
+    dateStyle: "medium",
+    timeZone: BANGLADESH_TZ 
+  });
+  const timeFormatter = new Intl. DateTimeFormat("en-US", { 
+    timeStyle: "short",
+    timeZone: BANGLADESH_TZ 
+  });
 
-  const startCfg = window.init?.start ? new Date(window.init.start * 1000) : null;
+  const startCfg = window.init?. start ?  new Date(window.init.start * 1000) : null;
   const endCfg = window.init?.end ? new Date(window.init.end * 1000) : null;
 
   cards.forEach(card => {
@@ -29,18 +37,29 @@ function setupCountdown() {
     let target = null;
     const isValid = d => d instanceof Date && !Number.isNaN(d.getTime());
 
+    // Convert Bangladesh time string to UTC Date object
+    const convertBangladeshToUTC = (bangladeshTimeStr) => {
+      // Parse the Bangladesh time string
+      const bd = new Date(bangladeshTimeStr);
+      if (isNaN(bd.getTime())) return null;
+      
+      // Bangladesh is UTC+6, so subtract 6 hours to get UTC equivalent
+      const utcDate = new Date(bd.getTime() - (6 * 60 * 60 * 1000));
+      return utcDate;
+    };
+
     if (round === "preliminary") {
-      const manual = new Date(PRELIMINARY_TARGET);
+      const manual = convertBangladeshToUTC(PRELIMINARY_TARGET);
       if (isValid(manual)) target = manual;
       if (!target && isValid(startCfg)) target = startCfg;
     } else if (round === "final") {
-      const manual = new Date(FINAL_TARGET);
+      const manual = convertBangladeshToUTC(FINAL_TARGET);
       if (isValid(manual)) target = manual;
       if (!target && isValid(endCfg)) target = endCfg;
     }
 
     if (!target && fallback) {
-      const fb = new Date(fallback);
+      const fb = convertBangladeshToUTC(fallback);
       if (isValid(fb)) target = fb;
     }
 
@@ -49,15 +68,16 @@ function setupCountdown() {
     const dateEl = card.querySelector(".event-date");
     const timeEl = card.querySelector(".event-time");
     const statusEl = card.querySelector(".round-status");
-    const daysEl = card.querySelector(".time-value.days");
+    const daysEl = card.querySelector(". time-value.days");
     const hoursEl = card.querySelector(".time-value.hours");
-    const minutesEl = card.querySelector(".time-value.minutes");
+    const minutesEl = card. querySelector(".time-value.minutes");
     const secondsEl = card.querySelector(".time-value.seconds");
 
     if (dateEl) dateEl.textContent = dateFormatter.format(target);
     if (timeEl) timeEl.textContent = timeFormatter.format(target);
 
     const tick = () => {
+      // Use UTC now to match the UTC target time
       const now = new Date();
       let diff = target - now;
 
@@ -70,7 +90,7 @@ function setupCountdown() {
         }
       }
 
-      const totalSeconds = Math.floor(diff / 1000);
+      const totalSeconds = Math. floor(diff / 1000);
       const days = Math.floor(totalSeconds / 86400);
       const hours = Math.floor((totalSeconds % 86400) / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
