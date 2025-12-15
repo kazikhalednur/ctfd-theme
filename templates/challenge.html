@@ -1,5 +1,5 @@
 <div :class="getStyles()" class="max-h-[90vh] overflow-y-auto" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
-  <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+  <div class="bg-white rounded-xl shadow-2xl overflow-hidden" @click.outside="closeModal()">
     <div class="p-6 sm:p-8">
 
       <div class="relative mb-6">
