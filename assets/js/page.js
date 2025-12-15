@@ -14,18 +14,31 @@ const FINAL_TARGET = "2025-12-20T09:00:00"; // 20 Dec 2025, 09:00 AM (Bangladesh
 const BANGLADESH_TZ = "Asia/Dhaka"; // UTC+6
 
 function setupCountdown() {
-  const cards = document.querySelectorAll(". countdown-card");
+  // Select all countdown cards on the page (no leading space in class selector)
+  const cards = document.querySelectorAll(".countdown-card");
   if (!cards.length) return;
 
-  // Format dates in Bangladesh timezone for display
-  const dateFormatter = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "medium",
-    timeZone: BANGLADESH_TZ,
-  });
-  const timeFormatter = new Intl.DateTimeFormat("en-US", {
-    timeStyle: "short",
-    timeZone: BANGLADESH_TZ,
-  });
+  // Format dates in Bangladesh timezone for display, with safe fallback if the timezone isn't supported
+  let dateFormatter;
+  let timeFormatter;
+  try {
+    dateFormatter = new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeZone: BANGLADESH_TZ,
+    });
+    timeFormatter = new Intl.DateTimeFormat("en-US", {
+      timeStyle: "short",
+      timeZone: BANGLADESH_TZ,
+    });
+  } catch (e) {
+    // Fallback: use the browser's local timezone
+    dateFormatter = new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+    });
+    timeFormatter = new Intl.DateTimeFormat("en-US", {
+      timeStyle: "short",
+    });
+  }
 
   const startCfg = window.init?.start ? new Date(window.init.start * 1000) : null;
   const endCfg = window.init?.end ? new Date(window.init.end * 1000) : null;
@@ -39,13 +52,10 @@ function setupCountdown() {
 
     // Convert Bangladesh time string to UTC Date object
     const convertBangladeshToUTC = bangladeshTimeStr => {
-      // Parse the Bangladesh time string
-      const bd = new Date(bangladeshTimeStr);
+      // Parse the Bangladesh time string explicitly as UTC+6 (Bangladesh time)
+      const bd = new Date(`${bangladeshTimeStr}+06:00`);
       if (isNaN(bd.getTime())) return null;
-
-      // Bangladesh is UTC+6, so subtract 6 hours to get UTC equivalent
-      const utcDate = new Date(bd.getTime() - 6 * 60 * 60 * 1000);
-      return utcDate;
+      return bd;
     };
 
     if (round === "preliminary") {
@@ -68,7 +78,7 @@ function setupCountdown() {
     const dateEl = card.querySelector(".event-date");
     const timeEl = card.querySelector(".event-time");
     const statusEl = card.querySelector(".round-status");
-    const daysEl = card.querySelector(". time-value.days");
+    const daysEl = card.querySelector(".time-value.days");
     const hoursEl = card.querySelector(".time-value.hours");
     const minutesEl = card.querySelector(".time-value.minutes");
     const secondsEl = card.querySelector(".time-value.seconds");
