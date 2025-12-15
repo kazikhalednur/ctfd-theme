@@ -9,6 +9,12 @@ import { embed } from "../utils/graphs/echarts";
 
 window.Alpine = Alpine;
 window.CTFd = CTFd;
+CTFd._internalHideModal = id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const instance = Modal.getOrCreateInstance(el);
+  instance.hide();
+};
 
 Alpine.store("inviteToken", "");
 
@@ -103,12 +109,16 @@ Alpine.data("CaptainMenu", () => ({
   captain: false,
 
   editTeam() {
-    this.teamEditModal = new Modal(document.getElementById("team-edit-modal"));
+    this.teamEditModal = Modal.getOrCreateInstance(
+      document.getElementById("team-edit-modal"),
+    );
     this.teamEditModal.show();
   },
 
   chooseCaptain() {
-    this.teamCaptainModal = new Modal(document.getElementById("team-captain-modal"));
+    this.teamCaptainModal = Modal.getOrCreateInstance(
+      document.getElementById("team-captain-modal"),
+    );
     this.teamCaptainModal.show();
   },
 
@@ -121,7 +131,9 @@ Alpine.data("CaptainMenu", () => ({
 
       document.querySelector("#team-invite-modal input[name=link]").value = url;
       this.$store.inviteToken = url;
-      this.teamInviteModal = new Modal(document.getElementById("team-invite-modal"));
+      this.teamInviteModal = Modal.getOrCreateInstance(
+        document.getElementById("team-invite-modal"),
+      );
       this.teamInviteModal.show();
     } else {
       Object.keys(response.errors).map(error => {
@@ -132,7 +144,9 @@ Alpine.data("CaptainMenu", () => ({
   },
 
   disbandTeam() {
-    this.teamDisbandModal = new Modal(document.getElementById("team-disband-modal"));
+    this.teamDisbandModal = Modal.getOrCreateInstance(
+      document.getElementById("team-disband-modal"),
+    );
     this.teamDisbandModal.show();
   },
 }));

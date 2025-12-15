@@ -13,7 +13,7 @@
               <h2 class="text-2xl font-bold mb-0">{% trans %}Edit Team{% endtrans %}</h2>
               <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}Update your team's profile information{% endtrans %}</p>
             </div>
-            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" aria-label="Close" onclick="CTFd._internalHideModal('team-edit-modal')">
               <i class="fas fa-times text-xl"></i>
             </button>
           </div>
@@ -164,7 +164,7 @@
 
               <!-- Form Actions -->
               <div class="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-200">
-                <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" data-bs-dismiss="modal">
+                <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" onclick="CTFd._internalHideModal('team-edit-modal')">
                   {% trans %}Cancel{% endtrans %}
                 </button>
                 {{ form.submit(class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
@@ -188,7 +188,7 @@
               <h2 class="text-2xl font-bold mb-0">{% trans %}Choose Captain{% endtrans %}</h2>
               <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}Transfer captain rights to another team member{% endtrans %}</p>
             </div>
-            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" aria-label="Close" onclick="CTFd._internalHideModal('team-captain-modal')">
               <i class="fas fa-times text-xl"></i>
             </button>
           </div>
@@ -256,7 +256,7 @@
 
               <!-- Form Actions -->
               <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200">
-                <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" data-bs-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" onclick="CTFd._internalHideModal('team-captain-modal')">{% trans %}Cancel{% endtrans %}</button>
                 {{ form.submit(class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
               </div>
             </form>
@@ -278,7 +278,7 @@
               <h2 class="text-2xl font-bold mb-0">{% trans %}Invite Users{% endtrans %}</h2>
               <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}Generate an invite link for your team{% endtrans %}</p>
             </div>
-            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" aria-label="Close" onclick="CTFd._internalHideModal('team-invite-modal')">
               <i class="fas fa-times text-xl"></i>
             </button>
           </div>
@@ -338,7 +338,7 @@
               <h2 class="text-2xl font-bold mb-0">{% trans %}Disband Team{% endtrans %}</h2>
               <p class="text-blue-100 text-sm mt-1 mb-0">{% trans %}This action cannot be undone{% endtrans %}</p>
             </div>
-            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="cursor-pointer btn-close text-white hover:text-gray-200 transition-colors opacity-100" aria-label="Close" onclick="CTFd._internalHideModal('team-disband-modal')">
               <i class="fas fa-times text-xl"></i>
             </button>
           </div>
@@ -387,7 +387,7 @@
           </div>
         </div>
         <div class="modal-footer bg-gray-50 px-6 py-5 border-t border-gray-200 flex justify-end gap-3">
-          <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" data-bs-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+          <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" onclick="CTFd._internalHideModal('team-disband-modal')">{% trans %}Cancel{% endtrans %}</button>
           <button 
             type="button" 
             class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none" 
@@ -668,14 +668,14 @@
 
 {% block scripts %}
   <script>
-      window.stats_data = {{ {
-        'type': 'team',
-        'id': team.id,
-        'name': team.name,
-        'account_id': 'me',
-      } | tojson }};
+    window.stats_data = {{ {
+      'type': 'team',
+      'id': team.id,
+      'name': team.name,
+      'account_id': 'me',
+    } | tojson }};
 
-      window.team_captain = {{ (user.id == team.captain_id) | tojson }};
+    window.team_captain = {{ (user.id == team.captain_id) | tojson }};
   </script>
   {{ Assets.js("assets/js/teams/private.js") }}
 {% endblock %}

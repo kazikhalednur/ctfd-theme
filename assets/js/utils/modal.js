@@ -6,6 +6,7 @@ export class Modal {
     this._options = options;
     this._isShown = false;
     this._backdrop = null;
+    this._onElementClick = null;
   }
 
   static getOrCreateInstance(element, options = {}) {
@@ -32,7 +33,22 @@ export class Modal {
     this._backdrop = document.createElement("div");
     this._backdrop.className = "fixed inset-0 bg-black bg-opacity-50 z-40";
     this._backdrop.style.transition = "opacity 0.15s linear";
+    // Close modal when clicking on the backdrop
+    this._backdrop.addEventListener("click", () => {
+      this.hide();
+    });
     document.body.appendChild(this._backdrop);
+
+    // Also support closing when clicking anywhere inside the modal container but
+    // outside the actual dialog (.modal-dialog)
+    this._onElementClick = event => {
+      const dialog = this._element.querySelector(".modal-dialog");
+      if (!dialog) return;
+
+      // If the click is NOT inside the dialog, close the modal
+      if (!dialog.contains(event.target)) this.hide();
+    };
+    this._element.addEventListener("click", this._onElementClick);
 
     // Trigger shown event
     this._element.dispatchEvent(new Event("shown.modal", { bubbles: true }));
@@ -52,6 +68,12 @@ export class Modal {
     if (this._backdrop) {
       this._backdrop.remove();
       this._backdrop = null;
+    }
+
+    // Remove click handler on the modal container
+    if (this._onElementClick) {
+      this._element.removeEventListener("click", this._onElementClick);
+      this._onElementClick = null;
     }
 
     // Trigger hidden event
