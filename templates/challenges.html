@@ -55,17 +55,23 @@
                 <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
                   <div>
                     <button
-                        class="challenge-button w-full h-full bg-white hover:bg-blue-50 text-gray-900 rounded-lg p-4 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-blue-500 border-2 border-gray-200"
+                        class="challenge-button w-full h-full rounded-lg p-4 border-2 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                         :class="[
-                          c.solved_by_me ? 'ring-2 ring-green-500 bg-green-50 border-green-300' : '',
+                          c.solved_by_me
+                            ? 'bg-green-500 border-green-300 ring-2 ring-green-500 text-white hover:bg-green-600 hover:border-green-400'
+                            : 'bg-white border-gray-200 text-gray-900 hover:bg-blue-50 hover:border-blue-500',
                           ...c.tags.map((tag) => `tag-${tag.value.replace(/ /g, '-')}`),
-                        ];"
+                        ]"
                         :value="c.id" @click="loadChallenge(c.id)"
                     >
 
                       <div class="challenge-inner my-3">
                         <p class="font-bold text-lg mb-2" x-text="c.name"></p>
-                        <span class="text-3xl font-extrabold text-blue-600" x-text="c.value"></span>
+                        <span
+                          class="text-3xl font-extrabold"
+                          :class="c.solved_by_me ? 'text-white' : 'text-blue-600'"
+                          x-text="c.value"
+                        ></span>
                       </div>
                     </button>
                   </div>
