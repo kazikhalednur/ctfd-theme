@@ -16,14 +16,21 @@
 </div>
 
 
-<div x-data>
+<div x-data="{
+    closeModal() {
+      const modal = this.$refs.modal;
+      if (modal && modal._modalInstance) {
+        modal._modalInstance.hide();
+      }
+    }
+  }">
   <!-- Modal -->
-  <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" x-ref="modal" tabindex="-1">
-    <div class="bg-white rounded-lg shadow-xl max-w-md w-full overflow-hidden border-t-4 border-t-blue-600">
+  <div class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" x-ref="modal" tabindex="-1" @click="closeModal()">
+    <div class="modal-dialog bg-white rounded-lg shadow-xl max-w-md w-full overflow-hidden border-t-4 border-t-blue-600" @click.stop>
       <!-- Modal Header -->
       <div class="bg-gradient-to-r from-blue-600/5 to-blue-700/5 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
         <h5 class="text-lg font-bold text-gray-900" x-text="$store.modal.title"></h5>
-        <button type="button" class="text-gray-500 hover:text-blue-600 transition" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="text-gray-500 hover:text-blue-600 transition" @click="closeModal()" aria-label="Close">
           <i class="fas fa-times text-xl"></i>
         </button>
       </div>
@@ -35,7 +42,7 @@
       
       <!-- Modal Footer -->
       <div class="bg-gray-50 px-6 py-3 border-t border-gray-200 flex justify-end">
-        <button type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors" data-bs-dismiss="modal">Got it!</button>
+        <button type="button" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors" @click="closeModal()">Got it!</button>
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@ export class Modal {
     this._isShown = true;
     this._element.classList.remove("hidden");
     this._element.classList.add("show");
-    this._element.style.display = "block";
+    this._element.style.display = "flex";
     document.body.classList.add("modal-open");
     document.body.style.overflow = "hidden";
 
