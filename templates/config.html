@@ -1,7 +1,7 @@
 <form>
   <div class="mb-6">
-    <label class="block text-sm font-semibold text-gray-900 mb-2">Challenge Window Size</label>
-    <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" name="challenge_window_size">
+    <label class="block text-sm font-semibold text-gray-300 mb-2">Challenge Window Size</label>
+    <select class="w-full px-4 py-2 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white" name="challenge_window_size">
         <option value="sm">Small</option>
         <option value="norm">Normal</option>
         <option value="lg">Large</option>
@@ -10,31 +10,31 @@
   </div>
 
   <div class="mb-6">
-    <label class="block text-sm font-semibold text-gray-900 mb-2">
+    <label class="block text-sm font-semibold text-gray-300 mb-2">
       Challenge Category Order Custom Function
       <p class="text-xs text-gray-500 font-normal mt-1">
-        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank" class="text-blue-600 hover:underline">custom compareFn function for Array.sort()</a> 
+        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank" class="text-accent hover:underline">custom compareFn function for Array.sort()</a> 
         used to sort the challenge categories
       </p>
     </label>
-    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent" name="challenge_category_order" rows="5"></textarea>
+    <textarea class="w-full px-4 py-2 border border-space-500 rounded-lg font-mono focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white" name="challenge_category_order" rows="5"></textarea>
   </div>
 
   <div class="mb-6">
-    <label class="block text-sm font-semibold text-gray-900 mb-2">
+    <label class="block text-sm font-semibold text-gray-300 mb-2">
       Challenge Order Custom Function
       <p class="text-xs text-gray-500 font-normal mt-1">
-        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank" class="text-blue-600 hover:underline">custom compareFn function for Array.sort()</a> 
+        Define a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#description" target="_blank" class="text-accent hover:underline">custom compareFn function for Array.sort()</a> 
         used to sort the challenges within categories
       </p>
     </label>
-    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent" name="challenge_order" rows="5"></textarea>
+    <textarea class="w-full px-4 py-2 border border-space-500 rounded-lg font-mono focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white" name="challenge_order" rows="5"></textarea>
   </div>
 
   <div class="mb-6">
     <div class="flex items-center">
-      <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-blue-500" id="use_builtin_code_highlighter" name="use_builtin_code_highlighter" checked>
-      <label class="ml-3 text-sm font-medium text-gray-900" for="use_builtin_code_highlighter">
+      <input type="checkbox" class="w-4 h-4 text-accent rounded border-space-500 focus:ring-2 focus:ring-accent bg-space-900" id="use_builtin_code_highlighter" name="use_builtin_code_highlighter" checked>
+      <label class="ml-3 text-sm font-medium text-gray-300" for="use_builtin_code_highlighter">
         Use Built-In Syntax Highlighter
       </label>
     </div>
@@ -43,5 +43,5 @@
     </p>
   </div>
 
-  <button type="submit" class="float-right mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-medium">Update</button>
+  <button type="submit" class="float-right mt-4 px-6 py-2 bg-accent hover:bg-accent-2 text-space-900 rounded-lg transition font-medium font-bold shadow-md">Update</button>
 </form>

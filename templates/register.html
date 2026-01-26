@@ -1,25 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>
+  <div class="bg-gradient-to-r from-space-900 via-space-800 to-space-700 text-white py-12 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-5xl font-bold text-center mb-4">
         {% trans %}Register{% endtrans %}
       </h1>
+      <div class="text-center text-accent-2 text-2xl font-medium max-w-2xl mx-auto px-4 pt-3 bg-space-800/50 backdrop-blur-sm rounded-lg border border-white/10">
+        Join Al-Khwarizmi CTF 2025
+      </div>
     </div>
   </div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-md mx-auto">
         {% include "components/errors.html" %}
 
         {% if integrations.mlc() %}
-          <a class="btn btn-secondary btn-lg btn-block w-100" href="{{ url_for('auth.oauth_login') }}">
+          <a class="block w-full px-4 py-3 bg-space-700 hover:bg-space-600 text-white text-center rounded-lg font-semibold transition text-lg border border-white/10" href="{{ url_for('auth.oauth_login') }}">
             Login with Major League Cyber
           </a>
 
-          <hr>
+          <div class="my-6 border-t border-white/10"></div>
         {% endif %}
 
         {% with form = Forms.auth.RegistrationForm() %}
@@ -28,26 +30,26 @@
 
           <form method="post" accept-charset="utf-8" role="form">
 
-            <div class="mb-3">
-              <b>{{ form.name.label(class="form-label") }}</b>
-              {{ form.name(class="form-control", value=name, autocomplete="username") }}
-              <small class="form-text text-muted">
+            <div class="mb-4">
+              <b>{{ form.name.label(class="block text-sm font-semibold text-gray-300 mb-2") }}</b>
+              {{ form.name(class="w-full px-4 py-2 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white placeholder-gray-500", value=name, autocomplete="username") }}
+              <small class="block mt-1 text-sm text-gray-400">
                 {% trans %}Your username on the site{% endtrans %}
               </small>
             </div>
 
-            <div class="mb-3">
-              <b>{{ form.email.label(class="form-label") }}</b>
-              {{ form.email(class="form-control", value=email, autocomplete="email") }}
-              <small class="form-text text-muted">
+            <div class="mb-4">
+              <b>{{ form.email.label(class="block text-sm font-semibold text-gray-300 mb-2") }}</b>
+              {{ form.email(class="w-full px-4 py-2 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white placeholder-gray-500", value=email, autocomplete="email") }}
+              <small class="block mt-1 text-sm text-gray-400">
                 {% trans %}Never shown to the public{% endtrans %}
               </small>
             </div>
 
-            <div class="mb-3">
-              <b>{{ form.password.label(class="form-label") }}</b>
-              {{ form.password(class="form-control", value=password, autocomplete="new-password") }}
-              <small class="form-text text-muted">
+            <div class="mb-6">
+              <b>{{ form.password.label(class="block text-sm font-semibold text-gray-300 mb-2") }}</b>
+              {{ form.password(class="w-full px-4 py-2 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white placeholder-gray-500", value=password, autocomplete="new-password") }}
+              <small class="block mt-1 text-sm text-gray-400">
                 {% trans %}Password used to log into your account{% endtrans %}
               </small>
             </div>
@@ -56,28 +58,23 @@
 
             {{ render_extra_fields(form.extra) }}
 
-            <div class="row pt-3">
-              <div class="col-6 col-md-4 offset-6 offset-md-8">
-                {{ form.submit(class="btn btn-block btn-primary w-100") }}
-              </div>
+            <div class="pt-3">
+              {{ form.submit(class="w-full px-6 py-2 bg-gradient-to-r from-accent to-accent-2 hover:brightness-110 text-space-900 rounded-lg font-bold transition shadow-lg cursor-pointer") }}
             </div>
 
             {% if Configs.tos_or_privacy %}
-              <div class="row pt-3">
-                <div class="col-md-12 text-center">
-                  <small class="text-muted text-center">
-                    {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
-                    By registering, you agree to the
-                    <a href="{{ privacy_link }}" target="_blank">privacy policy</a>
-                    and <a href="{{ tos_link }}" target="_blank">terms of service</a>
-                    {% endtrans %}
-                  </small>
-                </div>
+              <div class="pt-4 text-center">
+                <small class="text-gray-400">
+                  {% trans trimmed privacy_link=Configs.privacy_link, tos_link=Configs.tos_link %}
+                  By registering, you agree to the
+                  <a href="{{ privacy_link }}" target="_blank" class="text-accent hover:text-accent-2 underline">privacy policy</a>
+                  and <a href="{{ tos_link }}" target="_blank" class="text-accent hover:text-accent-2 underline">terms of service</a>
+                  {% endtrans %}
+                </small>
               </div>
             {% endif %}
           </form>
         {% endwith %}
       </div>
-    </div>
   </div>
 {% endblock %}

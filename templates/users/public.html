@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 overflow-hidden">
+  <section class="relative bg-gradient-to-r from-space-900 via-space-800 to-space-700 text-white py-16 overflow-hidden border-b border-white/10">
     <div class="absolute inset-0 pointer-events-none"
-         style="background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);">
+         style="background: radial-gradient(circle at 20% 50%, rgba(40, 215, 255, 0.1) 0%, transparent 60%);">
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,7 +49,7 @@
       </div>
 
       {% if user.fields %}
-        <div class="space-y-2 mb-6 text-blue-100 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+        <div class="space-y-2 mb-6 text-blue-100 bg-space-800/50 backdrop-blur-sm rounded-lg p-4 border border-white/10">
           {% for field in user.fields %}
             <div class="text-sm">
               <strong class="text-white">{{ field.name }}:</strong> <span class="text-blue-100">{{ field.value }}</span>
@@ -62,15 +62,15 @@
         <div class="border-t border-white/30 pt-6 mt-6">
           <div class="grid grid-cols-2 gap-8 max-w-md">
             {% if account.place %}
-              <div class="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                <div class="text-4xl font-bold mb-1">{{ account.place }}</div>
-                <div class="text-blue-100 text-sm uppercase tracking-wide font-semibold">{% trans %}Place{% endtrans %}</div>
+              <div class="text-center bg-space-800/50 backdrop-blur-sm rounded-lg p-4 border border-white/10">
+                <div class="text-4xl font-bold mb-1 text-white">{{ account.place }}</div>
+                <div class="text-accent-2 text-sm uppercase tracking-wide font-semibold">{% trans %}Place{% endtrans %}</div>
               </div>
             {% endif %}
             {% if account.score %}
-              <div class="text-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                <div class="text-4xl font-bold mb-1">{{ account.score }}</div>
-                <div class="text-blue-100 text-sm uppercase tracking-wide font-semibold">{% trans %}Points{% endtrans %}</div>
+              <div class="text-center bg-space-800/50 backdrop-blur-sm rounded-lg p-4 border border-white/10">
+                <div class="text-4xl font-bold mb-1 text-white">{{ account.score }}</div>
+                <div class="text-accent-2 text-sm uppercase tracking-wide font-semibold">{% trans %}Points{% endtrans %}</div>
               </div>
             {% endif %}
           </div>
@@ -97,35 +97,35 @@
 
       {% if awards %}
         <div class="mb-12">
-          <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Awards{% endtrans %}</h3>
+          <h3 class="text-3xl font-bold text-white mb-6">{% trans %}Awards{% endtrans %}</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {% for award in awards %}
-              <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+              <div class="bg-space-800 rounded-lg shadow-md border border-white/10 border-t-4 border-t-accent p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                 <div class="mb-3">
-                  <i class="award-icon award-{{ award.icon }} fa-3x text-blue-600"></i>
+                  <i class="award-icon award-{{ award.icon }} fa-3x text-accent"></i>
                 </div>
-                <h4 class="font-bold text-gray-900 mb-2">{{ award.name }}</h4>
+                <h4 class="font-bold text-white mb-2">{{ award.name }}</h4>
                 {% if award.category %}
-                  <p class="text-sm text-gray-600 mb-2">{{ award.category }}</p>
+                  <p class="text-sm text-gray-400 mb-2">{{ award.category }}</p>
                 {% endif %}
                 {% if award.description %}
-                  <p class="text-sm text-gray-600 mb-3">{{ award.description }}</p>
+                  <p class="text-sm text-gray-400 mb-3">{{ award.description }}</p>
                 {% endif %}
-                <div class="text-xl font-bold text-blue-600">{{ award.value }}</div>
+                <div class="text-xl font-bold text-accent">{{ award.value }}</div>
               </div>
             {% endfor %}
           </div>
         </div>
       {% endif %}
 
-      <div class="border-t border-gray-300 my-8"></div>
+      <div class="border-t border-white/10 my-8"></div>
 
       <div class="mb-12">
-        <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Solves{% endtrans %}</h3>
-        <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 overflow-hidden">
+        <h3 class="text-3xl font-bold text-white mb-6">{% trans %}Solves{% endtrans %}</h3>
+        <div class="bg-space-800 rounded-lg shadow-md border border-white/10 border-t-4 border-t-accent overflow-hidden">
           <table class="w-full border-collapse">
             <thead>
-              <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+              <tr class="bg-space-900 text-white border-b border-white/10">
                 <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Challenge{% endtrans %}</th>
                 <th class="hidden md:table-cell text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Category{% endtrans %}</th>
                 <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Value{% endtrans %}</th>
@@ -134,15 +134,15 @@
             </thead>
             <tbody>
               {% for solve in solves %}
-                <tr class="border-b border-gray-200 hover:bg-blue-50 transition-all duration-200 hover:shadow-sm">
+                <tr class="border-b border-white/10 hover:bg-space-700 transition-all duration-200 hover:shadow-sm">
                   <td class="px-4 py-3">
-                    <a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}" class="text-blue-600 hover:text-blue-800 font-bold transition-colors">
+                    <a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}" class="text-accent hover:text-accent-2 font-bold transition-colors">
                       {{ solve.challenge.name }}
                     </a>
                   </td>
-                  <td class="hidden md:table-cell px-4 py-3 text-gray-700 text-sm">{{ solve.challenge.category }}</td>
-                  <td class="px-4 py-3 text-gray-700 font-semibold">{{ solve.challenge.value }}</td>
-                  <td class="px-4 py-3 solve-time text-gray-700 text-sm">
+                  <td class="hidden md:table-cell px-4 py-3 text-gray-400 text-sm">{{ solve.challenge.category }}</td>
+                  <td class="px-4 py-3 text-white font-bold">{{ solve.challenge.value }}</td>
+                  <td class="px-4 py-3 solve-time text-gray-400 text-sm">
                     <span data-time="{{ solve.date | isoformat }}"></span>
                   </td>
                 </tr>
@@ -152,17 +152,17 @@
         </div>
       </div>
 
-      <div class="border-t border-gray-300 my-8"></div>
+      <div class="border-t border-white/10 my-8"></div>
 
       <div class="mb-12" x-data="UserGraphs">
-        <h3 class="text-3xl font-bold text-gray-900 mb-6">{% trans %}Statistics{% endtrans %}</h3>
+        <h3 class="text-3xl font-bold text-white mb-6">{% trans %}Statistics{% endtrans %}</h3>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Solves vs Fails Progress -->
-          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
-            <h4 class="font-bold text-gray-900 mb-4">{% trans %}Solve vs Fail Rate{% endtrans %}</h4>
+          <div class="bg-space-800 rounded-lg shadow-md border border-white/10 border-t-4 border-t-accent p-6">
+            <h4 class="font-bold text-white mb-4">{% trans %}Solve vs Fail Rate{% endtrans %}</h4>
             <div class="mb-4">
-              <div class="flex h-6 bg-gray-200 rounded-lg overflow-hidden">
+              <div class="flex h-6 bg-space-700 rounded-lg overflow-hidden">
                 <div 
                   class="bg-green-500" 
                   :style="{ width: `${getSolvePercentage()}%` }"
@@ -186,10 +186,10 @@
           </div>
 
           <!-- Category Breakdown -->
-          <div class="bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
-            <h4 class="font-bold text-gray-900 mb-4">{% trans %}Category Breakdown{% endtrans %}</h4>
+          <div class="bg-space-800 rounded-lg shadow-md border border-white/10 border-t-4 border-t-accent p-6">
+            <h4 class="font-bold text-white mb-4">{% trans %}Category Breakdown{% endtrans %}</h4>
             <div class="mb-4">
-              <div class="flex h-6 bg-gray-200 rounded-lg overflow-hidden">
+              <div class="flex h-6 bg-space-700 rounded-lg overflow-hidden">
                 <template x-for="category in getCategoryBreakdown()" :key="category.name">
                   <div 
                     class="transition-all"
@@ -210,20 +210,20 @@
         </div>
 
         <!-- Score Graph -->
-        <div class="mt-8 bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600 p-6">
-          <h4 class="font-bold text-gray-900 mb-4">{% trans %}Score Over Time{% endtrans %}</h4>
+        <div class="mt-8 bg-space-800 rounded-lg shadow-md border border-white/10 border-t-4 border-t-accent p-6">
+          <h4 class="font-bold text-white mb-4">{% trans %}Score Over Time{% endtrans %}</h4>
           <div id="score-graph" x-ref="scoregraph" class="w-full flex justify-center items-center min-h-64">
             <div class="text-center">
-              <i class="fas fa-circle-notch fa-spin fa-3x fa-fw text-blue-600"></i>
+              <i class="fas fa-circle-notch fa-spin fa-3x fa-fw text-accent"></i>
             </div>
           </div>
         </div>
       </div>
     {% else %}
-      <div class="flex items-center justify-center min-h-80 bg-white rounded-lg shadow-md border border-gray-200 border-t-4 border-t-blue-600">
+      <div class="flex items-center justify-center min-h-80 bg-space-800 rounded-lg shadow-md border border-white/10 border-t-4 border-t-accent">
         <div class="text-center">
-          <i class="fas fa-trophy text-6xl text-gray-300 mb-4"></i>
-          <h3 class="text-gray-500 text-xl font-semibold">
+          <i class="fas fa-trophy text-6xl text-space-600 mb-4"></i>
+          <h3 class="text-gray-400 text-xl font-semibold">
             {% trans %}No solves yet{% endtrans %}
           </h3>
         </div>

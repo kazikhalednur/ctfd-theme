@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	<div class="relative bg-gradient-to-r from-space-900 via-space-800 to-space-700 text-white py-12 border-b border-white/10 overflow-hidden">
+		<div class="absolute inset-0 pointer-events-none"
+			 style="background: radial-gradient(circle at 20% 50%, rgba(40, 215, 255, 0.1) 0%, transparent 60%);">
+		</div>
+		<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<h1 class="text-4xl font-bold">
 				{% trans %}Notifications{% endtrans %}
 			</h1>
@@ -10,17 +13,24 @@
 	</div>
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 		{% if not notifications %}
-		<h2 class="text-center text-gray-700 py-8">
+		<h2 class="text-center text-gray-400 py-8 text-xl">
+			<i class="fas fa-inbox text-4xl mb-4 block opacity-50"></i>
 			{% trans %}There are no notifications yet{% endtrans %}
 		</h2>
 		{% endif %}
 		{% for notification in notifications %}
-		<div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm mb-4 hover:shadow-md transition">
+		<div class="bg-space-800 border border-white/10 rounded-lg overflow-hidden shadow-sm mb-4 hover:shadow-md transition card-hover">
 			<div class="p-6">
-				<h3 class="text-lg font-semibold text-gray-900 mb-3">{{ notification.title }}</h3>
-				<div class="border-l-4 border-gray-300 pl-4 text-gray-700">
+				<h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+					<i class="fas fa-bell text-accent"></i>
+					{{ notification.title }}
+				</h3>
+				<div class="border-l-4 border-space-600 pl-4 text-gray-300">
 					<p>{{ notification.html }}</p>
-					<small class="text-gray-500 block mt-2"><span data-time="{{ notification.date | isoformat }}"></span></small>
+					<small class="text-gray-500 block mt-2 flex items-center gap-2">
+						<i class="far fa-clock"></i>
+						<span data-time="{{ notification.date | isoformat }}"></span>
+					</small>
 				</div>
 			</div>
 		</div>

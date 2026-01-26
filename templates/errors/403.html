@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <section class="relative bg-white py-20 overflow-hidden min-h-screen flex items-center">
+  <section class="relative bg-space-900 py-20 overflow-hidden min-h-screen flex items-center">
     <!-- Animated background elements -->
     <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-red-100 opacity-30 rounded-full blur-3xl animate-pulse"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-200 opacity-20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-50 opacity-40 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-red-900/20 opacity-30 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-800/20 opacity-20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-900/10 opacity-40 rounded-full blur-3xl"></div>
     </div>
 
     <!-- Grid pattern overlay -->
-    <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(239,68,68,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(239,68,68,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+    <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(239,68,68,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(239,68,68,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
 
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full z-10">
       <!-- Icon container -->
       <div class="mb-8 flex justify-center">
         <div class="relative">
-          <div class="absolute inset-0 bg-red-100 opacity-50 rounded-full blur-xl"></div>
-          <div class="relative bg-red-50 border-2 border-red-200 rounded-full p-8 sm:p-12 shadow-2xl">
-            <i class="fas fa-shield-alt text-7xl sm:text-8xl text-red-600 drop-shadow-lg "></i>
+          <div class="absolute inset-0 bg-red-500/20 opacity-50 rounded-full blur-xl"></div>
+          <div class="relative bg-space-800 border-2 border-red-900/50 rounded-full p-8 sm:p-12 shadow-2xl">
+            <i class="fas fa-shield-alt text-7xl sm:text-8xl text-red-500 drop-shadow-lg "></i>
           </div>
         </div>
       </div>
@@ -32,20 +32,20 @@
       
       <!-- Title with modern styling -->
       <div class="mb-8">
-        <h2 class="text-4xl sm:text-5xl font-bold mb-4 text-gray-900">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-4 text-white">
           {% trans %}Access Forbidden{% endtrans %}
         </h2>
       </div>
       
       <!-- Message card -->
       <div class="max-w-2xl mx-auto mb-10">
-        <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 sm:p-8 shadow-xl transform hover:scale-105 transition-transform duration-300">
+        <div class="bg-space-800/50 backdrop-blur-sm border-2 border-red-900/30 rounded-2xl p-6 sm:p-8 shadow-xl transform hover:scale-105 transition-transform duration-300">
           {% if error %}
-            <p class="text-2xl font-bold sm:text-xl text-gray-700 leading-relaxed">
+            <p class="text-2xl font-bold sm:text-xl text-gray-300 leading-relaxed">
               {{ error }}
             </p>
           {% else %}
-            <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
+            <p class="text-lg sm:text-xl text-gray-300 leading-relaxed">
               {% trans %}You don't have permission to access this resource. Please contact an administrator if you believe this is an error.{% endtrans %}
             </p>
           {% endif %}
@@ -54,11 +54,11 @@
 
       <!-- Action buttons -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <a href="{{ url_for('views.static_html', route='/') }}" class="group inline-flex items-center px-8 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+        <a href="{{ url_for('views.static_html', route='/') }}" class="group inline-flex items-center px-8 py-4 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
           <i class="fas fa-home mr-3 group-hover:scale-110 transition-transform"></i>
           {% trans %}Return Home{% endtrans %}
         </a>
-        <button onclick="window.history.back()" class="group inline-flex items-center px-8 py-4 bg-white border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+        <button onclick="window.history.back()" class="group inline-flex items-center px-8 py-4 bg-space-800 border-2 border-red-600/50 text-red-500 font-bold rounded-xl hover:bg-space-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
           <i class="fas fa-arrow-left mr-3 group-hover:scale-110 transition-transform"></i>
           {% trans %}Go Back{% endtrans %}
         </button>

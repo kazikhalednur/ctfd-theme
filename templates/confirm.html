@@ -1,50 +1,54 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="relative bg-gradient-to-r from-space-900 via-space-800 to-space-700 text-white py-12 border-b border-white/10 overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(circle at 20% 50%, rgba(40, 215, 255, 0.1) 0%, transparent 60%);">
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-4xl font-bold">
         {% trans %}Confirm{% endtrans %}
       </h1>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="max-w-2xl mx-auto lg:max-w-xl">
       {% include "components/errors.html" %}
 
-      {% if request.args.get('flow') == "init" %}
-        <h5 class="text-center text-gray-700 mb-4">
-          {% trans %}To send a confirmation email to your email address, please click the button below.{% endtrans %}
-        </h5>
-        <h5 class="text-center text-gray-700 mb-4">
-          {% trans %}Please click the link in that email to confirm your account.{% endtrans %}
-        </h5>
-        <h5 class="text-center text-gray-700 mb-4">
-          {% trans %}If the email doesn't arrive, check your spam folder or contact an administrator to manually verify your account.{% endtrans %}
-        </h5>
-        {% else %}
-          <h5 class="text-center text-gray-700 mb-4">
-            {% trans %}We've sent a confirmation email to your email address.{% endtrans %}
+      <div class="bg-space-800/50 backdrop-blur-sm rounded-lg p-8 border border-white/10 shadow-lg">
+        {% if request.args.get('flow') == "init" %}
+          <h5 class="text-center text-gray-300 mb-4">
+            {% trans %}To send a confirmation email to your email address, please click the button below.{% endtrans %}
           </h5>
-          <h5 class="text-center text-gray-700 mb-4">
+          <h5 class="text-center text-gray-300 mb-4">
             {% trans %}Please click the link in that email to confirm your account.{% endtrans %}
           </h5>
-          <h5 class="text-center text-gray-700 mb-4">
+          <h5 class="text-center text-gray-300 mb-4">
+            {% trans %}If the email doesn't arrive, check your spam folder or contact an administrator to manually verify your account.{% endtrans %}
+          </h5>
+        {% else %}
+          <h5 class="text-center text-gray-300 mb-4">
+            {% trans %}We've sent a confirmation email to your email address.{% endtrans %}
+          </h5>
+          <h5 class="text-center text-gray-300 mb-4">
+            {% trans %}Please click the link in that email to confirm your account.{% endtrans %}
+          </h5>
+          <h5 class="text-center text-gray-300 mb-4">
             {% trans %}If the email doesn't arrive, check your spam folder or contact an administrator to manually verify your account.{% endtrans %}
           </h5>
         {% endif %}
 
-        <div class="my-6 border-t border-gray-300"></div>
+        <div class="my-8 border-t border-white/10"></div>
 
         {% with form = Forms.auth.ConfirmForm() %}
           <form method="POST" action="{{ url_for('auth.confirm') }}">
-            <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex flex-col sm:flex-row gap-4">
               <div class="flex-1">
-                {{ form.submit(class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition") }}
+                {{ form.submit(class="w-full px-4 py-3 bg-gradient-to-r from-accent to-accent-2 hover:brightness-110 text-space-900 rounded-lg font-bold transition transform hover:scale-105 shadow-md hover:shadow-lg") }}
               </div>
               <div class="flex-1">
-                <a href="{{ url_for('views.settings') }}" class="block w-full px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition text-center">
+                <a href="{{ url_for('views.settings') }}" class="block w-full px-4 py-3 bg-space-700 hover:bg-space-600 text-white rounded-lg font-medium transition text-center border border-white/10 hover:border-white/20">
                   {% trans %}Change Email Address{% endtrans %}
                 </a>
               </div>

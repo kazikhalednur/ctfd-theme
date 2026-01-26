@@ -2,19 +2,50 @@
 
 {% block content %}
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="pt-5 mt-5 text-center">
-				<h1>{% trans %}Too many requests{% endtrans %}</h1>
-				<h1>{% trans %}Please slow down!{% endtrans %}</h1>
-				<hr class="w-50 m-auto">
-				<br/>
-				<h2>{% trans %}429 Too Many Requests{% endtrans %}</h2>
-			</div>
-		</div>
-	</div>
-</div>
+  <section class="relative bg-space-900 py-20 overflow-hidden min-h-screen flex items-center">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-500/10 opacity-30 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/10 opacity-20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full z-10">
+      <div class="mb-8 flex justify-center">
+        <div class="relative">
+          <div class="absolute inset-0 bg-yellow-500/20 opacity-50 rounded-full blur-xl"></div>
+          <div class="relative bg-space-800 border-2 border-yellow-500/20 rounded-full p-8 sm:p-12 shadow-2xl">
+            <i class="fas fa-hourglass-half text-7xl sm:text-8xl text-yellow-500 drop-shadow-lg "></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <h1 class="text-8xl sm:text-9xl font-black tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
+          429
+        </h1>
+      </div>
+      
+      <div class="mb-8">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-4 text-white">
+          {% trans %}Too Many Requests{% endtrans %}
+        </h2>
+        <p class="text-xl text-gray-400">
+          {% trans %}Please slow down! You are sending too many requests.{% endtrans %}
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="{{ url_for('views.static_html', route='/') }}" class="group inline-flex items-center px-8 py-4 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+          <i class="fas fa-home mr-3 group-hover:scale-110 transition-transform"></i>
+          {% trans %}Return Home{% endtrans %}
+        </a>
+        <button onclick="window.history.back()" class="group inline-flex items-center px-8 py-4 bg-space-800 border-2 border-yellow-500/30 text-yellow-500 font-bold rounded-xl hover:bg-space-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+          <i class="fas fa-arrow-left mr-3 group-hover:scale-110 transition-transform"></i>
+          {% trans %}Go Back{% endtrans %}
+        </button>
+      </div>
+    </div>
+  </section>
 
 
 {% endblock %}

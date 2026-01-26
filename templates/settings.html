@@ -2,7 +2,7 @@
 {% from "macros/forms.html" import render_extra_fields %}
 
 {% block content %}
-  <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
+  <div class="bg-gradient-to-r from-space-900 via-space-800 to-space-700 text-white py-12 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-4xl font-bold">
         {% trans %}Settings{% endtrans %}
@@ -18,7 +18,7 @@
           <button
               type="button"
               class="px-4 py-2 text-left font-medium rounded-lg transition-colors"
-              :class="activeTab === 'profile' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              :class="activeTab === 'profile' ? 'bg-accent text-space-900 font-bold' : 'bg-space-700 text-gray-400 hover:bg-space-600 hover:text-white'"
               @click="activeTab = 'profile'"
               role="tab"
           >{% trans %}Profile{% endtrans %}
@@ -26,7 +26,7 @@
           <button
               type="button"
               class="px-4 py-2 text-left font-medium rounded-lg transition-colors"
-              :class="activeTab === 'tokens' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+              :class="activeTab === 'tokens' ? 'bg-accent text-space-900 font-bold' : 'bg-space-700 text-gray-400 hover:bg-space-600 hover:text-white'"
               @click="activeTab = 'tokens'"
               role="tab"
           >{% trans %}Access Tokens{% endtrans %}
@@ -40,7 +40,7 @@
             {% include "components/errors.html" %}
 
             {% with form = Forms.self.SettingsForm(language=language, country=country) %}
-              <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+              <div class="bg-space-800 rounded-xl shadow-md border border-white/10 p-6">
                 <form
                     method="post" accept-charset="utf-8" autocomplete="off" role="form"
                     x-data="SettingsForm"
@@ -49,89 +49,89 @@
                 >
                   <!-- Basic Information -->
                   <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                      <i class="fas fa-user text-blue-600 mr-2"></i>{% trans %}Basic Information{% endtrans %}
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                      <i class="fas fa-user text-accent mr-2"></i>{% trans %}Basic Information{% endtrans %}
                     </h3>
                     
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-user-circle text-blue-600 mr-2"></i>{{ form.name.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-user-circle text-accent mr-2"></i>{{ form.name.label.text }}
                       </label>
-                      {{ form.name(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900", value=name) }}
+                      {{ form.name(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500", value=name) }}
                     </div>
 
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-envelope text-blue-600 mr-2"></i>{{ form.email.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-envelope text-accent mr-2"></i>{{ form.email.label.text }}
                       </label>
-                      {{ form.email(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900", value=email) }}
+                      {{ form.email(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500", value=email) }}
                     </div>
 
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-language text-blue-600 mr-2"></i>{{ form.language.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-language text-accent mr-2"></i>{{ form.language.label.text }}
                       </label>
-                      {{ form.language(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900", value=language) }}
+                      {{ form.language(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500", value=language) }}
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 my-6"></div>
+                  <div class="border-t border-white/10 my-6"></div>
 
                   <!-- Password Change -->
                   <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                      <i class="fas fa-lock text-blue-600 mr-2"></i>{% trans %}Change Password{% endtrans %}
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                      <i class="fas fa-lock text-accent mr-2"></i>{% trans %}Change Password{% endtrans %}
                     </h3>
                     
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-key text-blue-600 mr-2"></i>{{ form.confirm.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-key text-accent mr-2"></i>{{ form.confirm.label.text }}
                       </label>
-                      {{ form.confirm(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900") }}
-                      <small class="block mt-2 text-sm text-gray-500">
-                        <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{% trans %}Enter your current password{% endtrans %}
+                      {{ form.confirm(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500") }}
+                      <small class="block mt-2 text-sm text-gray-400">
+                        <i class="fas fa-info-circle text-accent mr-1.5"></i>{% trans %}Enter your current password{% endtrans %}
                       </small>
                     </div>
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-key text-blue-600 mr-2"></i>{{ form.password.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-key text-accent mr-2"></i>{{ form.password.label.text }}
                       </label>
-                      {{ form.password(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900") }}
-                      <small class="block mt-2 text-sm text-gray-500">
-                        <i class="fas fa-info-circle text-blue-500 mr-1.5"></i>{% trans %}Enter your new password{% endtrans %}
+                      {{ form.password(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500") }}
+                      <small class="block mt-2 text-sm text-gray-400">
+                        <i class="fas fa-info-circle text-accent mr-1.5"></i>{% trans %}Enter your new password{% endtrans %}
                       </small>
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 my-6"></div>
+                  <div class="border-t border-white/10 my-6"></div>
 
                   <!-- Additional Information -->
                   <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                      <i class="fas fa-globe text-blue-600 mr-2"></i>{% trans %}Additional Information{% endtrans %}
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                      <i class="fas fa-globe text-accent mr-2"></i>{% trans %}Additional Information{% endtrans %}
                     </h3>
                     
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-building text-blue-600 mr-2"></i>{{ form.affiliation.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-building text-accent mr-2"></i>{{ form.affiliation.label.text }}
                       </label>
-                      {{ form.affiliation(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900", value=affiliation or "") }}
+                      {{ form.affiliation(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500", value=affiliation or "") }}
                     </div>
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-link text-blue-600 mr-2"></i>{{ form.website.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-link text-accent mr-2"></i>{{ form.website.label.text }}
                       </label>
-                      {{ form.website(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900", value=website or "") }}
+                      {{ form.website(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500", value=website or "") }}
                     </div>
                     <div>
-                      <label class="block text-sm font-bold text-gray-900 mb-2">
-                        <i class="fas fa-flag text-blue-600 mr-2"></i>{{ form.country.label.text }}
+                      <label class="block text-sm font-bold text-gray-300 mb-2">
+                        <i class="fas fa-flag text-accent mr-2"></i>{{ form.country.label.text }}
                       </label>
-                      {{ form.country(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white text-gray-900", value=country) }}
+                      {{ form.country(class="w-full px-4 py-3 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-space-900 text-white placeholder-gray-500", value=country) }}
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 my-6"></div>
+                  <div class="border-t border-white/10 my-6"></div>
 
                   <!-- Extra Fields -->
                   {{ render_extra_fields(form.extra) }}
@@ -139,7 +139,7 @@
                   <!-- Messages -->
                   <div id="results" class="space-y-3">
                     <div
-                        class="flex items-start gap-3 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg shadow-sm" role="alert"
+                        class="flex items-start gap-3 p-4 bg-green-900/50 border-l-4 border-green-500 rounded-lg shadow-sm" role="alert"
                         x-cloak
                         x-show="success"
                         x-transition:enter="transition ease-out duration-300"
@@ -150,8 +150,8 @@
                         <i class="fas fa-check-circle text-green-500 text-xl"></i>
                       </div>
                       <div class="flex-1">
-                        <strong class="block text-green-800 font-semibold mb-1">{% trans %}Success!{% endtrans %}</strong>
-                        <p class="text-green-700 text-sm mb-0">{% trans %}Your profile has been updated{% endtrans %}</p>
+                        <strong class="block text-green-300 font-semibold mb-1">{% trans %}Success!{% endtrans %}</strong>
+                        <p class="text-green-200 text-sm mb-0">{% trans %}Your profile has been updated{% endtrans %}</p>
                       </div>
                       <button type="button" class="flex-shrink-0 text-green-500 hover:text-green-700 transition-colors" aria-label="Close" @click="success=false">
                         <i class="fas fa-times"></i>
@@ -160,7 +160,7 @@
 
                     <template x-for="(msg, idx) in errors" :key="idx">
                       <div 
-                          class="flex items-start gap-3 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg shadow-sm" 
+                          class="flex items-start gap-3 p-4 bg-red-900/50 border-l-4 border-red-500 rounded-lg shadow-sm" 
                           role="alert"
                           x-transition:enter="transition ease-out duration-300"
                           x-transition:enter-start="opacity-0 transform translate-y-2"
@@ -170,7 +170,7 @@
                           <i class="fas fa-exclamation-circle text-red-500 text-xl"></i>
                         </div>
                         <div class="flex-1">
-                          <p class="text-red-700 text-sm mb-0" x-text="msg"></p>
+                          <p class="text-red-300 text-sm mb-0" x-text="msg"></p>
                         </div>
                         <button
                             type="button" class="flex-shrink-0 text-red-500 hover:text-red-700 transition-colors" aria-label="Close"
@@ -183,8 +183,8 @@
                   </div>
 
                   <!-- Form Actions -->
-                  <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-200">
-                    {{ form.submit(class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
+                  <div class="flex items-center justify-end gap-3 pt-6 border-t border-white/10">
+                    {{ form.submit(class="px-6 py-2.5 bg-gradient-to-r from-accent to-accent-2 hover:brightness-110 text-space-900 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
                   </div>
                 </form>
               </div>
@@ -194,15 +194,15 @@
           <div x-show="activeTab === 'tokens'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" id="tokens" role="tabpanel" x-cloak>
 
             {% with form = Forms.self.TokensForm() %}
-              <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-                <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                  <i class="fas fa-key text-blue-600 mr-2"></i>{% trans %}Generate Access Token{% endtrans %}
+              <div class="bg-space-800 rounded-xl shadow-md border border-white/10 p-6">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center">
+                  <i class="fas fa-key text-accent mr-2"></i>{% trans %}Generate Access Token{% endtrans %}
                 </h3>
                 <form method="POST" x-data="TokensForm" @submit.prevent="generateToken()" class="space-y-4">
                 <div class="modal fade" x-ref="tokenModal" style="display: none;">
                   <div class="flex items-center justify-center min-h-screen p-4">
-                    <div class="bg-white rounded-xl shadow-2xl max-w-md w-full overflow-hidden">
-                      <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-5 flex justify-between items-center">
+                    <div class="bg-space-800 rounded-xl shadow-2xl max-w-md w-full overflow-hidden border border-white/10">
+                      <div class="bg-gradient-to-r from-accent to-accent-2 text-space-900 px-6 py-5 flex justify-between items-center">
                         <div class="flex items-center gap-3">
                           <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
                             <i class="fas fa-key text-xl"></i>
@@ -210,27 +210,27 @@
                           <h5 class="text-xl font-bold mb-0">{% trans %}API Key Generated{% endtrans %}</h5>
                         </div>
                       <button
-                          type="button" class="text-white hover:text-gray-200 transition-colors" 
+                          type="button" class="text-space-900 hover:text-white transition-colors" 
                           @click="closeTokenModal()"
                           aria-label="Close"
                       ><i class="fas fa-times text-xl"></i></button>
                       </div>
 
                       <div class="px-6 py-6">
-                        <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4 mb-4">
+                        <div class="bg-sf-hero-gold/20 border-l-4 border-sf-hero-gold rounded-lg p-4 mb-4">
                           <div class="flex items-start gap-2">
-                            <i class="fas fa-exclamation-triangle text-yellow-600 mt-0.5"></i>
-                            <p class="text-yellow-800 text-sm mb-0">{% trans %}Please copy your API Key, it won't be shown again!{% endtrans %}</p>
+                            <i class="fas fa-exclamation-triangle text-sf-hero-gold mt-0.5"></i>
+                            <p class="text-sf-hero-gold text-sm mb-0">{% trans %}Please copy your API Key, it won't be shown again!{% endtrans %}</p>
                           </div>
                         </div>
 
                         <div class="flex gap-2">
                           <input
-                              type="text" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm" x-ref="token"
+                              type="text" class="flex-1 px-4 py-3 border border-white/10 rounded-lg bg-space-900 font-mono text-sm text-gray-300" x-ref="token"
                               x-model="token" readonly
                           >
                           <button
-                              class="px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all transform hover:scale-105 shadow-md" type="button"
+                              class="px-5 py-3 bg-accent hover:bg-accent-2 text-space-900 rounded-lg transition-all transform hover:scale-105 shadow-md" type="button"
                               @click="copyToken()"
                               title="{% trans %}Copy to clipboard{% endtrans %}"
                           >
@@ -239,8 +239,8 @@
                         </div>
                       </div>
 
-                      <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end">
-                        <button type="button" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all" @click="closeTokenModal()">
+                      <div class="px-6 py-4 bg-space-700 border-t border-white/10 flex justify-end">
+                        <button type="button" class="px-6 py-2.5 bg-accent hover:bg-accent-2 text-space-900 rounded-lg font-semibold transition-all" @click="closeTokenModal()">
                           {% trans %}Got it!{% endtrans %}
                         </button>
                       </div>
@@ -249,26 +249,26 @@
                 </div>
 
                 <div>
-                  <b>{{ form.expiration.label(class="block text-sm font-semibold text-gray-700 mb-2") }}</b>
-                  {{ form.expiration(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent") }}
+                  <b>{{ form.expiration.label(class="block text-sm font-semibold text-gray-300 mb-2") }}</b>
+                  {{ form.expiration(class="w-full px-4 py-2 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white") }}
                 </div>
 
                 <div>
-                  <b>{{ form.description.label(class="block text-sm font-semibold text-gray-700 mb-2") }}</b>
-                  {{ form.description(class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent", rows="3") }}
+                  <b>{{ form.description.label(class="block text-sm font-semibold text-gray-300 mb-2") }}</b>
+                  {{ form.description(class="w-full px-4 py-2 border border-space-500 rounded-lg focus:ring-2 focus:ring-accent focus:border-accent bg-space-900 text-white", rows="3") }}
                 </div>
 
-                  <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
-                    {{ form.submit(class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
+                  <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                    {{ form.submit(class="px-6 py-2.5 bg-gradient-to-r from-accent to-accent-2 hover:brightness-110 text-space-900 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-md hover:shadow-lg") }}
                   </div>
                 </form>
               </div>
             {% endwith %}
 
             {% if tokens %}
-              <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6 mt-6">
-                <h4 class="text-lg font-bold text-gray-900 mb-6 flex items-center">
-                  <i class="fas fa-list text-blue-600 mr-2"></i>{% trans %}Active Tokens{% endtrans %}
+              <div class="bg-space-800 rounded-xl shadow-md border border-white/10 p-6 mt-6">
+                <h4 class="text-lg font-bold text-white mb-6 flex items-center">
+                  <i class="fas fa-list text-accent mr-2"></i>{% trans %}Active Tokens{% endtrans %}
                 </h4>
 
               {# This has to be wrapping the table modal, because div with modal will get pushed out
@@ -276,7 +276,7 @@
               <div x-data="Tokens">
                 <div class="modal fade" x-ref="confirmModal" style="display: none;">
                   <div class="flex items-center justify-center min-h-screen p-4">
-                  <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full overflow-hidden">
+                  <div class="bg-space-800 rounded-xl shadow-2xl max-w-sm w-full overflow-hidden border border-white/10">
                       <div class="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-5 flex items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
                           <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
@@ -292,11 +292,11 @@
                       </div>
 
                       <div class="px-6 py-6">
-                        <p class="text-gray-700 leading-relaxed">{% trans %}Are you sure you want to delete this token? This action cannot be undone.{% endtrans %}</p>
+                        <p class="text-gray-300 leading-relaxed">{% trans %}Are you sure you want to delete this token? This action cannot be undone.{% endtrans %}</p>
                       </div>
 
-                      <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
-                        <button type="button" class="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition-colors" @click="hideConfirmModal()">
+                      <div class="px-6 py-4 bg-space-700 border-t border-white/10 flex justify-end gap-3">
+                        <button type="button" class="px-6 py-2.5 border border-white/20 rounded-lg text-gray-300 font-semibold hover:bg-space-600 hover:text-white transition-colors" @click="hideConfirmModal()">
                           {% trans %}Cancel{% endtrans %}
                         </button>
                         <button
@@ -312,7 +312,7 @@
                 <div class="overflow-x-auto">
                   <table class="w-full border-collapse">
                     <thead>
-                    <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                    <tr class="bg-space-900 text-white border-b border-white/10">
                       <th class="text-center px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Created{% endtrans %}</th>
                       <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Expiration{% endtrans %}</th>
                       <th class="text-left px-4 py-3 font-bold uppercase text-sm tracking-wide">{% trans %}Description{% endtrans %}</th>
@@ -321,15 +321,15 @@
                     </thead>
                     <tbody>
                     {% for token in tokens %}
-                      <tr x-ref="token-{{ token.id }}" class="border-b border-gray-200 hover:bg-blue-50 transition">
+                      <tr x-ref="token-{{ token.id }}" class="border-b border-white/10 hover:bg-space-700 transition">
                         <td class="text-center px-4 py-3">
-                          <span data-time="{{ token.created | isoformat }}" class="text-gray-700"></span>
+                          <span data-time="{{ token.created | isoformat }}" class="text-gray-400"></span>
                         </td>
                         <td class="px-4 py-3">
-                          <span data-time="{{ token.expiration | isoformat }}" class="text-gray-700"></span>
+                          <span data-time="{{ token.expiration | isoformat }}" class="text-gray-400"></span>
                         </td>
                         <td class="px-4 py-3">
-                          <span class="text-gray-700">{{ token.description | default('', true) }}</span>
+                          <span class="text-gray-400">{{ token.description | default('', true) }}</span>
                         </td>
                         <td class="text-center px-4 py-3">
                           <button

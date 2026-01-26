@@ -1,6 +1,139 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Siyam+Rupali&display=swap');
+
+@theme {
+  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-bengali: 'Siyam Rupali', 'SiyamRupali', sans-serif;
+
+  /* Poster-inspired palette (space blues + cyan/teal accents) */
+  --color-space-900: #070c14;
+  /* deepest space */
+  --color-space-800: #0b1220;
+  /* poster background base */
+  --color-space-700: #0f1a2b;
+  --color-space-600: #13233a;
+  --color-accent: #28d7ff;
+  /* cyan accent */
+  --color-accent-2: #4fc6de;
+  /* lighter cyan */
+  --color-accent-ink: #b8ecff;
+  /* subtle ink for text glow */
+  --color-highlight: #6ef3d6;
+  /* teal secondary */
+  --color-warning: #ffda6b;
+  /* for badges if needed */
+  --sf-hero-gold: #f8b803;
+  /* hero title color */
+
+  /* Map default colors to theme colors */
+  /* Gray scale - map to space colors */
+  --color-gray-50: #1a2332;
+  --color-gray-100: #1f2937;
+  --color-gray-200: var(--color-space-700);
+  --color-gray-300: #4b5563;
+  --color-gray-400: #6b7280;
+  --color-gray-500: #9ca3af;
+  --color-gray-600: var(--color-space-600);
+  --color-gray-700: var(--color-space-700);
+  --color-gray-800: var(--color-space-800);
+  --color-gray-900: var(--color-space-900);
+
+  /* Blue scale - map to accent colors */
+  --color-blue-50: var(--color-space-800);
+  --color-blue-100: var(--color-space-700);
+  --color-blue-200: var(--color-space-600);
+  --color-blue-300: var(--color-accent-2);
+  --color-blue-400: var(--color-accent-2);
+  --color-blue-500: var(--color-accent-2);
+  --color-blue-600: var(--color-accent);
+  --color-blue-700: var(--color-accent);
+  --color-blue-800: var(--color-accent);
+  --color-blue-900: var(--color-space-900);
+
+  /* Indigo scale - map to space/accent blend */
+  --color-indigo-50: var(--color-space-800);
+  --color-indigo-100: var(--color-space-700);
+  --color-indigo-200: var(--color-space-600);
+  --color-indigo-300: var(--color-accent-2);
+  --color-indigo-400: var(--color-accent-2);
+  --color-indigo-500: var(--color-accent);
+  --color-indigo-600: var(--color-accent);
+  --color-indigo-700: var(--color-accent);
+  --color-indigo-800: var(--color-space-800);
+  --color-indigo-900: var(--color-space-900);
+
+  /* Purple scale - map to highlight colors */
+  --color-purple-50: var(--color-space-800);
+  --color-purple-100: var(--color-space-700);
+  --color-purple-200: var(--color-space-600);
+  --color-purple-300: var(--color-highlight);
+  --color-purple-400: var(--color-highlight);
+  --color-purple-500: var(--color-highlight);
+  --color-purple-600: var(--color-highlight);
+  --color-purple-700: var(--color-highlight);
+  --color-purple-800: var(--color-space-800);
+  --color-purple-900: var(--color-space-900);
+
+  /* Yellow scale - map to warning/gold colors */
+  --color-yellow-50: #2a2416;
+  --color-yellow-100: #3a3020;
+  --color-yellow-200: #4a3c28;
+  --color-yellow-300: var(--color-warning);
+  --color-yellow-400: var(--color-warning);
+  --color-yellow-500: var(--color-sf-hero-gold);
+  --color-yellow-600: var(--color-sf-hero-gold);
+  --color-yellow-700: #c69602;
+  --color-yellow-800: #9a7502;
+  --color-yellow-900: #6e5401;
+
+  /* Red scale - adapt for dark mode (errors/danger) */
+  --color-red-50: #450a0a;
+  --color-red-100: #7f1d1d;
+  --color-red-200: #991b1b;
+  --color-red-300: #b91c1c;
+  --color-red-400: #dc2626;
+  --color-red-500: #ef4444;
+  --color-red-600: #f87171;
+  --color-red-700: #fca5a5;
+  --color-red-800: #fecaca;
+  --color-red-900: #fee2e2;
+
+  /* Green scale - adapt for dark mode (success) */
+  --color-green-50: #052e16;
+  --color-green-100: #14532d;
+  --color-green-200: #166534;
+  --color-green-300: #15803d;
+  --color-green-400: #16a34a;
+  --color-green-500: #22c55e;
+  --color-green-600: #4ade80;
+  --color-green-700: #86efac;
+  --color-green-800: #bbf7d0;
+  --color-green-900: #dcfce7;
+
+  /* Orange scale - map to warning/gold */
+  --color-orange-50: #2a2416;
+  --color-orange-100: #3a3020;
+  --color-orange-200: #4a3c28;
+  --color-orange-300: var(--color-warning);
+  --color-orange-400: var(--color-warning);
+  --color-orange-500: var(--color-sf-hero-gold);
+  --color-orange-600: var(--color-sf-hero-gold);
+  --color-orange-700: #c69602;
+  --color-orange-800: #9a7502;
+  --color-orange-900: #6e5401;
+
+  /* Custom breakpoints */
+  --breakpoint-xs: 475px;
+}
+
 @layer base {
+  body {
+    background-color: var(--color-space-900);
+    color: white;
+    /* or var(--color-accent-ink) for a softer look */
+  }
+
   h1,
   h2 {
     font-weight: 500;
