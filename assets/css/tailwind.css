@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Siyam+Rupali&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Siyam+Rupali&display=swap");
 
 @theme {
-  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-bengali: 'Siyam Rupali', 'SiyamRupali', sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-bengali: "Siyam Rupali", "SiyamRupali", sans-serif;
 
   /* Poster-inspired palette (space blues + cyan/teal accents) */
   --color-space-900: #070c14;
