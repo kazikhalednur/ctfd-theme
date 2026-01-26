@@ -10,7 +10,7 @@ Alpine.start();
 // Times are in Bangladesh/UTC+6 timezone for all users worldwide
 // Format: ISO 8601 string - interpreted as Bangladesh time
 const PRELIMINARY_TARGET = "2025-12-16T10:00:00"; // 16 Dec 2025, 10:00 AM (Bangladesh Time)
-const FINAL_TARGET = "2025-12-20T09:00:00"; // 20 Dec 2025, 09:00 AM (Bangladesh Time)
+const FINAL_TARGET = "2026-01-29T12:00:00"; // 29 Jan 2026, 12:00 PM (Bangladesh Time)
 const BANGLADESH_TZ = "Asia/Dhaka"; // UTC+6
 
 function setupCountdown() {
