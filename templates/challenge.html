@@ -1,6 +1,6 @@
-<div :class="getStyles()" class="max-h-[90vh] overflow-y-auto" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
-  <div class="bg-space-800 rounded-xl shadow-2xl overflow-hidden border border-white/10" @click.outside="closeModal()">
-    <div class="p-6 sm:p-8">
+<div :class="getStyles()" class="w-full max-w-5xl h-[85vh] mx-auto" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
+  <div class="bg-space-800 rounded-xl shadow-2xl overflow-hidden border border-white/10 h-full flex flex-col" @click.outside="closeModal()">
+    <div class="p-6 sm:p-8 flex-1 overflow-y-auto">
 
       <div class="relative mb-6">
         <button type="button" class="absolute top-0 right-0 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-space-700 rounded-full transition-all duration-200 text-xl font-light" data-bs-dismiss="modal" aria-label="Close" @click.prevent="closeModal()">
@@ -48,7 +48,7 @@
         </ul>
       </div>
 
-      <div class="tab-content">
+      <div class="tab-content w-full">
         <div class="tab-pane show active" role="tabpanel" id="challenge" aria-labelledby="challenge-tab">
             <div class="text-center mb-8">
               <h2 class="challenge-name text-4xl font-bold text-white mb-3">
