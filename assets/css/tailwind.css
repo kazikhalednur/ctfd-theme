@@ -1,6 +1,6 @@
-@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Siyam+Rupali&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Siyam+Rupali&display=swap');
+@import "tailwindcss";
 
 @theme {
   --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -13,6 +13,19 @@
   /* poster background base */
   --color-space-700: #0f1a2b;
   --color-space-600: #13233a;
+  --color-space-500: #334e68;
+  /* transition blue-gray */
+  --color-space-400: #627d98;
+  /* muted atmosphere */
+  --color-space-300: #9fb3c8;
+  /* cosmic dust */
+  --color-space-200: #d9e2ec;
+  /* soft nebula glow */
+  --color-space-100: #f0f4f8;
+  /* starlight tint */
+  --color-space-50: #f8fafc;
+  /* pure starlight / paper */
+
   --color-accent: #28d7ff;
   /* cyan accent */
   --color-accent-2: #4fc6de;
@@ -28,12 +41,12 @@
 
   /* Map default colors to theme colors */
   /* Gray scale - map to space colors */
-  --color-gray-50: #1a2332;
-  --color-gray-100: #1f2937;
-  --color-gray-200: var(--color-space-700);
-  --color-gray-300: #4b5563;
-  --color-gray-400: #6b7280;
-  --color-gray-500: #9ca3af;
+  --color-gray-50: var(--color-space-50);
+  --color-gray-100: var(--color-space-100);
+  --color-gray-200: var(--color-space-200);
+  --color-gray-300: var(--color-space-300);
+  --color-gray-400: var(--color-space-400);
+  --color-gray-500: var(--color-space-500);
   --color-gray-600: var(--color-space-600);
   --color-gray-700: var(--color-space-700);
   --color-gray-800: var(--color-space-800);
