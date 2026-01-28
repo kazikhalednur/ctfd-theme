@@ -54,8 +54,8 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <template x-for="(c, idx) in getChallenges(category)" :key="c.id">
                   <div>
-                      <button
-                        class="challenge-button w-full h-full rounded-lg p-4 border-2 transition-all duration-300 transform hover:scale-105 hover:shadow-xl bg-space-800 border-white/10"
+                    <button
+                        class="challenge-button w-full h-full rounded-lg p-4 border-2 transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
                         :class="[
                           c.solved_by_me
                             ? 'bg-green-600 border-green-500 ring-2 ring-green-600 text-white hover:bg-green-500 hover:border-green-400'

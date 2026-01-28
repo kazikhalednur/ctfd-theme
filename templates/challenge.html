@@ -1,5 +1,11 @@
 <div :class="getStyles()" class="max-h-[90vh] overflow-y-auto" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
-  <div class="bg-space-800 rounded-xl shadow-2xl overflow-hidden border border-white/10" @click.outside="closeModal()">
+  <div
+    class="rounded-xl shadow-2xl overflow-hidden border border-white/10"
+    :class="response && (response.data.status == 'correct' || response.data.status == 'already_solved')
+      ? 'bg-green-600 border-green-500'
+      : 'bg-space-800 border-white/10'"
+    @click.outside="closeModal()"
+  >
     <div class="p-6 sm:p-8">
 
       <div class="relative mb-6">
