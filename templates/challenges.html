@@ -28,7 +28,7 @@
       @load-challenge.window="loadChallenge($event.detail)"
     >
       <div
-          x-ref="challengeWindow" id="challenge-window" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50" tabindex="-1" role="dialog" x-data=""
+          x-ref="challengeWindow" id="challenge-window" class="hidden fixed inset-0 z-50" tabindex="-1" role="dialog" x-data=""
           x-html="$store.challenge.data.view"
       ></div>
 

@@ -31,7 +31,10 @@ export class Modal {
 
     // Create backdrop
     this._backdrop = document.createElement("div");
-    this._backdrop.className = "fixed inset-0 bg-black bg-opacity-50 z-40";
+    this._backdrop.className = "fixed inset-0 z-40";
+    this._backdrop.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+    this._backdrop.style.backdropFilter = "blur(4px)";
+    this._backdrop.style.webkitBackdropFilter = "blur(4px)";
     this._backdrop.style.transition = "opacity 0.15s linear";
     // Close modal when clicking on the backdrop
     this._backdrop.addEventListener("click", () => {
