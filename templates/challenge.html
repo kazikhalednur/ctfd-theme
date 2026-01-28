@@ -1,4 +1,4 @@
-<div :class="getStyles()" class="max-h-[90vh] overflow-y-auto" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
+<div :class="{ 'modal-dialog': true, 'modal-xl': activeTab === 'solves' || activeTab === 'submissions', 'modal-lg': (activeTab !== 'solves' && activeTab !== 'submissions') && modalSize === 'lg', 'modal-sm': (activeTab !== 'solves' && activeTab !== 'submissions') && modalSize === 'sm', 'transition-all': true, 'duration-300': true }" class="max-h-[90vh] overflow-y-auto" role="document" x-data="Challenge" x-init='id = {{ challenge.id }}; max_attempts = {{ max_attempts }}; attempts = {{ attempts }}; ratingValue = {{ (rating.get('value') if rating else None) | tojson }}; ratingReview = {{ (rating.get('review', '') if rating else None) | tojson }};'>
   <div
     class="rounded-xl shadow-2xl overflow-hidden border border-white/10"
     :class="response && (response.data.status == 'correct' || response.data.status == 'already_solved')
@@ -101,7 +101,7 @@
             </div>
 
             <div class="challenge-desc prose prose-lg prose-invert max-w-none mb-8 p-6 bg-space-700 rounded-lg border border-white/10">
-              {% block description %}{{ challenge.html }}{% endblock %}
+              {% block description %}{{ challenge.html | e }}{% endblock %}
             </div>
 
             {% if challenge.connection_info %}

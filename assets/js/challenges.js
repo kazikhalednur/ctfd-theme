@@ -69,6 +69,8 @@ Alpine.data("Challenge", () => ({
   next_id: null,
   submission: "",
   tab: null,
+  activeTab: "challenge",
+  modalSize: "",
   solves: [],
   submissions: [],
   solution: null,
@@ -85,7 +87,16 @@ Alpine.data("Challenge", () => ({
   getStyles() {
     let styles = {
       "modal-dialog": true,
+      "transition-all": true,
+      "duration-300": true,
     };
+
+    // Use wider modal for solves and submissions tabs
+    if (this.activeTab === "solves" || this.activeTab === "submissions") {
+      styles["modal-xl"] = true;
+      return styles;
+    }
+
     try {
       let size = CTFd.config.themeSettings.challenge_window_size;
       switch (size) {
@@ -111,6 +122,12 @@ Alpine.data("Challenge", () => ({
 
   async init() {
     highlight();
+    // Get modal size from theme settings
+    try {
+      this.modalSize = CTFd.config.themeSettings.challenge_window_size || "";
+    } catch (error) {
+      this.modalSize = "";
+    }
   },
 
   setActiveTab(tabId) {
@@ -145,10 +162,12 @@ Alpine.data("Challenge", () => ({
   },
 
   async showChallenge() {
+    this.activeTab = "challenge";
     this.setActiveTab("challenge");
   },
 
   async showSolves() {
+    this.activeTab = "solves";
     this.setActiveTab("solves");
     this.solves = await CTFd.pages.challenge.loadSolves(this.id);
     this.solves.forEach(solve => {
@@ -158,6 +177,7 @@ Alpine.data("Challenge", () => ({
   },
 
   async showSubmissions() {
+    this.activeTab = "submissions";
     this.setActiveTab("submissions");
     let response = await CTFd.pages.users.userSubmissions("me", this.id);
     this.submissions = response.data;
@@ -173,6 +193,7 @@ Alpine.data("Challenge", () => ({
   },
 
   async showSolution() {
+    this.activeTab = "solution";
     this.setActiveTab("solution");
     let solution_id = this.getSolutionId();
     CTFd._functions.challenge.displaySolution = solution => {
