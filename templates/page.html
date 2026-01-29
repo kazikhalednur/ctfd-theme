@@ -20,11 +20,10 @@
         <div class="flex justify-center">
 
 
-          <!-- Final Round -->
+          <!-- Final Round - uses window.init.start from server (contest start time) -->
           <div
             class="countdown-card w-full max-w-2xl bg-space-900/50 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl hover:shadow-accent/10 transition-all duration-300 border border-white/10"
-            data-round="final"
-            data-target="2026-01-29T12:50:00"
+            data-round="start"
           >
             <div class="flex justify-between items-center mb-6">
               <h3 class="text-2xl font-bold text-white">{% trans %}Final Round{% endtrans %}</h3>
@@ -54,12 +53,12 @@
               <p class="flex items-center gap-3 bg-space-800/50 p-3 rounded-lg border border-white/5">
                 <i class="fas fa-calendar text-accent text-xl"></i>
                 <span class="font-medium text-white">{% trans %}Date:{% endtrans %}</span>
-                <span class="event-date text-accent-2">29 Jan 2026</span>
+                <span class="event-date text-accent-2">--</span>
               </p>
               <p class="flex items-center gap-3 bg-space-800/50 p-3 rounded-lg border border-white/5">
                 <i class="fas fa-clock text-accent text-xl"></i>
                 <span class="font-medium text-white">{% trans %}Time:{% endtrans %}</span>
-                <span class="event-time text-accent-2">12:50 PM</span>
+                <span class="event-time text-accent-2">--</span>
               </p>
               <p class="flex items-center gap-3 bg-space-800/50 p-3 rounded-lg border border-white/5">
                 <i class="fas fa-map-marker-alt text-accent text-xl"></i>

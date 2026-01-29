@@ -6,19 +6,27 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-// Countdown implementation (no Bootstrap dependency)
-// Times are in Bangladesh/UTC+6 timezone for all users worldwide
-// Format: ISO 8601 string - interpreted as Bangladesh time
-const PRELIMINARY_TARGET = "2025-12-16T10:00:00"; // 16 Dec 2025, 10:00 AM (Bangladesh Time)
-const FINAL_TARGET = "2026-01-29T12:50:00"; // 29 Jan 2026, 12:50 PM (Bangladesh Time)
+// Countdown implementation using server-provided contest times
+// Times come from window.init.start and window.init.end (Unix timestamps in seconds)
 const BANGLADESH_TZ = "Asia/Dhaka"; // UTC+6
 
 function setupCountdown() {
-  // Select all countdown cards on the page (no leading space in class selector)
   const cards = document.querySelectorAll(".countdown-card");
   if (!cards.length) return;
 
-  // Format dates in Bangladesh timezone for display, with safe fallback if the timezone isn't supported
+  // Get contest times from server configuration
+  const startTime = window.init?.start ? new Date(window.init.start * 1000) : null;
+  const endTime = window.init?.end ? new Date(window.init.end * 1000) : null;
+
+  // Debug: log server times
+  console.log("Contest times from server:", {
+    startRaw: window.init?.start,
+    endRaw: window.init?.end,
+    startTime: startTime?.toISOString(),
+    endTime: endTime?.toISOString(),
+  });
+
+  // Format dates in Bangladesh timezone for display
   let dateFormatter;
   let timeFormatter;
   try {
@@ -40,40 +48,25 @@ function setupCountdown() {
     });
   }
 
-  const startCfg = window.init?.start ? new Date(window.init.start * 1000) : null;
-  const endCfg = window.init?.end ? new Date(window.init.end * 1000) : null;
+  const isValid = d => d instanceof Date && !Number.isNaN(d.getTime());
 
   cards.forEach(card => {
     const round = card.dataset.round;
-    const fallback = card.dataset.target;
 
     let target = null;
-    const isValid = d => d instanceof Date && !Number.isNaN(d.getTime());
 
-    // Convert Bangladesh time string to UTC Date object
-    const convertBangladeshToUTC = bangladeshTimeStr => {
-      // Parse the Bangladesh time string explicitly as UTC+6 (Bangladesh time)
-      const bd = new Date(`${bangladeshTimeStr}+06:00`);
-      if (isNaN(bd.getTime())) return null;
-      return bd;
-    };
-
-    if (round === "preliminary") {
-      const manual = convertBangladeshToUTC(PRELIMINARY_TARGET);
-      if (isValid(manual)) target = manual;
-      if (!target && isValid(startCfg)) target = startCfg;
-    } else if (round === "final") {
-      const manual = convertBangladeshToUTC(FINAL_TARGET);
-      if (isValid(manual)) target = manual;
-      if (!target && isValid(endCfg)) target = endCfg;
+    // Use server times based on round type
+    if (round === "start") {
+      if (isValid(startTime)) target = startTime;
+    } else if (round === "end") {
+      if (isValid(endTime)) target = endTime;
     }
 
-    if (!target && fallback) {
-      const fb = convertBangladeshToUTC(fallback);
-      if (isValid(fb)) target = fb;
+    // Skip if no valid target time
+    if (!isValid(target)) {
+      console.warn(`No valid ${round} time configured on server`);
+      return;
     }
-
-    if (!(target instanceof Date) || Number.isNaN(target.getTime())) return;
 
     const dateEl = card.querySelector(".event-date");
     const timeEl = card.querySelector(".event-time");
@@ -83,11 +76,11 @@ function setupCountdown() {
     const minutesEl = card.querySelector(".time-value.minutes");
     const secondsEl = card.querySelector(".time-value.seconds");
 
+    // Display formatted date and time
     if (dateEl) dateEl.textContent = dateFormatter.format(target);
     if (timeEl) timeEl.textContent = timeFormatter.format(target);
 
     const tick = () => {
-      // Use UTC now to match the UTC target time
       const now = new Date();
       let diff = target - now;
 
