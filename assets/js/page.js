@@ -110,4 +110,45 @@ function setupCountdown() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", setupCountdown);
+function setupTimeline() {
+  const startTime = window.init?.start ? new Date(window.init.start * 1000) : null;
+  const endTime = window.init?.end ? new Date(window.init.end * 1000) : null;
+
+  // Format with date and time in Bangladesh timezone
+  let dateTimeFormatter;
+  try {
+    dateTimeFormatter = new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+      timeZone: BANGLADESH_TZ,
+    });
+  } catch (e) {
+    dateTimeFormatter = new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  }
+
+  const isValid = d => d instanceof Date && !Number.isNaN(d.getTime());
+
+  // Update timeline start elements
+  const startEls = document.querySelectorAll(".timeline-start");
+  startEls.forEach(el => {
+    if (isValid(startTime)) {
+      el.textContent = dateTimeFormatter.format(startTime);
+    }
+  });
+
+  // Update timeline end elements
+  const endEls = document.querySelectorAll(".timeline-end");
+  endEls.forEach(el => {
+    if (isValid(endTime)) {
+      el.textContent = dateTimeFormatter.format(endTime);
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupCountdown();
+  setupTimeline();
+});
